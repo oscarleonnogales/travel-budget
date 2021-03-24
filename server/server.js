@@ -7,6 +7,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const cors = require('cors');
 
 const User = require('./models/user');
 const Transaction = require('./models/transation');
@@ -26,6 +27,7 @@ database.once('open', () => console.log('Connected to database'));
 
 app.use(methodOverride('_method'));
 app.use(express.json());
+app.use(cors()); // Set to only allow requests from client during production
 
 // Route handling
 app.use('/users', usersRouter);
