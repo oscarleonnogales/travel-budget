@@ -1,0 +1,9 @@
+.transaction {
+	display: flex;
+}
+
+.transation-text-details,
+.transaction-price-details {
+	display: flex;
+	flex-direction: column;
+}
