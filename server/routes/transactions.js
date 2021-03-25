@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+	console.log(req);
 	try {
 		const newTransaction = new Transaction({
 			description: req.body.description,
@@ -16,10 +17,10 @@ router.post('/', async (req, res) => {
 			currency: req.body.currency,
 		});
 		await newTransaction.save();
-		res.status(201);
+		res.status(201).end();
 	} catch (error) {
 		//Might need to change this
-		res.status(400);
+		res.status(400).send('Invalid inputs');
 	}
 });
 
@@ -32,20 +33,19 @@ router.put('/:id', async (req, res) => {
 		transaction.currency = req.body.currency;
 
 		await transaction.save();
-		res.status(201);
+		res.status(201).end();
 	} catch (error) {
 		// Might have to change this
-		res.status(400);
+		res.status(400).send('Invalid Inputs');
 	}
 });
 
 router.delete('/:id', async (req, res) => {
 	try {
 		await Transaction.findByIdAndDelete(req.params.id);
-		res.status(204);
-	} catch (error) {
-		console.log(error);
-		res.status(500);
+		res.status(204).end();
+	} catch {
+		res.status(500).send('Server Error. Try again later.');
 	}
 });
 

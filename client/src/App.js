@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Transaction from './components/Transaction';
+import AddTransactionForm from './components/AddTransactionForm';
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
 			{transactions.map((transaction) => {
 				return <Transaction transaction={transaction} key={transaction._id} />;
 			})}
+			<AddTransactionForm></AddTransactionForm>
 		</div>
 	);
 }
