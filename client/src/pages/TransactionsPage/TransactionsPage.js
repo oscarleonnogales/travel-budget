@@ -1,9 +1,9 @@
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Transaction from './components/Transaction';
-import AddTransactionForm from './components/AddTransactionForm';
-import { useEffect, useState } from 'react';
+import Transaction from '../components/Transaction/Transaction';
+import AddTransactionForm from '../components/AddTransactionForm/AddTransactionForm';
 
-function App() {
+export default function TransactionsPage() {
 	const [transactions, setTransactions] = useState([]);
 
 	useEffect(fetchTransactions, []);
@@ -15,7 +15,7 @@ function App() {
 	}
 
 	return (
-		<div className="App">
+		<div>
 			{transactions.map((transaction) => {
 				return <Transaction transaction={transaction} key={transaction._id} />;
 			})}
@@ -23,5 +23,3 @@ function App() {
 		</div>
 	);
 }
-
-export default App;

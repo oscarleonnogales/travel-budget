@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './AddTransactionForm.css';
 
 export class AddTransactionForm extends Component {
 	constructor(props) {

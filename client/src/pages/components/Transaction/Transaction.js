@@ -1,6 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import '../stylesheets/Transaction.css';
+import './Transaction.css';
 
 export default function Transaction({ transaction }) {
 	return (
