@@ -1,19 +1,18 @@
-if (process.env.NODE_ENV !== 'production') {
-	require('dotenv').config();
-}
+import dotenv from 'dotenv';
+dotenv.config({ silent: process.env.NODE_ENV === 'production' });
 
 // Requiring all dependencies
-const express = require('express');
+import express from 'express';
 const app = express();
-const mongoose = require('mongoose');
-const methodOverride = require('method-override');
-const cors = require('cors');
+import mongoose from 'mongoose';
+import methodOverride from 'method-override';
+import cors from 'cors';
 
-const User = require('./models/user');
-const Transaction = require('./models/transation');
-const indexRouter = require('./routes/index');
-const transactionsRouter = require('./routes/transactions');
-const usersRouter = require('./routes/users');
+import User from './models/user.js';
+import Transaction from './models/transaction.js';
+import indexRouter from './routes/index.js';
+import transactionsRouter from './routes/transactions.js';
+import usersRouter from './routes/users.js';
 
 // Setting up dependencies
 mongoose.connect(process.env.DATABASE_URL, {
