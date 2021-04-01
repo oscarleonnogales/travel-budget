@@ -1,18 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import Transaction from '../components/Transaction/Transaction';
 import AddTransactionForm from '../components/AddTransactionForm/AddTransactionForm';
 
+import { useSelector } from 'react-redux';
+
 export default function TransactionsPage() {
-	const [transactions, setTransactions] = useState([]);
-
-	useEffect(fetchTransactions, []);
-
-	function fetchTransactions() {
-		axios.get('http://localhost:3001/transactions').then((res) => {
-			setTransactions(res.data);
-		});
-	}
+	const transactions = useSelector((state) => state.transactions);
 
 	return (
 		<div>

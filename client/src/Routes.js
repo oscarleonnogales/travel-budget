@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getTransactions } from './actions/transactions';
+
 import LandingPage from './pages/LandingPage/LandingPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import TransactionsPage from './pages/TransactionsPage/TransactionsPage';
 
 function Routes() {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(getTransactions());
+	}, [dispatch]);
+
 	return (
 		<BrowserRouter>
 			<Switch>

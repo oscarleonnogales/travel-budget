@@ -1,7 +1,7 @@
 const reducer = (transactions = [], action) => {
 	switch (action.type) {
 		case 'FETCH_ALL':
-			return transactions;
+			return action.payload;
 		case 'ADD':
 			return transactions;
 		default:
