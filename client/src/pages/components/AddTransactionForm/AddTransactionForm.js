@@ -1,57 +1,51 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addTransaction } from '../../../actions/transactions';
 import './AddTransactionForm.css';
 
-export class AddTransactionForm extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			date: '',
-			description: '',
-			amount: '',
-			currency: '',
-		};
+export default function AddTransactionForm() {
+	const [transactionData, setTransactionData] = useState({
+		date: '',
+		description: '',
+		amount: '',
+		currency: '',
+	});
+
+	const dispatch = useDispatch();
+
+	function handleChange(e) {
+		setTransactionData({ ...transactionData, [e.target.name]: e.target.value });
 	}
 
-	handleChange = (e) => {
-		this.setState({ [e.target.name]: e.target.value });
-	};
-
-	handleSubmit = (e) => {
+	function handleSubmit(e) {
 		e.preventDefault();
-		const { date, description, amount, currency } = this.state;
-		axios
-			.post(`${process.env.REACT_APP_SERVER_URI}/transactions`, { date, description, amount, currency })
-			.then((res) => {
-				console.log(res);
-				this.clearForm();
-			});
-	};
+		dispatch(addTransaction(transactionData));
+		clearForm();
+	}
 
-	clearForm = () => {
-		this.setState({
+	function clearForm() {
+		setTransactionData({
 			date: '',
 			description: '',
 			amount: '',
 			currency: '',
 		});
-	};
+	}
 
-	render() {
-		return (
-			<form onSubmit={this.handleSubmit}>
+	return (
+		<>
+			<form onSubmit={handleSubmit}>
 				<label htmlFor="date">Date</label>
-				<input type="date" name="date" value={this.state.date} onChange={this.handleChange}></input>
+				<input type="date" name="date" value={transactionData.date} onChange={handleChange}></input>
 				<label htmlFor="description">Description</label>
-				<input type="text" name="description" value={this.state.description} onChange={this.handleChange}></input>
+				<input type="text" name="description" value={transactionData.description} onChange={handleChange}></input>
 				<label htmlFor="amount">Amount</label>
-				<input type="number" name="amount" step="0.01" value={this.state.amount} onChange={this.handleChange}></input>
+				<input type="number" name="amount" step="0.01" value={transactionData.amount} onChange={handleChange}></input>
 				<label htmlFor="currency">Currency</label>
-				<input type="text" name="currency" value={this.state.currency} onChange={this.handleChange}></input>
+				<input type="text" name="currency" value={transactionData.currency} onChange={handleChange}></input>
 				<button type="submit">Add Transaction</button>
 			</form>
-		);
-	}
+			<button onClick={clearForm}>Clear Form</button>
+		</>
+	);
 }
-
-export default AddTransactionForm;

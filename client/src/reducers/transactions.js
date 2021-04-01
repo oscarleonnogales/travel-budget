@@ -3,7 +3,8 @@ const reducer = (transactions = [], action) => {
 		case 'FETCH_ALL':
 			return action.payload;
 		case 'ADD':
-			return transactions;
+			console.table([...transactions, action.payload]);
+			return [...transactions, action.payload];
 		default:
 			return transactions;
 	}
