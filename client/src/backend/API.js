@@ -8,3 +8,11 @@ export function fetchTransactions() {
 export function createTransaction(transaction) {
 	return axios.post(`${URL}/transactions`, transaction).then((res) => res.data);
 }
+
+export function deleteTransaction(id) {
+	axios.delete(`${URL}/transactions/${id}`);
+}
+
+export function updateTransaction(id, updatedTransaction) {
+	return axios.put(`${URL}/transactions/${id}`, updatedTransaction).then((res) => res.data);
+}

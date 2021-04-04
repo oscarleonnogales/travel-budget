@@ -5,7 +5,7 @@ export function getTransactions() {
 		try {
 			const transactions = await API.fetchTransactions();
 			dispatch({
-				type: 'FETCH_ALL',
+				type: 'transactions/fetch_all',
 				payload: transactions,
 			});
 		} catch (error) {
@@ -19,8 +19,36 @@ export function addTransaction(transaction) {
 		try {
 			const newTransaction = await API.createTransaction(transaction);
 			dispatch({
-				type: 'ADD',
-				paylod: newTransaction,
+				type: 'transactions/add',
+				payload: newTransaction,
+			});
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
+}
+
+export function deleteTransaction(id) {
+	return async (dispatch) => {
+		try {
+			await API.deleteTransaction(id);
+			dispatch({
+				type: 'transactions/delete',
+				payload: id,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
+export function updateTransaction(id, updatedTransaction) {
+	return async (dispatch) => {
+		try {
+			const updatedTransaction = await API.updateTransaction(id, updateTransaction);
+			dispatch({
+				type: 'transactions/update',
+				payload: updatedTransaction,
 			});
 		} catch (error) {
 			console.log(error.message);

@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
-import transactions from './transactions';
+import transactionsReducer from './transactions';
+import currentIdReducer from './currentId';
 
 export default combineReducers({
-	transactions,
+	transactions: transactionsReducer,
+	currentId: currentIdReducer,
 });
