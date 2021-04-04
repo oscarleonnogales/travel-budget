@@ -16,6 +16,7 @@ export async function createNewTransaction(req, res) {
 			amount: req.body.amount,
 			currency: req.body.currency,
 			date: req.body.date,
+			category: req.body.category,
 		});
 		await newTransaction.save();
 		res.status(201).json(newTransaction);
@@ -36,7 +37,6 @@ export async function deleteTransaction(req, res) {
 }
 
 export async function updateTransaction(req, res) {
-	console.log(req.body);
 	try {
 		const transaction = await Transaction.findById(req.params.id);
 		if (!transaction) return res.status(404).send(`No transaction with id: ${id}`);
@@ -45,6 +45,7 @@ export async function updateTransaction(req, res) {
 		transaction.date = req.body.date;
 		transaction.amount = req.body.amount;
 		transaction.currency = req.body.currency;
+		transaction.category = req.body.category;
 
 		await transaction.save();
 		res.status(201).json(transaction);

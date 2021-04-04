@@ -8,8 +8,6 @@ import mongoose from 'mongoose';
 import methodOverride from 'method-override';
 import cors from 'cors';
 
-import User from './models/user.js';
-import Transaction from './models/transaction.js';
 import indexRouter from './routes/index.js';
 import transactionsRouter from './routes/transactions.js';
 import usersRouter from './routes/users.js';

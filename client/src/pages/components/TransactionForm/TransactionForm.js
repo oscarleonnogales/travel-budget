@@ -9,6 +9,7 @@ export default function AddTransactionForm() {
 	const [currentData, setCurrentData] = useState({
 		date: '',
 		description: '',
+		category: '',
 		amount: '',
 		currency: '',
 	});
@@ -20,6 +21,10 @@ export default function AddTransactionForm() {
 	useEffect(() => {
 		if (currentId) setCurrentData(transactions.find((t) => t._id === currentId));
 	}, [currentId, transactions]);
+
+	useEffect(() => {
+		console.log(currentData);
+	}, [currentData]);
 
 	function handleChange(e) {
 		setCurrentData({ ...currentData, [e.target.name]: e.target.value });
@@ -42,6 +47,7 @@ export default function AddTransactionForm() {
 			description: '',
 			amount: '',
 			currency: '',
+			category: '',
 		});
 	}
 
@@ -53,15 +59,24 @@ export default function AddTransactionForm() {
 				<input
 					type="date"
 					name="date"
-					value={dayjs(currentData.date).format('YYYY-MM-DD')}
+					value={dayjs(currentData?.date).format('YYYY-MM-DD')}
 					onChange={handleChange}
 				></input>
 				<label htmlFor="description">Description</label>
-				<input type="text" name="description" value={currentData.description} onChange={handleChange}></input>
+				<input type="text" name="description" value={currentData?.description} onChange={handleChange}></input>
 				<label htmlFor="amount">Amount</label>
-				<input type="number" name="amount" step="0.01" value={currentData.amount} onChange={handleChange}></input>
+				<input type="number" name="amount" step="0.01" value={currentData?.amount} onChange={handleChange}></input>
+				<label htmlFor="category">Category</label>
+				<select htmlFor="category" name="category" value={currentData?.category} onChange={handleChange}>
+					<option value="other">Other</option>
+					<option value="housing">Housing</option>
+					<option value="groceries">Groceries</option>
+					<option value="food">Food</option>
+					<option value="transportation">Transportation</option>
+					<option value="luxuries">Luxuries</option>
+				</select>
 				<label htmlFor="currency">Currency</label>
-				<input type="text" name="currency" value={currentData.currency} onChange={handleChange}></input>
+				<input type="text" name="currency" value={currentData?.currency} onChange={handleChange}></input>
 				<button type="submit">Save</button>
 			</form>
 			<button onClick={clearForm}>{currentId ? 'Cancel' : 'Clear Form'}</button>
