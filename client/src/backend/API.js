@@ -6,6 +6,7 @@ export function fetchTransactions() {
 }
 
 export function createTransaction(transaction) {
+	console.log(transaction);
 	return axios.post(`${URL}/transactions`, transaction).then((res) => res.data);
 }
 

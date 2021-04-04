@@ -42,10 +42,10 @@ export function deleteTransaction(id) {
 	};
 }
 
-export function updateTransaction(id, updatedTransaction) {
+export function updateTransaction(id, newData) {
 	return async (dispatch) => {
 		try {
-			const updatedTransaction = await API.updateTransaction(id, updateTransaction);
+			const updatedTransaction = await API.updateTransaction(id, newData);
 			dispatch({
 				type: 'transactions/update',
 				payload: updatedTransaction,

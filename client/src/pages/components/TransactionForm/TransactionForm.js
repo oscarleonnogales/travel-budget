@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTransaction, updateTransaction } from '../../../actions/transactions';
 import { setCurrentId } from '../../../actions/currentId';
@@ -19,10 +20,6 @@ export default function AddTransactionForm() {
 	useEffect(() => {
 		if (currentId) setCurrentData(transactions.find((t) => t._id === currentId));
 	}, [currentId, transactions]);
-
-	useEffect(() => {
-		console.log(currentData);
-	}, [currentData]);
 
 	function handleChange(e) {
 		setCurrentData({ ...currentData, [e.target.name]: e.target.value });
@@ -53,7 +50,12 @@ export default function AddTransactionForm() {
 			<h3>{currentId ? 'Edit' : 'Add'} Transaction</h3>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="date">Date</label>
-				<input type="date" name="date" value={currentData.date} onChange={handleChange}></input>
+				<input
+					type="date"
+					name="date"
+					value={dayjs(currentData.date).format('YYYY-MM-DD')}
+					onChange={handleChange}
+				></input>
 				<label htmlFor="description">Description</label>
 				<input type="text" name="description" value={currentData.description} onChange={handleChange}></input>
 				<label htmlFor="amount">Amount</label>

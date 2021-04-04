@@ -1,5 +1,4 @@
 import Transaction from '../models/transaction.js';
-import mongoose from 'mongoose';
 
 export async function getTransactions(req, res) {
 	try {
@@ -16,6 +15,7 @@ export async function createNewTransaction(req, res) {
 			description: req.body.description,
 			amount: req.body.amount,
 			currency: req.body.currency,
+			date: req.body.date,
 		});
 		await newTransaction.save();
 		res.status(201).json(newTransaction);
@@ -36,6 +36,7 @@ export async function deleteTransaction(req, res) {
 }
 
 export async function updateTransaction(req, res) {
+	console.log(req.body);
 	try {
 		const transaction = await Transaction.findById(req.params.id);
 		if (!transaction) return res.status(404).send(`No transaction with id: ${id}`);
@@ -47,7 +48,8 @@ export async function updateTransaction(req, res) {
 
 		await transaction.save();
 		res.status(201).json(transaction);
-	} catch {
+	} catch (error) {
+		// console.log(error);
 		res.status(500).json({ message: 'Server Error. Try again later.' });
 	}
 }
