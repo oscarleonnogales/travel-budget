@@ -22,10 +22,6 @@ export default function AddTransactionForm() {
 		if (currentId) setCurrentData(transactions.find((t) => t._id === currentId));
 	}, [currentId, transactions]);
 
-	useEffect(() => {
-		console.log(currentData);
-	}, [currentData]);
-
 	function handleChange(e) {
 		setCurrentData({ ...currentData, [e.target.name]: e.target.value });
 	}

@@ -8,6 +8,8 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import TransactionsPage from './pages/TransactionsPage/TransactionsPage';
 import ReportsPage from './pages/ReportsPage/ReportsPage';
+import SettingsPage from './pages/SettingsPage/SettingsPage';
+import './main.css';
 
 function Routes() {
 	const dispatch = useDispatch();
@@ -27,6 +29,7 @@ function Routes() {
 				{/* Make these a protected route */}
 				<Route exact path="/transactions" component={TransactionsPage} />
 				<Route exact path="/reports" component={ReportsPage} />
+				<Route exact path="/settings" component={SettingsPage} />
 			</Switch>
 		</BrowserRouter>
 	);
