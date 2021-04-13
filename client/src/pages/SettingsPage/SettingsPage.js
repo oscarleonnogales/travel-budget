@@ -6,7 +6,7 @@ export default function SettingsPage() {
 	return (
 		<>
 			<Navbar></Navbar>
-			<main>
+			<main className="main-page-content">
 				<h1>Settings Page</h1>
 			</main>
 		</>

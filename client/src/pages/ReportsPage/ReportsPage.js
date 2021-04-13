@@ -9,7 +9,7 @@ export default function ReportsPage() {
 	return (
 		<>
 			<Navbar></Navbar>
-			<main>
+			<main className="main-page-content">
 				<div className="reports__current-month-container"></div>
 				<div className="reports__current-year-container"></div>
 				<div className="reports__current-year-container"></div>

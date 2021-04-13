@@ -12,47 +12,8 @@ export default function TransactionsPage() {
 	return (
 		<>
 			<Navbar></Navbar>
-			<main>
+			<main className="main-page-content">
 				<TransactionForm />
-				{transactions.map((transaction) => {
-					return <Transaction transaction={transaction} key={transaction._id} />;
-				})}
-				{transactions.map((transaction) => {
-					return <Transaction transaction={transaction} key={transaction._id} />;
-				})}
-				{transactions.map((transaction) => {
-					return <Transaction transaction={transaction} key={transaction._id} />;
-				})}
-				{transactions.map((transaction) => {
-					return <Transaction transaction={transaction} key={transaction._id} />;
-				})}
-				{transactions.map((transaction) => {
-					return <Transaction transaction={transaction} key={transaction._id} />;
-				})}
-				{transactions.map((transaction) => {
-					return <Transaction transaction={transaction} key={transaction._id} />;
-				})}
-				{transactions.map((transaction) => {
-					return <Transaction transaction={transaction} key={transaction._id} />;
-				})}
-				{transactions.map((transaction) => {
-					return <Transaction transaction={transaction} key={transaction._id} />;
-				})}
-				{transactions.map((transaction) => {
-					return <Transaction transaction={transaction} key={transaction._id} />;
-				})}
-				{transactions.map((transaction) => {
-					return <Transaction transaction={transaction} key={transaction._id} />;
-				})}
-				{transactions.map((transaction) => {
-					return <Transaction transaction={transaction} key={transaction._id} />;
-				})}
-				{transactions.map((transaction) => {
-					return <Transaction transaction={transaction} key={transaction._id} />;
-				})}
-				{transactions.map((transaction) => {
-					return <Transaction transaction={transaction} key={transaction._id} />;
-				})}
 				{transactions.map((transaction) => {
 					return <Transaction transaction={transaction} key={transaction._id} />;
 				})}
