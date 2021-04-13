@@ -1,27 +1,32 @@
 :root {
 	--navbar-animation-duration: 400ms;
+	--bg-primary: #23232e;
+	--bg-secondary: #141418;
 }
 
 .svg-inline--fa {
 	width: var(--nav-icon-size);
 	height: var(--nav-icon-size);
-	fill: var(--text-primary);
+	margin-left: calc(0.5 * var(--nav-icon-size));
+	fill: #df49a6;
+	transition: var(--navbar-animation-duration) ease;
 }
 
 .navbar {
-	width: calc(2 * var(--nav-icon-size));
-	height: 100vh;
 	position: fixed;
-	background: rgb(59, 59, 59);
-	transition: width var(--navbar-animation-duration) ease;
+	background: var(--bg-primary);
+	transition: width var(--navbar-animation-duration);
 }
 
 .navbar:hover {
-	width: 25rem;
+	width: 23rem;
 }
 
 .navbar:hover .navbar_link-text {
-	display: inline;
+	display: block;
+	font-size: 1.25rem;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .navbar_nav {
@@ -35,9 +40,12 @@
 }
 
 .navbar_nav-item {
-	margin-left: calc(0.5 * var(--nav-icon-size));
-	width: calc(100% - calc(0.5 * var(--nav-icon-size)));
+	width: 100%;
 	height: calc(2 * var(--nav-icon-size));
+	display: flex;
+	align-items: center;
+	filter: grayscale(100%) opacity(0.7);
+	transition: var(--navbar-animation-duration);
 }
 
 .navbar_nav-item:last-child {
@@ -47,14 +55,64 @@
 .navbar_link {
 	display: grid;
 	grid-template-columns: calc(2 * var(--nav-icon-size)) 1fr;
+	width: 100%;
+	column-gap: 1rem;
 	align-items: center;
 	color: var(--text-primary);
 	text-decoration: none;
 }
 
+.logo {
+	background: var(--bg-secondary);
+}
+
+.logo .navbar_link {
+	grid-template-columns: 1fr calc(2 * var(--nav-icon-size));
+}
+
+.logo .navbar_link-text {
+	margin-left: calc(0.5 * var(--nav-icon-size));
+	text-transform: uppercase;
+	font-size: 1.5rem !important;
+	font-weight: bold;
+	letter-spacing: 0.3ch;
+}
+
+.navbar_nav-item:hover {
+	filter: grayscale(0%) opacity(1);
+	color: var(--text-secondary);
+	background: var(--bg-secondary);
+}
+
 .navbar_link-text {
 	display: none;
-	overflow: hidden;
-	height: 1.5rem;
-	font-size: 1.25rem;
+}
+
+.logo svg {
+	transform: rotate(0deg);
+	transition: transform var(--navbar-animation-duration);
+}
+
+.navbar:hover .logo svg {
+	transform: rotate(-540deg);
+}
+
+.fa-primary {
+	fill: #ff7eee;
+}
+
+.fa-secondary {
+	fill: #df49a6;
+}
+
+/* Mobile */
+@media only screen and(max-width:600px) {
+}
+
+/* Desktop */
+@media only screen and(min-width:600px) {
+	.navbar {
+		width: calc(2 * var(--nav-icon-size));
+		height: 100vh;
+	}
 }

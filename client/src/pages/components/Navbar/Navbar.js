@@ -5,8 +5,9 @@ export default function Navbar() {
 	return (
 		<nav className="navbar">
 			<ul className="navbar_nav">
-				<li class="logo navbar_nav-item">
-					<a href="/" class="navbar_link">
+				<li className="logo navbar_nav-item">
+					<a href="/" className="navbar_link">
+						<span className="navbar_link-text logo-text">Home</span>
 						<svg
 							aria-hidden="true"
 							focusable="false"
@@ -15,20 +16,19 @@ export default function Navbar() {
 							role="img"
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 448 512"
-							class="svg-inline--fa fa-angle-double-right fa-w-14 fa-5x"
+							className="svg-inline--fa fa-angle-double-right fa-w-14 fa-5x"
 						>
-							<g class="fa-group">
+							<g className="fa-group">
 								<path
 									d="M224 273L88.37 409a23.78 23.78 0 0 1-33.8 0L32 386.36a23.94 23.94 0 0 1 0-33.89l96.13-96.37L32 159.73a23.94 23.94 0 0 1 0-33.89l22.44-22.79a23.78 23.78 0 0 1 33.8 0L223.88 239a23.94 23.94 0 0 1 .1 34z"
-									class="fa-secondary"
+									className="fa-secondary"
 								></path>
 								<path
 									d="M415.89 273L280.34 409a23.77 23.77 0 0 1-33.79 0L224 386.26a23.94 23.94 0 0 1 0-33.89L320.11 256l-96-96.47a23.94 23.94 0 0 1 0-33.89l22.52-22.59a23.77 23.77 0 0 1 33.79 0L416 239a24 24 0 0 1-.11 34z"
-									class="fa-primary"
+									className="fa-primary"
 								></path>
 							</g>
 						</svg>
-						<span class="navbar_link-text logo-text">Home</span>
 					</a>
 				</li>
 				<li className="navbar_nav-item">
@@ -38,7 +38,7 @@ export default function Navbar() {
 							focusable="false"
 							data-prefix="fas"
 							data-icon="credit-card"
-							class="svg-inline--fa fa-credit-card fa-w-18"
+							className="svg-inline--fa fa-credit-card fa-w-18"
 							role="img"
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 576 512"
@@ -55,7 +55,7 @@ export default function Navbar() {
 							focusable="false"
 							data-prefix="fas"
 							data-icon="money-check-alt"
-							class="svg-inline--fa fa-money-check-alt fa-w-20"
+							className="svg-inline--fa fa-money-check-alt fa-w-20"
 							role="img"
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 640 512"
@@ -72,7 +72,7 @@ export default function Navbar() {
 							focusable="false"
 							data-prefix="fas"
 							data-icon="sliders-h"
-							class="svg-inline--fa fa-sliders-h fa-w-16"
+							className="svg-inline--fa fa-sliders-h fa-w-16"
 							role="img"
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 512 512"
