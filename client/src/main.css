@@ -28,7 +28,18 @@ body::-webkit-scrollbar-thumb {
 	background: #6649b8;
 }
 
-.main-page-content {
-	margin-left: calc(2 * var(--nav-icon-size));
-	padding: 1.5rem;
+/* Desktop */
+@media (min-width: 600px) {
+	.main-page-content {
+		margin-left: calc(2 * var(--nav-icon-size));
+		padding: 1.5rem;
+	}
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+	.main-page-content {
+		margin: 0;
+		padding: 1rem;
+	}
 }
