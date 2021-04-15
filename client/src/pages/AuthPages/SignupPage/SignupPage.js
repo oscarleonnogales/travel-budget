@@ -74,6 +74,11 @@ export default function SignupPage() {
 					<GoogleButton />
 				</div>
 			</form>
+			<div className="btn-container">
+				<a href="/login" className="auth-link">
+					Already a member? Log in
+				</a>
+			</div>
 		</div>
 	);
 }

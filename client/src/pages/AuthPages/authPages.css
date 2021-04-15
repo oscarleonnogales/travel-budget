@@ -44,3 +44,22 @@
 /* Mobile */
 @media (max-width: 600px) {
 }
+
+.btn-container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 1rem;
+}
+
+.auth-link {
+	color: hsl(0, 0%, 100%);
+	font-weight: 750;
+	font-size: 1rem;
+	text-decoration: none;
+	text-shadow: black 0px 0px 2px;
+}
+
+.auth-link:hover {
+	color: hsl(0, 0%, 90%);
+}

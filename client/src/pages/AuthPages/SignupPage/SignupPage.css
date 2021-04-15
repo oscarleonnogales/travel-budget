@@ -78,7 +78,7 @@
 	left: 0;
 	position: absolute;
 	top: 50%;
-	width: clamp(300px, 65vw, 500px);
+	width: 100%;
 }
 
 .hr-or-text::after {
