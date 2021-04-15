@@ -4,14 +4,14 @@ import { useDispatch } from 'react-redux';
 import { getTransactions } from './actions/transactions';
 
 import LandingPage from './pages/LandingPage/LandingPage';
-import LoginPage from './pages/LoginPage/LoginPage';
-import SignupPage from './pages/SignupPage/SignupPage';
+import LoginPage from './pages/AuthPages/LoginPage/LoginPage';
+import SignupPage from './pages/AuthPages/SignupPage/SignupPage';
 import TransactionsPage from './pages/TransactionsPage/TransactionsPage';
 import ReportsPage from './pages/ReportsPage/ReportsPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import './main.css';
 
-function Routes() {
+function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -35,4 +35,4 @@ function Routes() {
 	);
 }
 
-export default Routes;
+export default App;

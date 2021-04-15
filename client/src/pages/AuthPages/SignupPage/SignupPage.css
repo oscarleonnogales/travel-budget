@@ -1,0 +1,100 @@
+.signup-page-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+}
+
+.signup-form-container {
+	display: flex;
+	flex-direction: column;
+	background: white;
+	padding: var(--auth-form-padding);
+	box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+	border-radius: 5px;
+}
+
+.signup-form-container {
+	width: 65vw;
+}
+
+/* Desktop */
+@media (min-width: 600px) {
+	.signup-form-container {
+		max-width: 500px;
+	}
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+	.signup-form-container {
+		max-width: 350px;
+		min-width: 200px;
+	}
+}
+
+.submit-btn-container {
+	width: 100%;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.submit-btn-container:last-child {
+	margin-bottom: 0;
+}
+
+.signup-submit-btn {
+	padding: 0.375em 0.75em;
+	width: 100%;
+	min-height: 3em;
+	background: hsl(210, 70%, 55%);
+	outline: none;
+	border: none;
+	border-radius: var(--border-radius);
+	color: white;
+	font-weight: 700;
+}
+
+.signup-submit-btn:hover {
+	background: hsl(210, 70%, 45%);
+}
+
+.hr-or-text {
+	background-color: none;
+	border: 0;
+	color: #000000;
+	height: 1.25rem;
+	line-height: 1.25rem;
+	outline: 0;
+	position: relative;
+	text-align: center;
+}
+
+.hr-or-text::before {
+	background-color: rgba(0, 0, 0, 0.15);
+	content: ' ';
+	height: 2px;
+	left: 0;
+	position: absolute;
+	top: 50%;
+	width: clamp(300px, 65vw, 500px);
+}
+
+.hr-or-text::after {
+	background: white;
+	color: rgba(0, 0, 0, 0.46);
+	content: attr(data-content);
+	display: inline-block;
+	line-height: 1.25em;
+	padding: 0 0.5em;
+	position: relative;
+}
+
+.bi-lock {
+	fill: currentColor;
+	width: 1.2em;
+	height: 1.2em;
+	vertical-align: sub;
+	margin-right: 0.5em;
+}

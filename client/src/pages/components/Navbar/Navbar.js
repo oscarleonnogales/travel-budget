@@ -6,8 +6,8 @@ export default function Navbar() {
 		<nav className="navbar">
 			<ul className="navbar_nav">
 				<li className="logo navbar_nav-item">
-					<a href="/" className="navbar_link">
-						<span className="navbar_link-text logo-text">Home</span>
+					<span className="navbar_link">
+						<span className="navbar_link-text logo-text">Hi, User</span>
 						<svg
 							aria-hidden="true"
 							focusable="false"
@@ -29,7 +29,7 @@ export default function Navbar() {
 								></path>
 							</g>
 						</svg>
-					</a>
+					</span>
 				</li>
 				<li className="navbar_nav-item">
 					<a href="/transactions" className="navbar_link">
