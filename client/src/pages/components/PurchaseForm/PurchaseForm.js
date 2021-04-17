@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTransaction, updateTransaction } from '../../../actions/transactions';
+import { addPurchase, updatePurchase } from '../../../actions/purchases';
 import { setCurrentId } from '../../../actions/currentId';
-import './TransactionForm.css';
+import './PurchaseForm.css';
 
-export default function AddTransactionForm() {
+export default function PurchaseForm() {
 	const [currentData, setCurrentData] = useState({
 		date: '',
 		description: '',
@@ -14,13 +14,13 @@ export default function AddTransactionForm() {
 		currency: '',
 	});
 	const currentId = useSelector((state) => state.currentId);
-	const transactions = useSelector((state) => state.transactions);
+	const purchases = useSelector((state) => state.purchases);
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (currentId) setCurrentData(transactions.find((t) => t._id === currentId));
-	}, [currentId, transactions]);
+		if (currentId) setCurrentData(purchases.find((p) => p._id === currentId));
+	}, [currentId, purchases]);
 
 	function handleChange(e) {
 		setCurrentData({ ...currentData, [e.target.name]: e.target.value });
@@ -29,9 +29,9 @@ export default function AddTransactionForm() {
 	function handleSubmit(e) {
 		e.preventDefault();
 		if (currentId) {
-			dispatch(updateTransaction(currentId, currentData));
+			dispatch(updatePurchase(currentId, currentData));
 		} else {
-			dispatch(addTransaction(currentData));
+			dispatch(addPurchase(currentData));
 		}
 		clearForm();
 	}
@@ -80,6 +80,32 @@ export default function AddTransactionForm() {
 				</div>
 
 				<div className="transaction-form-group">
+					<label htmlFor="category" className="transaction-form-label">
+						Category
+					</label>
+					<select
+						htmlFor="category"
+						name="category"
+						value={currentData?.category}
+						onChange={handleChange}
+						required
+						className="transaction-form-input form-select"
+					>
+						<option value="unselected" disabled>
+							Choose an option
+						</option>
+						<option value="other">Other</option>
+						<option value="housing">Housing</option>
+						<option value="groceries">Groceries</option>
+						<option value="food">Food</option>
+						<option value="transportation">Transportation</option>
+						<option value="luxuries">Luxuries</option>
+					</select>
+				</div>
+			</div>
+
+			<div className="form-column">
+				<div className="transaction-form-group">
 					<label htmlFor="amount" className="transaction-form-label">
 						Amount
 					</label>
@@ -92,30 +118,6 @@ export default function AddTransactionForm() {
 						required
 						className="transaction-form-input"
 					></input>
-				</div>
-			</div>
-
-			<div className="form-column">
-				<div className="transaction-form-group">
-					<label htmlFor="category" className="transaction-form-label">
-						Category
-					</label>
-					<select
-						htmlFor="category"
-						name="category"
-						value={currentData?.category}
-						onChange={handleChange}
-						required
-						className="transaction-form-input form-select"
-					>
-						<option value="unselected">Choose an option</option>
-						<option value="other">Other</option>
-						<option value="housing">Housing</option>
-						<option value="groceries">Groceries</option>
-						<option value="food">Food</option>
-						<option value="transportation">Transportation</option>
-						<option value="luxuries">Luxuries</option>
-					</select>
 				</div>
 
 				<div className="transaction-form-group">

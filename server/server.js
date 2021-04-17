@@ -9,7 +9,7 @@ import methodOverride from 'method-override';
 import cors from 'cors';
 
 import indexRouter from './routes/index.js';
-import transactionsRouter from './routes/transactions.js';
+import purchasesRouter from './routes/purchases.js';
 import usersRouter from './routes/users.js';
 
 // Setting up dependencies
@@ -28,7 +28,7 @@ app.use(cors()); // Set to only allow requests from client during production
 
 // Route handling
 app.use('/users', usersRouter);
-app.use('/transactions', transactionsRouter);
+app.use('/purchases', purchasesRouter);
 app.use('/', indexRouter);
 
 app.listen(process.env.PORT || 3001);

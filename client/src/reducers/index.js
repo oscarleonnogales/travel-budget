@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import transactionsReducer from './transactions';
+import purchasesReducer from './purchases';
 import currentIdReducer from './currentId';
 
 export default combineReducers({
-	transactions: transactionsReducer,
+	purchases: purchasesReducer,
 	currentId: currentIdReducer,
 });

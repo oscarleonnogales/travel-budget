@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getTransactions } from './actions/transactions';
+import { getPurchases } from './actions/purchases';
 
 import LandingPage from './pages/LandingPage/LandingPage';
 import LoginPage from './pages/AuthPages/LoginPage/LoginPage';
 import SignupPage from './pages/AuthPages/SignupPage/SignupPage';
-import TransactionsPage from './pages/TransactionsPage/TransactionsPage';
-import ReportsPage from './pages/ReportsPage/ReportsPage';
+
+import PurchasesPage from './pages/PurchasesPage/PurchasesPage';
+import MonthlyPage from './pages/MonthlyPage/MonthlyPage';
+import YearlyPage from './pages/YearlyPage/YearlyPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import './main.css';
 
@@ -15,7 +17,7 @@ function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(getTransactions());
+		dispatch(getPurchases());
 	}, [dispatch]);
 
 	return (
@@ -27,8 +29,9 @@ function App() {
 				<Route exact path="/signup" component={SignupPage} />
 
 				{/* Make these a protected route */}
-				<Route exact path="/transactions" component={TransactionsPage} />
-				<Route exact path="/reports" component={ReportsPage} />
+				<Route exact path="/purchases" component={PurchasesPage} />
+				<Route exact path="/year-breakdown" component={YearlyPage} />
+				<Route exact path="/month-breakdown" component={MonthlyPage} />
 				<Route exact path="/settings" component={SettingsPage} />
 			</Switch>
 		</BrowserRouter>

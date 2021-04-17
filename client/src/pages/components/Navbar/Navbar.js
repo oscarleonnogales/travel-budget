@@ -33,7 +33,7 @@ export default function Navbar() {
 				</li>
 
 				<li className="navbar_nav-item">
-					<a href="/transactions" className="navbar_link">
+					<a href="/purchases" className="navbar_link">
 						<svg
 							aria-hidden="true"
 							focusable="false"
@@ -50,7 +50,7 @@ export default function Navbar() {
 					</a>
 				</li>
 				<li className="navbar_nav-item">
-					<a href="/reports" className="navbar_link">
+					<a href="/month-breakdown" className="navbar_link">
 						<svg
 							aria-hidden="true"
 							focusable="false"
@@ -67,7 +67,7 @@ export default function Navbar() {
 					</a>
 				</li>
 				<li className="navbar_nav-item">
-					<a href="/reports" className="navbar_link">
+					<a href="/year-breakdown" className="navbar_link">
 						<svg
 							aria-hidden="true"
 							focusable="false"
