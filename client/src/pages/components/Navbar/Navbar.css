@@ -15,6 +15,7 @@
 	position: fixed;
 	background: var(--bg-primary);
 	transition: width var(--navbar-animation-duration);
+	z-index: 10;
 }
 
 .navbar_nav {

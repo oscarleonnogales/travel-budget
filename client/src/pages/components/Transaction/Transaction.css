@@ -1,9 +1,27 @@
 .transaction {
-	display: flex;
+	border-bottom: 1px solid hsl(0, 0%, 80%);
+	padding-bottom: 0.5rem;
+	margin-bottom: 0.5rem;
 }
 
-.transation-text-details,
-.transaction-price-details {
-	display: flex;
-	flex-direction: column;
+.transaction:last-child {
+	border-bottom: none;
+	padding-bottom: 0;
+	margin-bottom: 0;
 }
+
+.transaction-description,
+.transaction-converted-price {
+	font-size: 1.35rem;
+}
+
+.transaction-actual-price {
+	font-style: italic;
+}
+
+.transaction-row {
+	display: flex;
+	justify-content: space-between;
+}
+
+/* Desktop */

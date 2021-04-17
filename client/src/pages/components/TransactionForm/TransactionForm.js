@@ -48,34 +48,98 @@ export default function AddTransactionForm() {
 	}
 
 	return (
-		<div>
-			<h3>{currentId ? 'Edit' : 'Add'} Transaction</h3>
-			<form onSubmit={handleSubmit}>
-				<label htmlFor="date">Date</label>
-				<input
-					type="date"
-					name="date"
-					value={dayjs(currentData?.date).format('YYYY-MM-DD')}
-					onChange={handleChange}
-				></input>
-				<label htmlFor="description">Description</label>
-				<input type="text" name="description" value={currentData?.description} onChange={handleChange}></input>
-				<label htmlFor="amount">Amount</label>
-				<input type="number" name="amount" step="0.01" value={currentData?.amount} onChange={handleChange}></input>
-				<label htmlFor="category">Category</label>
-				<select htmlFor="category" name="category" value={currentData?.category} onChange={handleChange}>
-					<option value="other">Other</option>
-					<option value="housing">Housing</option>
-					<option value="groceries">Groceries</option>
-					<option value="food">Food</option>
-					<option value="transportation">Transportation</option>
-					<option value="luxuries">Luxuries</option>
-				</select>
-				<label htmlFor="currency">Currency</label>
-				<input type="text" name="currency" value={currentData?.currency} onChange={handleChange}></input>
-				<button type="submit">Save</button>
-			</form>
-			<button onClick={clearForm}>{currentId ? 'Cancel' : 'Clear Form'}</button>
-		</div>
+		<form onSubmit={handleSubmit} className="transaction-form_container">
+			<h3 className="transaction-form_title">{currentId ? 'Edit' : 'Add'} Purchase</h3>
+			<div className="form-column">
+				<div className="transaction-form-group">
+					<label htmlFor="date" className="transaction-form-label">
+						Date
+					</label>
+					<input
+						type="date"
+						name="date"
+						value={currentData.date && dayjs(currentData.date).format('YYYY-MM-DD')}
+						onChange={handleChange}
+						required
+						className="transaction-form-input"
+					></input>
+				</div>
+
+				<div className="transaction-form-group">
+					<label htmlFor="description" className="transaction-form-label">
+						Description
+					</label>
+					<input
+						type="text"
+						name="description"
+						value={currentData?.description}
+						onChange={handleChange}
+						required
+						className="transaction-form-input"
+					></input>
+				</div>
+
+				<div className="transaction-form-group">
+					<label htmlFor="amount" className="transaction-form-label">
+						Amount
+					</label>
+					<input
+						type="number"
+						name="amount"
+						step="0.01"
+						value={currentData?.amount}
+						onChange={handleChange}
+						required
+						className="transaction-form-input"
+					></input>
+				</div>
+			</div>
+
+			<div className="form-column">
+				<div className="transaction-form-group">
+					<label htmlFor="category" className="transaction-form-label">
+						Category
+					</label>
+					<select
+						htmlFor="category"
+						name="category"
+						value={currentData?.category}
+						onChange={handleChange}
+						required
+						className="transaction-form-input form-select"
+					>
+						<option value="unselected">Choose an option</option>
+						<option value="other">Other</option>
+						<option value="housing">Housing</option>
+						<option value="groceries">Groceries</option>
+						<option value="food">Food</option>
+						<option value="transportation">Transportation</option>
+						<option value="luxuries">Luxuries</option>
+					</select>
+				</div>
+
+				<div className="transaction-form-group">
+					<label htmlFor="currency" className="transaction-form-label">
+						Currency
+					</label>
+					<input
+						type="text"
+						name="currency"
+						value={currentData?.currency}
+						onChange={handleChange}
+						required
+						className="transaction-form-input"
+					></input>
+				</div>
+			</div>
+			<div className="transaction-form-btn-container">
+				<button type="submit" className="save-btn form-btn">
+					{currentId ? 'Save Changes' : 'Add Purchase'}
+				</button>
+				<button onClick={clearForm} className="cancel-btn form-btn">
+					{currentId ? 'Cancel' : 'Clear Form'}
+				</button>
+			</div>
+		</form>
 	);
 }

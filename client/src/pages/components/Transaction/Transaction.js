@@ -11,20 +11,32 @@ export default function Transaction({ transaction }) {
 	const currentId = useSelector((state) => state.currentId);
 
 	return (
-		<div className="transaction">
-			<div className="transaction-text-details">
-				<div>{transaction.description}</div>
-				<div>{dayjs(transaction.date).format('MMM DD, YYYY')}</div>
+		<>
+			<div className="transaction">
+				<div className="transaction-row">
+					<div className="transaction-description">{transaction.description}</div>
+					<div className="transaction-converted-price">${transaction.amount}</div>
+				</div>
+				<div className="transaction-row">
+					<div className="transaction-date">{dayjs(transaction.date).format('MMM DD, YYYY')}</div>
+					{/* Do something here to only show if not the users default currency */}
+					{transaction.currency !== 'usd' && (
+						<div className="transaction-actual-price">
+							{transaction.amount} {transaction.currency}
+						</div>
+					)}
+				</div>
+				<div className="transaction-btn-container">
+					<button className="save-btn transaction-btn" onClick={() => dispatch(setCurrentId(transaction._id))}>
+						Edit
+					</button>
+					{currentId !== transaction._id && (
+						<button className="cancel-btn transaction-btn" onClick={() => dispatch(deleteTransaction(transaction._id))}>
+							&times;
+						</button>
+					)}
+				</div>
 			</div>
-			<div className="transaction-price-details">
-				<div>{transaction.amount}</div>
-			</div>
-			<div className="transactions-page__btn-container">
-				{currentId !== transaction._id && (
-					<button onClick={() => dispatch(deleteTransaction(transaction._id))}>&times;</button>
-				)}
-				<button onClick={() => dispatch(setCurrentId(transaction._id))}>Edit</button>
-			</div>
-		</div>
+		</>
 	);
 }

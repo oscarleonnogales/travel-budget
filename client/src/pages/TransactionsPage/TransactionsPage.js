@@ -14,9 +14,11 @@ export default function TransactionsPage() {
 			<Navbar></Navbar>
 			<main className="main-page-content">
 				<TransactionForm />
-				{transactions.map((transaction) => {
-					return <Transaction transaction={transaction} key={transaction._id} />;
-				})}
+				<div className="transactions-container">
+					{transactions.map((transaction) => {
+						return <Transaction transaction={transaction} key={transaction._id} />;
+					})}
+				</div>
 			</main>
 		</>
 	);

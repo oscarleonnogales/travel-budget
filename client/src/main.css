@@ -9,6 +9,11 @@
 	--text-primary: #b6b6b6;
 	--text-secondary: #ececec;
 	--auth-form-padding: 1em;
+
+	--input-border-color: black;
+	--input-focus-border-color: hsl(202, 78%, 49%);
+	--input-text-color: black;
+	--input-shadow-color: var(--input-focus-border-color);
 }
 
 body {
@@ -56,6 +61,36 @@ body::-webkit-scrollbar-thumb {
 	margin-top: 1.5rem;
 }
 
+.auth-form-input,
+.transaction-form-input {
+	width: 100%;
+	padding: 0.375em 0.75em;
+	font-size: 1em;
+	font-weight: 400;
+	line-height: 1.5;
+	border: 1px solid var(--input-border-color);
+	border-radius: var(--border-radius);
+	outline: none;
+	margin-top: 0.25em;
+	transition: border-color 200ms ease-in, box-shadow 200ms ease-in;
+}
+
+.auth-form-input:hover,
+.transaction-form-input:hover {
+	border: 1px solid var(--input-focus-border-color);
+}
+
+input[type='date'],
+select {
+	cursor: pointer;
+}
+
+.auth-form-input:focus,
+.transaction-form-input:focus {
+	border: 1px solid var(--input-focus-border-color);
+	box-shadow: 0 0 5px 2px var(--input-shadow-color);
+}
+
 /* Desktop */
 @media (min-width: 600px) {
 	.main-page-content {
@@ -73,5 +108,9 @@ body::-webkit-scrollbar-thumb {
 	.main-page-content {
 		margin: 0;
 		padding: 1rem;
+	}
+
+	:root {
+		--nav-icon-size: 2rem;
 	}
 }

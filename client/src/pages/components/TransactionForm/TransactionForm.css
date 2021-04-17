@@ -1,0 +1,103 @@
+:root {
+	--form-background-color: white;
+}
+
+.transaction-form_title {
+	font-size: 1.25rem;
+	margin-bottom: 1rem;
+	min-width: 100%;
+}
+
+.transaction-form_container {
+	background: var(--form-background-color);
+	box-shadow: 0 0 5px 2px black;
+	border: none;
+	padding: 1em;
+	margin-bottom: 2rem;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.transaction-form-label {
+	margin-bottom: 0.25em;
+}
+
+.transaction-form-input {
+	margin-bottom: 0.5em;
+}
+
+.transaction-form-group {
+	display: flex;
+	flex-direction: column;
+}
+
+.form-column {
+	display: flex;
+	flex-direction: column;
+}
+
+.transaction-form-btn-container {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	column-gap: 1rem;
+}
+
+.form-btn {
+	padding: 0.375em 0.75em;
+	min-height: 3em;
+	outline: none;
+	border: none;
+	border-radius: var(--border-radius);
+	font-weight: 700;
+}
+
+.save-btn {
+	background: hsl(210, 70%, 55%);
+	color: white;
+}
+
+.save-btn:hover {
+	background: hsl(210, 70%, 45%);
+}
+
+.cancel-btn {
+	background: hsl(9, 70%, 55%);
+	color: white;
+}
+
+.cancel-btn:hover {
+	background: hsl(9, 70%, 45%);
+}
+
+/* Desktop */
+@media (min-width: 600px) {
+	.transaction-form_container {
+		flex-direction: row;
+		max-width: 800px;
+		margin: auto;
+		transition: transform 400ms ease;
+	}
+
+	.transaction-form_container:hover {
+		transform: translateY(-3px);
+	}
+
+	.form-column {
+		width: 50%;
+		padding-right: 1em;
+		padding-top: 0;
+	}
+
+	.transaction-form-btn-container {
+		/* margin-top: 2em; */
+	}
+
+	.form-select {
+		height: 40px;
+	}
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+}
