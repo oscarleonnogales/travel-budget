@@ -13,6 +13,7 @@
 	--input-border-color: black;
 	--input-focus-border-color: hsl(202, 78%, 49%);
 	--input-text-color: black;
+	--text-primary: #b6b6b6;
 	--input-shadow-color: var(--input-focus-border-color);
 }
 
