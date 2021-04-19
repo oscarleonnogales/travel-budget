@@ -1,7 +1,3 @@
-:root {
-	--primary-text-color: hsl(0, 0%, 20%);
-}
-
 .transactions-container {
 	background: white;
 	color: var(--primary-text-color);

@@ -6,7 +6,7 @@
 
 	--border-radius: 5px;
 
-	--text-primary: #b6b6b6;
+	--primary-text-color: hsl(0, 0%, 20%);
 	--text-secondary: #ececec;
 	--auth-form-padding: 1em;
 
@@ -65,6 +65,7 @@ body::-webkit-scrollbar-thumb {
 .transaction-form-input {
 	width: 100%;
 	padding: 0.375em 0.75em;
+	color: var(--primary-text-color);
 	font-size: 1em;
 	font-weight: 400;
 	line-height: 1.5;

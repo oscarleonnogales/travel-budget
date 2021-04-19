@@ -14,11 +14,13 @@ export default function PurchasesPage() {
 			<Navbar></Navbar>
 			<main className="main-page-content">
 				<PurchaseForm />
-				<div className="transactions-container">
-					{purchases.map((purchase) => {
-						return <Purchase purchase={purchase} key={purchase._id} />;
-					})}
-				</div>
+				{purchases.length > 0 && (
+					<div className="transactions-container">
+						{purchases.map((purchase) => {
+							return <Purchase purchase={purchase} key={purchase._id} />;
+						})}
+					</div>
+				)}
 			</main>
 		</>
 	);

@@ -2,6 +2,7 @@
 	border-bottom: 1px solid hsl(0, 0%, 80%);
 	padding-bottom: 0.5rem;
 	margin-bottom: 0.5rem;
+	color: var(--primary-text-color);
 }
 
 .transaction:last-child {
