@@ -83,24 +83,27 @@ export default function PurchaseForm() {
 					<label htmlFor="category" className="transaction-form-label">
 						Category
 					</label>
-					<select
-						htmlFor="category"
-						name="category"
-						value={currentData?.category}
-						onChange={handleChange}
-						required
-						className="transaction-form-input form-select"
-					>
-						<option value="unselected" disabled>
-							Choose an option
-						</option>
-						<option value="other">Other</option>
-						<option value="housing">Housing</option>
-						<option value="groceries">Groceries</option>
-						<option value="food">Food</option>
-						<option value="transportation">Transportation</option>
-						<option value="luxuries">Luxuries</option>
-					</select>
+					<div className="custom-select">
+						<select
+							htmlFor="category"
+							name="category"
+							value={currentData?.category}
+							onChange={handleChange}
+							required
+							className="transaction-form-input form-select"
+						>
+							<option value="unselected" disabled>
+								Choose an option
+							</option>
+							<option value="other">Other</option>
+							<option value="housing">Housing</option>
+							<option value="groceries">Groceries</option>
+							<option value="food">Food</option>
+							<option value="transportation">Transportation</option>
+							<option value="luxuries">Luxuries</option>
+						</select>
+						<span className="custom-arrow"></span>
+					</div>
 				</div>
 			</div>
 
@@ -115,6 +118,7 @@ export default function PurchaseForm() {
 						step="0.01"
 						value={currentData?.amount}
 						onChange={handleChange}
+						min="0"
 						required
 						className="transaction-form-input"
 					></input>

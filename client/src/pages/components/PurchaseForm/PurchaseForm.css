@@ -71,6 +71,13 @@
 	background: hsl(9, 70%, 45%);
 }
 
+.form-select {
+	height: 100%;
+	margin: 0 !important;
+	background: white;
+	appearance: none;
+}
+
 /* Desktop */
 @media (min-width: 600px) {
 	.transaction-form_container {
@@ -88,10 +95,6 @@
 		width: 50%;
 		padding-right: 1em;
 		padding-top: 0;
-	}
-
-	.form-select {
-		height: 40px;
 	}
 }
 

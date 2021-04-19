@@ -93,6 +93,60 @@ select {
 	box-shadow: 0 0 5px 2px var(--input-shadow-color);
 }
 
+.custom-select {
+	position: relative;
+	height: 40px;
+	margin-bottom: 0.5rem;
+}
+
+.custom-select:hover > .custom-arrow,
+select:focus + .custom-arrow {
+	border: 1px solid var(--input-focus-border-color);
+	border-left: none;
+}
+
+.custom-arrow {
+	background: white;
+	display: block;
+	height: 100%;
+	width: 40px;
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	right: 0;
+	border-top-right-radius: var(--border-radius);
+	border-bottom-right-radius: var(--border-radius);
+	border: 1px solid black;
+	border-left: none;
+	transition: border-color 200ms ease-in;
+}
+
+.custom-arrow::before,
+.custom-arrow::after {
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 0;
+	--size: 0.45em;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.custom-arrow::before {
+	border-left: var(--size) solid transparent;
+	border-right: var(--size) solid transparent;
+	border-top: var(--size) solid var(--primary-text-color);
+	top: 65%;
+}
+
+.custom-arrow::after {
+	border-left: var(--size) solid transparent;
+	border-right: var(--size) solid transparent;
+	border-bottom: var(--size) solid var(--primary-text-color);
+	top: 35%;
+}
+
 /* Desktop */
 @media (min-width: 600px) {
 	.main-page-content {
