@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+const defaultCategories = ['Housing', 'Groceries', 'Food', 'Transportation', 'Luxuries'];
+
 const userSchema = new mongoose.Schema({
 	email: {
 		type: String,
@@ -14,19 +16,18 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	// location: {
-	// 	type: String,
-	// 	default: 'Milky Way Galaxy',
-	// 	required: true,
-	// },
 	password: {
 		type: String,
 		required: true,
 	},
-	baseCurrency: {
+	homeCurrency: {
 		type: String,
 		required: true,
 		default: 'USD',
+	},
+	categories: {
+		type: [String],
+		default: defaultCategories,
 	},
 });
 

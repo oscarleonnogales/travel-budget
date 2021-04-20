@@ -9,7 +9,7 @@ export default function PurchaseForm() {
 	const [currentData, setCurrentData] = useState({
 		date: '',
 		description: '',
-		category: '',
+		category: 'other',
 		amount: '',
 		currency: '',
 	});
