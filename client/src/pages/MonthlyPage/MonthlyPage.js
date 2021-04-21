@@ -17,23 +17,11 @@ export default function MonthlyPage() {
 		month: new Date().getMonth(),
 	});
 
+	//Temporary until we have authentication
 	const user = {
-		categories: ['Housing', 'Groceries', 'Food', 'Transportation', 'Luxuries'],
+		categories: ['housing', 'groceries', 'food', 'transportation', 'luxuries', 'other'],
 	};
 
-	const data = {
-		labels: user.categories,
-		datasets: [
-			{
-				label: 'April 2021',
-				data: [300, 50, 100],
-				backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)'],
-				hoverOffset: 4,
-			},
-		],
-	};
-
-	//Changing selected purchases when search parameters change
 	useEffect(() => {
 		setSelectedPurchases(
 			allPurchases.filter(
@@ -42,14 +30,36 @@ export default function MonthlyPage() {
 		);
 	}, [allPurchases, searchParameters]);
 
-	//Changing chart data when selected purchases changes
 	useEffect(() => {
-		setChartData(data);
-	}, [[selectedPurchases, chartData]]);
-
-	useEffect(() => {
-		setChartData(data);
-	}, []);
+		setChartData({
+			labels: [...user.categories],
+			datasets: [
+				{
+					label: 'April 2020',
+					// label: `${searchParameters.month} ${searchParameters.year}`,
+					data: [...user.categories].map((category) => {
+						return selectedPurchases.reduce((total, purchase) => {
+							return purchase.category === category ? (total += purchase.amount) : total;
+						}, 0);
+					}),
+					backgroundColor: [
+						'rgba(54, 162, 235, 1)',
+						'rgba(255, 99, 132, 1)',
+						'rgba(255, 206, 86, 1)',
+						'rgba(75, 192, 192, 1)',
+						'rgba(153, 102, 255, 1)',
+						'rgba(255, 159, 64, 1)',
+						'rgb(64, 99, 255)',
+						'rgb(184, 27, 48)',
+						'rgb(14, 167, 9)',
+						'rgb(97, 97, 97)',
+					],
+					hoverOffset: 4,
+				},
+			],
+		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [selectedPurchases]);
 
 	async function handleChange(e) {
 		setSearchParameters({ ...searchParameters, [e.target.name]: parseInt(e.target.value) });

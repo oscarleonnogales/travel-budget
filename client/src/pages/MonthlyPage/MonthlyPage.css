@@ -39,7 +39,7 @@
 @media screen and (min-width: 600px) {
 	.monthly-page {
 		min-height: 100vh;
-		grid-template-columns: minmax(100px, 400px) 1fr;
+		grid-template-columns: minmax(100px, 600px) 1fr;
 	}
 
 	.graph-container {

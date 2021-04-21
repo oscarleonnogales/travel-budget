@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const defaultCategories = ['Housing', 'Groceries', 'Food', 'Transportation', 'Luxuries'];
+const defaultCategories = ['housing', 'groceries', 'food', 'transportation', 'luxuries'];
 
 const userSchema = new mongoose.Schema({
 	email: {
