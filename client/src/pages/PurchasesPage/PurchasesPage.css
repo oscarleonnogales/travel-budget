@@ -22,6 +22,28 @@
 	margin-right: 0.5rem;
 }
 
+.pagination-btns-container {
+	display: flex;
+	justify-content: center;
+}
+
+.pagination-btn {
+	padding: 0.375em 0.75em;
+	min-height: 3em;
+	outline: none;
+	border: none;
+	border-radius: var(--border-radius);
+	font-weight: 700;
+	min-width: 4rem;
+	margin-right: 1rem;
+	color: white;
+	background: hsl(210, 70%, 55%);
+}
+
+.pagination-btn:hover {
+	background: hsl(210, 70%, 45%);
+}
+
 /* Desktop */
 @media (min-width: 600px) {
 	.purchases-container {

@@ -37,6 +37,7 @@ body {
 button {
 	cursor: pointer;
 	display: block;
+	transition: 200ms ease;
 }
 
 *,
