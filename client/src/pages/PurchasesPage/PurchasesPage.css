@@ -1,5 +1,5 @@
-.transactions-container {
-	background: white;
+.purchases-container {
+	background: var(--light-background);
 	color: var(--primary-text-color);
 	box-shadow: 0 0 5px 2px black;
 	border-radius: 5px;
@@ -24,18 +24,19 @@
 
 /* Desktop */
 @media (min-width: 600px) {
-	.transactions-container {
+	.purchases-container {
 		max-width: 800px;
 		transition: transform 400ms ease;
 	}
 
-	.transactions-container:hover {
+	.purchases-container:hover {
 		transform: translateY(-3px);
 	}
 
 	.transaction-btn-container {
 		display: none;
 	}
+
 	.transaction:hover > .transaction-btn-container {
 		display: flex;
 	}

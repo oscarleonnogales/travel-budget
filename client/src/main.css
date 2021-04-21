@@ -9,12 +9,16 @@
 	--primary-text-color: hsl(0, 0%, 20%);
 	--text-secondary: #ececec;
 	--auth-form-padding: 1em;
-
+	--light-background: hsl(204, 10%, 95%);
 	--input-border-color: black;
 	--input-focus-border-color: hsl(202, 78%, 49%);
 	--input-text-color: black;
 	--text-primary: #b6b6b6;
 	--input-shadow-color: var(--input-focus-border-color);
+}
+
+.form-label {
+	margin-bottom: 0.5em;
 }
 
 body {
@@ -87,6 +91,10 @@ select {
 	cursor: pointer;
 }
 
+.mb-1 {
+	margin-bottom: 1rem !important;
+}
+
 .auth-form-input:focus,
 .transaction-form-input:focus {
 	border: 1px solid var(--input-focus-border-color);
@@ -97,6 +105,7 @@ select {
 	position: relative;
 	height: 40px;
 	margin-bottom: 0.5rem;
+	margin-top: 0.5rem;
 }
 
 .custom-select:hover > .custom-arrow,
@@ -148,7 +157,7 @@ select:focus + .custom-arrow {
 }
 
 /* Desktop */
-@media (min-width: 600px) {
+@media only screen and (min-width: 600px) {
 	.main-page-content {
 		margin-left: calc(2 * var(--nav-icon-size));
 		padding: 1.5rem;
@@ -160,7 +169,7 @@ select:focus + .custom-arrow {
 }
 
 /* Mobile */
-@media (max-width: 600px) {
+@media only screen and (max-width: 600px) {
 	.main-page-content {
 		margin: 0;
 		padding: 1rem;

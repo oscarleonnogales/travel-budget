@@ -1,0 +1,60 @@
+.form-container,
+.month-purchases-container,
+.graph-container {
+	background: var(--light-background);
+	color: var(--primary-text-color);
+	box-shadow: 0 0 5px 2px black;
+	border-radius: 5px;
+	border: none;
+	padding: 1em;
+	transition: transform 400ms ease;
+}
+
+.form-container:hover,
+.month-purchases-container:hover,
+.graph-container:hover {
+	transform: translateY(-3px);
+}
+.monthly-page {
+	display: grid;
+	row-gap: 1.5rem;
+}
+
+.form-container {
+	height: fit-content;
+	margin-bottom: 1.5rem;
+}
+
+.month-purchases-container {
+}
+
+.graph-container {
+}
+
+.form-select {
+	width: 100%;
+}
+
+/* Desktop */
+@media screen and (min-width: 600px) {
+	.monthly-page {
+		min-height: 100vh;
+		grid-template-columns: minmax(100px, 400px) 1fr;
+	}
+
+	.graph-container {
+		margin-left: 1.5rem;
+		min-width: 500px;
+	}
+}
+
+/* Mobile */
+@media screen and (max-width: 600px) {
+	.monthly-page {
+		min-width: 100vw;
+		grid-template-areas:
+			'form'
+			'graph'
+			'purchases';
+	}
+}

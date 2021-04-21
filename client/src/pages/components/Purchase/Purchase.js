@@ -6,7 +6,7 @@ import { deletePurchase } from '../../../actions/purchases';
 import { setCurrentId } from '../../../actions/currentId';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function Purchase({ purchase }) {
+export default function Purchase({ purchase, renderButtons }) {
 	const dispatch = useDispatch();
 	const currentId = useSelector((state) => state.currentId);
 
@@ -26,16 +26,18 @@ export default function Purchase({ purchase }) {
 						</div>
 					)}
 				</div>
-				<div className="transaction-btn-container">
-					<button className="save-btn transaction-btn" onClick={() => dispatch(setCurrentId(purchase._id))}>
-						Edit
-					</button>
-					{currentId !== purchase._id && (
-						<button className="cancel-btn transaction-btn" onClick={() => dispatch(deletePurchase(purchase._id))}>
-							&times;
+				{renderButtons && (
+					<div className="transaction-btn-container">
+						<button className="save-btn transaction-btn" onClick={() => dispatch(setCurrentId(purchase._id))}>
+							Edit
 						</button>
-					)}
-				</div>
+						{currentId !== purchase._id && (
+							<button className="cancel-btn transaction-btn" onClick={() => dispatch(deletePurchase(purchase._id))}>
+								&times;
+							</button>
+						)}
+					</div>
+				)}
 			</div>
 		</>
 	);

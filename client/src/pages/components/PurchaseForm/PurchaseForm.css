@@ -1,5 +1,5 @@
 :root {
-	--form-background-color: white;
+	--form-background-color: var(--light-background);
 }
 
 .transaction-form_title {
