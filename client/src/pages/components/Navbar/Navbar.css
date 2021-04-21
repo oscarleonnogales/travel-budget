@@ -7,7 +7,8 @@
 .svg-inline--fa {
 	width: var(--nav-icon-size);
 	height: var(--nav-icon-size);
-	fill: #df49a6;
+	fill: hsl(323, 70%, 58%);
+	/* fill: hsl(171, 98%, 51%); */
 	transition: var(--navbar-animation-duration) ease;
 }
 

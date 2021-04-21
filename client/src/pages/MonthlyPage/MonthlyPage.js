@@ -6,14 +6,34 @@ import dayjs from 'dayjs';
 import Navbar from '../components/Navbar/Navbar';
 import { useSelector } from 'react-redux';
 
+import { Doughnut } from 'react-chartjs-2';
+
 export default function MonthlyPage() {
 	const allPurchases = useSelector((state) => state.purchases);
+	const [chartData, setChartData] = useState({});
 	const [selectedPurchases, setSelectedPurchases] = useState(allPurchases);
 	const [searchParameters, setSearchParameters] = useState({
 		year: new Date().getFullYear(),
 		month: new Date().getMonth(),
 	});
 
+	const user = {
+		categories: ['Housing', 'Groceries', 'Food', 'Transportation', 'Luxuries'],
+	};
+
+	const data = {
+		labels: user.categories,
+		datasets: [
+			{
+				label: 'April 2021',
+				data: [300, 50, 100],
+				backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(255, 205, 86)'],
+				hoverOffset: 4,
+			},
+		],
+	};
+
+	//Changing selected purchases when search parameters change
 	useEffect(() => {
 		setSelectedPurchases(
 			allPurchases.filter(
@@ -21,6 +41,15 @@ export default function MonthlyPage() {
 			)
 		);
 	}, [allPurchases, searchParameters]);
+
+	//Changing chart data when selected purchases changes
+	useEffect(() => {
+		setChartData(data);
+	}, [[selectedPurchases, chartData]]);
+
+	useEffect(() => {
+		setChartData(data);
+	}, []);
 
 	async function handleChange(e) {
 		setSearchParameters({ ...searchParameters, [e.target.name]: parseInt(e.target.value) });
@@ -108,7 +137,9 @@ export default function MonthlyPage() {
 						})}
 					</div>
 				</div>
-				<div className="graph-container">fancy graph</div>
+				<div className="graph-container">
+					<Doughnut height={100} width={100} data={chartData} />
+				</div>
 			</main>
 		</>
 	);

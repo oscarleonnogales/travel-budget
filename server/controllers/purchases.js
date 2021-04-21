@@ -50,7 +50,6 @@ export async function updatePurchase(req, res) {
 		await purchase.save();
 		res.status(201).json(purchase);
 	} catch (error) {
-		// console.log(error);
 		res.status(500).json({ message: 'Server Error. Try again later.' });
 	}
 }

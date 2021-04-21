@@ -173,6 +173,7 @@ select:focus + .custom-arrow {
 	.main-page-content {
 		margin: 0;
 		padding: 1rem;
+		padding-bottom: calc(2 * var(--nav-icon-size));
 	}
 
 	:root {
