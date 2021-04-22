@@ -96,6 +96,18 @@ select {
 	margin-bottom: 1rem !important;
 }
 
+.w-100 {
+	width: 100% !important;
+}
+
+.d-flex {
+	display: flex !important;
+}
+
+.justify-content-center {
+	justify-content: center !important;
+}
+
 .auth-form-input:focus,
 .transaction-form-input:focus {
 	border: 1px solid var(--input-focus-border-color);

@@ -1,8 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import './LoginPage.css';
 import '../authPages.css';
 
 export default function LoginPage() {
+	const [user, setUser] = useState({});
+
+	useEffect(() => {
+		console.log(user);
+	}, [user]);
+
+	const onSuccess = (res) => {
+		setUser(res.profileObj);
+		console.log('login successful');
+	};
+
+	const onFailure = (res) => {
+		console.log('login failed');
+		console.log(res);
+	};
+
+	const onLogoutSuccess = (res) => {
+		setUser({});
+		console.log('logout successful');
+	};
+
 	return (
 		<div className="login-page-container">
 			<h1 className="page-header">Login</h1>
@@ -43,6 +65,26 @@ export default function LoginPage() {
 					<button type="submit" className="login-submit-btn">
 						Log In
 					</button>
+				</div>
+				<hr className="hr-or-text" data-content="or"></hr>
+				<div className="submit-btn-container">
+					<GoogleLogin
+						clientId="137264865979-46uqmfrfqekug4el4n71mt2ulpmmd5t7.apps.googleusercontent.com"
+						buttonText="Continue with Google"
+						onSuccess={onSuccess}
+						onFailure={onFailure}
+						cookiePolicy={'single_host_origin'}
+						isSignedIn={true}
+						className="w-100 d-flex justify-content-center"
+					/>
+				</div>
+				<div className="submit-btn-container">
+					<GoogleLogout
+						clientId="137264865979-46uqmfrfqekug4el4n71mt2ulpmmd5t7.apps.googleusercontent.com"
+						buttonText="Logout"
+						onLogoutSuccess={onLogoutSuccess}
+						className="w-100 d-flex justify-content-center"
+					/>
 				</div>
 			</form>
 			<div className="btn-container">
