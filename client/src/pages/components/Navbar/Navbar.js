@@ -1,13 +1,17 @@
 import React from 'react';
+// import { useSelector } from 'react-redux';
 import './Navbar.css';
 
 export default function Navbar() {
+	// const authData = useSelector((state) => state.authData);
+	const authData = JSON.parse(localStorage.getItem('budget-app.authData'));
+
 	return (
 		<nav className="navbar">
 			<ul className="navbar_nav">
 				<li className="logo navbar_nav-item">
 					<span className="navbar_link">
-						<span className="navbar_link-text logo-text">Hi, Oscar</span>
+						<span className="navbar_link-text logo-text">Hi, {authData?.user?.givenName}</span>
 						<svg
 							aria-hidden="true"
 							focusable="false"

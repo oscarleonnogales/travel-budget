@@ -1,28 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { useDispatch } from 'react-redux';
+import { logIn, logOut } from '../../../actions/auth';
 import './LoginPage.css';
 import '../authPages.css';
 
 export default function LoginPage() {
-	const [user, setUser] = useState({});
+	const dispatch = useDispatch();
 
-	useEffect(() => {
-		console.log(user);
-	}, [user]);
+	const onSuccess = async (res) => {
+		const user = res?.profileObj;
+		const token = res?.tokenId;
 
-	const onSuccess = (res) => {
-		setUser(res.profileObj);
-		console.log('login successful');
+		try {
+			dispatch(logIn(user, token));
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const onFailure = (res) => {
-		console.log('login failed');
 		console.log(res);
 	};
 
-	const onLogoutSuccess = (res) => {
-		setUser({});
-		console.log('logout successful');
+	const onLogoutSuccess = async () => {
+		try {
+			dispatch(logOut());
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
