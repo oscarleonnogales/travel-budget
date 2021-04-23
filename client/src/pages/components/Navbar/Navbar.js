@@ -1,10 +1,23 @@
 import React from 'react';
+import { GoogleLogout } from 'react-google-login';
 // import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../../actions/auth';
 import './Navbar.css';
 
 export default function Navbar() {
+	const dispatch = useDispatch();
+
 	// const authData = useSelector((state) => state.authData);
 	const authData = JSON.parse(localStorage.getItem('budget-app.authData'));
+
+	const onLogoutSuccess = async () => {
+		try {
+			dispatch(logOut());
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<nav className="navbar">
@@ -103,6 +116,29 @@ export default function Navbar() {
 						</svg>
 						<span className="navbar_link-text">Settings</span>
 					</a>
+				</li>
+				<li className="navbar_nav-item">
+					<GoogleLogout
+						clientId="137264865979-46uqmfrfqekug4el4n71mt2ulpmmd5t7.apps.googleusercontent.com"
+						onLogoutSuccess={onLogoutSuccess}
+						render={(renderProps) => (
+							<button className="navbar-link logout-nav-button" onClick={renderProps.onClick}>
+								<svg
+									aria-hidden="true"
+									focusable="false"
+									data-prefix="fas"
+									data-icon="sign-out-alt"
+									className="svg-inline--fa fa-sign-out-alt fa-w-16"
+									role="img"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 512 512"
+								>
+									<path d="M497 273L329 441c-15 15-41 4.5-41-17v-96H152c-13.3 0-24-10.7-24-24v-96c0-13.3 10.7-24 24-24h136V88c0-21.4 25.9-32 41-17l168 168c9.3 9.4 9.3 24.6 0 34zM192 436v-40c0-6.6-5.4-12-12-12H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h84c6.6 0 12-5.4 12-12V76c0-6.6-5.4-12-12-12H96c-53 0-96 43-96 96v192c0 53 43 96 96 96h84c6.6 0 12-5.4 12-12z"></path>
+								</svg>
+								<span className="navbar_link-text logout-text">Sign Out</span>
+							</button>
+						)}
+					/>
 				</li>
 			</ul>
 		</nav>

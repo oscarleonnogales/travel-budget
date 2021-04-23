@@ -132,7 +132,8 @@
 		overflow: hidden;
 	}
 
-	.navbar_link {
+	.navbar_link,
+	.logout-nav-button {
 		display: grid;
 		grid-template-columns: calc(2 * var(--nav-icon-size)) 1fr;
 		column-gap: 1rem;
@@ -141,5 +142,17 @@
 
 	.svg-inline--fa {
 		margin-left: calc(0.5 * var(--nav-icon-size));
+	}
+
+	.logout-nav-button {
+		width: 100%;
+		outline: none;
+		background: none;
+		border: none;
+		color: var(--text-primary);
+	}
+
+	.logout-text {
+		margin-right: auto;
 	}
 }
