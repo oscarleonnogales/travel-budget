@@ -1,7 +1,7 @@
 import React from 'react';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
-import { logIn, logOut } from '../../../actions/auth';
+import { logIn } from '../../../actions/auth';
 import './SignupPage.css';
 import '../authPages.css';
 
@@ -21,14 +21,6 @@ export default function SignupPage() {
 
 	const onFailure = (res) => {
 		console.log(res);
-	};
-
-	const onLogoutSuccess = async () => {
-		try {
-			dispatch(logOut());
-		} catch (error) {
-			console.log(error);
-		}
 	};
 
 	return (
@@ -105,14 +97,6 @@ export default function SignupPage() {
 						onFailure={onFailure}
 						cookiePolicy={'single_host_origin'}
 						isSignedIn={true}
-						className="w-100 d-flex justify-content-center"
-					/>
-				</div>
-				<div className="submit-btn-container">
-					<GoogleLogout
-						clientId="137264865979-46uqmfrfqekug4el4n71mt2ulpmmd5t7.apps.googleusercontent.com"
-						buttonText="Logout"
-						onLogoutSuccess={onLogoutSuccess}
 						className="w-100 d-flex justify-content-center"
 					/>
 				</div>

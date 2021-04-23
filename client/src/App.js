@@ -31,10 +31,10 @@ function App() {
 				<Route exact path="/signup" component={SignupPage} />
 
 				{/* Make these a protected route */}
-				<ProtectedRoute exact path="/purchases" component={PurchasesPage} />
-				<ProtectedRoute exact path="/month-breakdown" component={MonthlyPage} />
-				<ProtectedRoute exact path="/year-breakdown" component={YearlyPage} />
-				<ProtectedRoute exact path="/settings" component={SettingsPage} />
+				<Route exact path="/purchases" component={PurchasesPage} />
+				<Route exact path="/month-breakdown" component={MonthlyPage} />
+				<Route exact path="/year-breakdown" component={YearlyPage} />
+				<Route exact path="/settings" component={SettingsPage} />
 
 				<Route component={Page404} />
 			</Switch>
