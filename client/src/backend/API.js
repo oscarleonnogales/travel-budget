@@ -10,7 +10,7 @@ export function createPurchase(purchase) {
 }
 
 export function deletePurchase(id) {
-	axios.delete(`${URL}/purchases/${id}`);
+	return axios.delete(`${URL}/purchases/${id}`).then((res) => res.data);
 }
 
 export function updatePurchase(id, updatedPurchase) {

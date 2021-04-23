@@ -10,6 +10,8 @@ export async function getPurchases(req, res) {
 }
 
 export async function createNewPurchase(req, res) {
+	console.log(req.userId);
+	if (!req.userId) return res.status(401).json({ message: 'User is unauthenticated' });
 	try {
 		const newPurchase = new Purchase({
 			description: req.body.description,
@@ -26,6 +28,7 @@ export async function createNewPurchase(req, res) {
 }
 
 export async function deletePurchase(req, res) {
+	if (!req.userId) return res.status(401).json({ message: 'User is unauthenticated' });
 	try {
 		const purchase = await Purchase.findById(req.params.id);
 		if (!purchase) return res.status(404).send(`No purchase with id: ${id}`);
@@ -37,6 +40,7 @@ export async function deletePurchase(req, res) {
 }
 
 export async function updatePurchase(req, res) {
+	if (!req.userId) return res.status(401).json({ message: 'User is unauthenticated' });
 	try {
 		const purchase = await Purchase.findById(req.params.id);
 		if (!purchase) return res.status(404).send(`No purchase with id: ${id}`);
