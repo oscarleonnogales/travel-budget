@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { logIn } from '../../../actions/auth';
+import { googleLogIn, logIn } from '../../../actions/auth';
 import './LoginPage.css';
 import '../authPages.css';
 
@@ -10,16 +10,30 @@ export default function LoginPage() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
+	const [formData, setFormData] = useState({
+		email: '',
+		password: '',
+	});
+
 	const onSuccess = async (res) => {
 		const user = res?.profileObj;
 		const token = res?.tokenId;
 
 		try {
-			dispatch(logIn(user, token));
+			dispatch(googleLogIn(user, token));
 			history.push('/purchases');
 		} catch (error) {
 			console.log(error);
 		}
+	};
+
+	const handleChange = (e) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		dispatch(logIn(formData, history));
 	};
 
 	const onFailure = (res) => {
@@ -52,18 +66,32 @@ export default function LoginPage() {
 					<label htmlFor="email" className="auth-form-label">
 						Email
 					</label>
-					<input type="email" name="email" className="auth-form-input" required></input>
+					<input
+						type="email"
+						name="email"
+						className="auth-form-input"
+						required
+						value={formData.email}
+						onChange={handleChange}
+					></input>
 				</div>
 
 				<div className="auth-form-group">
 					<label htmlFor="password" className="auth-form-label">
 						Password
 					</label>
-					<input type="password" name="password" className="auth-form-input" required></input>
+					<input
+						type="password"
+						name="password"
+						className="auth-form-input"
+						required
+						value={formData.password}
+						onChange={handleChange}
+					></input>
 				</div>
 
 				<div className="submit-btn-container">
-					<button type="submit" className="login-submit-btn">
+					<button type="submit" className="login-submit-btn" onSubmit={handleSubmit}>
 						Log In
 					</button>
 				</div>

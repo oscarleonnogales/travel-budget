@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
-import { logIn } from '../../../actions/auth';
+import { useHistory } from 'react-router-dom';
+import { googleLogIn, logIn, signUp } from '../../../actions/auth';
 import './SignupPage.css';
 import '../authPages.css';
 
 export default function SignupPage() {
 	const dispatch = useDispatch();
+	const history = useHistory();
+
+	const [formData, setFormData] = useState({
+		firstName: '',
+		lastName: '',
+		email: '',
+		password: '',
+		confirmPassword: '',
+	});
 
 	const onSuccess = async (res) => {
 		const user = res?.profileObj;
 		const token = res?.tokenId;
 
 		try {
-			dispatch(logIn(user, token));
+			dispatch(googleLogIn(user, token));
 		} catch (error) {
 			console.log(error);
 		}
@@ -21,6 +31,16 @@ export default function SignupPage() {
 
 	const onFailure = (res) => {
 		console.log(res);
+	};
+
+	const handleChange = (e) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		//validate form more before dispatching the signup action
+		dispatch(signUp(formData, history));
 	};
 
 	return (
@@ -43,45 +63,74 @@ export default function SignupPage() {
 					></path>
 				</svg>
 			</div>
-
 			<form className="signup-form-container">
 				<div className="auth-form-group">
-					<label htmlFor="firstname" className="auth-form-label">
+					<label htmlFor="firstName" className="auth-form-label">
 						First Name
 					</label>
-					<input type="text" name="firstname" className="auth-form-input" required></input>
+					<input
+						type="text"
+						name="firstName"
+						className="auth-form-input"
+						required
+						value={formData.firstName}
+						onChange={handleChange}
+					></input>
 				</div>
-
 				<div className="auth-form-group">
-					<label htmlFor="lastname" className="auth-form-label">
+					<label htmlFor="lastName" className="auth-form-label">
 						Last Name
 					</label>
-					<input type="text" name="lastname" className="auth-form-input" required></input>
+					<input
+						type="text"
+						name="lastName"
+						className="auth-form-input"
+						required
+						value={formData.lastName}
+						onChange={handleChange}
+					></input>
 				</div>
-
 				<div className="auth-form-group">
 					<label htmlFor="email" className="auth-form-label">
 						Email
 					</label>
-					<input type="email" name="email" className="auth-form-input" required></input>
+					<input
+						type="email"
+						name="email"
+						className="auth-form-input"
+						required
+						value={formData.email}
+						onChange={handleChange}
+					></input>
 				</div>
-
 				<div className="auth-form-group">
 					<label htmlFor="password" className="auth-form-label">
 						Password
 					</label>
-					<input type="password" name="password" className="auth-form-input" required></input>
+					<input
+						type="password"
+						name="password"
+						className="auth-form-input"
+						required
+						value={formData.password}
+						onChange={handleChange}
+					></input>
 				</div>
-
 				<div className="auth-form-group">
-					<label htmlFor="confirm-password" className="auth-form-label">
+					<label htmlFor="confirmPassword" className="auth-form-label">
 						Confirm Password
 					</label>
-					<input type="password" name="confirm-password" className="auth-form-input" required></input>
+					<input
+						type="password"
+						name="confirmPassword"
+						className="auth-form-input"
+						required
+						value={formData.confirmPassword}
+						onChange={handleChange}
+					></input>
 				</div>
-
 				<div className="submit-btn-container">
-					<button type="submit" className="signup-submit-btn">
+					<button type="submit" className="signup-submit-btn" onSubmit={handleSubmit}>
 						<svg xmlns="http://www.w3.org/2000/svg" className="bi bi-lock" viewBox="0 0 16 16">
 							<path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
 						</svg>
