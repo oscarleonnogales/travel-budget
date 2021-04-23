@@ -1,0 +1,21 @@
+.container-404 {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.title-404,
+.text-404 {
+	color: hsl(0, 0%, 90%);
+	text-shadow: 2px 2px 1px black;
+}
+
+.title-404 {
+	font-size: 5rem;
+}
+
+.text-404 {
+	font-size: 4rem;
+}

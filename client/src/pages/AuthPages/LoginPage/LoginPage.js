@@ -1,12 +1,14 @@
 import React from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { logIn, logOut } from '../../../actions/auth';
 import './LoginPage.css';
 import '../authPages.css';
 
 export default function LoginPage() {
 	const dispatch = useDispatch();
+	const history = useHistory();
 
 	const onSuccess = async (res) => {
 		const user = res?.profileObj;
@@ -14,6 +16,7 @@ export default function LoginPage() {
 
 		try {
 			dispatch(logIn(user, token));
+			history.push('/purchases');
 		} catch (error) {
 			console.log(error);
 		}
@@ -26,6 +29,7 @@ export default function LoginPage() {
 	const onLogoutSuccess = async () => {
 		try {
 			dispatch(logOut());
+			history.push('/login');
 		} catch (error) {
 			console.log(error);
 		}
