@@ -1,10 +1,13 @@
+import * as API from '../backend/API';
+
 export function signUp(formData, history) {
 	return async (dispatch) => {
 		try {
-			//sign up the user in the backend
+			const authData = await API.signup(formData);
+			console.log(authData);
 			dispatch({
 				type: 'auth/signup',
-				payload: null,
+				payload: authData,
 			});
 
 			history.push('/purchases');
@@ -17,11 +20,10 @@ export function signUp(formData, history) {
 export function logIn(formData, history) {
 	return async (dispatch) => {
 		try {
-			//log in the user in the backend
-			//If there's an error (wrong password), have the server return null payload
+			const authData = await API.login(formData);
 			dispatch({
 				type: 'auth/login',
-				payload: null,
+				payload: authData,
 			});
 
 			history.push('/purchases');

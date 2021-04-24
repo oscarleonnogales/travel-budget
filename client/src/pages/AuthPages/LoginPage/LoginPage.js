@@ -61,7 +61,7 @@ export default function LoginPage() {
 				</svg>
 			</div>
 
-			<form className="login-form-container">
+			<form className="login-form-container" onSubmit={handleSubmit}>
 				<div className="auth-form-group">
 					<label htmlFor="email" className="auth-form-label">
 						Email
@@ -91,7 +91,7 @@ export default function LoginPage() {
 				</div>
 
 				<div className="submit-btn-container">
-					<button type="submit" className="login-submit-btn" onSubmit={handleSubmit}>
+					<button type="submit" className="login-submit-btn">
 						Log In
 					</button>
 				</div>

@@ -1,10 +1,6 @@
-import dotenv from 'dotenv';
-dotenv.config({ silent: process.env.NODE_ENV === 'production' });
-
 import jwt from 'jsonwebtoken';
 
 export async function authorize(req, res, next) {
-	console.log(req.headers);
 	try {
 		const token = req?.headers?.authorization?.split(' ')[1];
 		if (!token) return next();
@@ -13,7 +9,7 @@ export async function authorize(req, res, next) {
 		let decodedData;
 
 		if (token && isCustomToken) {
-			decodedData = jwt.verify(token, process.env(SESSION_SECRET));
+			decodedData = jwt.verify(token, process.env.SESSION_SECRET);
 			console.log(decodedData);
 
 			req.userId = decodedData?.id;

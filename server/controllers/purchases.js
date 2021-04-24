@@ -10,8 +10,8 @@ export async function getPurchases(req, res) {
 }
 
 export async function createNewPurchase(req, res) {
-	console.log(req.userId);
-	if (!req.userId) return res.status(401).json({ message: 'User is unauthenticated' });
+	// console.log(req.userId);
+	// if (!req.userId) return res.status(401).json({ message: 'User is unauthenticated' });
 	try {
 		const newPurchase = new Purchase({
 			description: req.body.description,

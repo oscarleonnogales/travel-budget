@@ -6,7 +6,7 @@ import { authorize } from '../middleware/auth.js';
 
 router.get('/', getPurchases);
 
-router.post('/', authorize, createNewPurchase);
+router.post('/', createNewPurchase);
 
 router.put('/:id', authorize, updatePurchase);
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { GoogleLogout } from 'react-google-login';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../../actions/auth';
 import './Navbar.css';
@@ -8,8 +8,8 @@ import './Navbar.css';
 export default function Navbar() {
 	const dispatch = useDispatch();
 
-	// const authData = useSelector((state) => state.authData);
-	const authData = JSON.parse(localStorage.getItem('budget-app.authData'));
+	const authData = useSelector((state) => state.authData);
+	// const authData = JSON.parse(localStorage.getItem('budget-app.authData'));
 
 	const onLogoutSuccess = async () => {
 		try {
@@ -24,7 +24,9 @@ export default function Navbar() {
 			<ul className="navbar_nav">
 				<li className="logo navbar_nav-item">
 					<span className="navbar_link">
-						<span className="navbar_link-text logo-text">Hi, {authData?.user?.givenName}</span>
+						<span className="navbar_link-text logo-text">
+							Hi, {authData?.user?.givenName || authData?.user?.firstName}
+						</span>
 						<svg
 							aria-hidden="true"
 							focusable="false"
