@@ -9,7 +9,6 @@ export default function Navbar() {
 	const dispatch = useDispatch();
 
 	const authData = useSelector((state) => state.authData);
-	// const authData = JSON.parse(localStorage.getItem('budget-app.authData'));
 
 	const onLogoutSuccess = async () => {
 		try {

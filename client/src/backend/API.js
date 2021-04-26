@@ -1,5 +1,19 @@
 import axios from 'axios';
+
 const API = axios.create({ baseURL: process.env.REACT_APP_SERVER_URI });
+
+API.interceptors.request.use((req) => {
+	const serializedState = localStorage.getItem('persist:budget-app.state');
+	if (!serializedState) return req;
+	const state = JSON.parse(serializedState);
+	if (!state.authData) return req;
+
+	const authData = JSON.parse(state.authData);
+	if (authData.token) {
+		req.headers.Authorization = `Bearers ${authData.token}`;
+	}
+	return req;
+});
 
 // Purchases
 export function fetchPurchases() {
