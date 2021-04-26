@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 export async function createNewUser(req, res) {
-	console.log(req.body);
 	const { firstName, lastName, email, password, confirmPassword } = req.body;
 	try {
 		const existingUser = await User.findOne({ email: email });
@@ -24,7 +23,6 @@ export async function createNewUser(req, res) {
 		});
 		res.status(200).json({ user: newUser, token });
 	} catch (error) {
-		console.log(error);
 		res.status(500).json({ message: 'Something went wrong in the server' });
 	}
 }
@@ -39,7 +37,7 @@ export async function authenticateUser(req, res) {
 		if (!isPasswordCorrect) return res.status(400).json({ message: 'Invalid Password' });
 
 		const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, process.env.SESSION_SECRET, {
-			expiresIn: '1h',
+			expiresIn: '1000d',
 		});
 
 		res.status(200).json({ user: existingUser, token });

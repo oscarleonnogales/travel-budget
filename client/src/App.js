@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 // import ProtectedRoute from './ProtectedRoute';
-import { useDispatch } from 'react-redux';
-import { getPurchases } from './actions/purchases';
 
 import LandingPage from './pages/LandingPage/LandingPage';
 import LoginPage from './pages/AuthPages/LoginPage/LoginPage';
@@ -16,12 +14,6 @@ import Page404 from './pages/Page404/Page404';
 import './main.css';
 
 function App() {
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		dispatch(getPurchases());
-	}, [dispatch]);
-
 	return (
 		<BrowserRouter>
 			<Switch>

@@ -4,9 +4,9 @@ const router = express.Router();
 import { getPurchases, createNewPurchase, deletePurchase, updatePurchase } from '../controllers/purchases.js';
 import { authorize } from '../middleware/auth.js';
 
-router.get('/', getPurchases);
+router.get('/', authorize, getPurchases);
 
-router.post('/', createNewPurchase);
+router.post('/', authorize, createNewPurchase);
 
 router.put('/:id', authorize, updatePurchase);
 

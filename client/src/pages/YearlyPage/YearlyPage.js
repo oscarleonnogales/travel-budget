@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import './YearlyPage.css';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getPurchases } from '../../actions/purchases';
 import Navbar from '../components/Navbar/Navbar';
 import { Bar } from 'react-chartjs-2';
 
 export default function YearlyPage() {
+	const dispatch = useDispatch();
+
 	const allPurchases = useSelector((state) => state.purchases);
 	const [chartData, setChartData] = useState({});
 
@@ -14,6 +18,10 @@ export default function YearlyPage() {
 		categories: ['housing', 'groceries', 'food', 'transportation', 'luxuries', 'other'],
 		years: [2019, 2020, 2021],
 	};
+
+	useEffect(() => {
+		dispatch(getPurchases());
+	}, [dispatch]);
 
 	useEffect(() => {
 		setChartData({

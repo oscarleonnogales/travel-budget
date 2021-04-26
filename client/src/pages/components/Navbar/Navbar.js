@@ -2,17 +2,19 @@ import React from 'react';
 import { GoogleLogout } from 'react-google-login';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { logOut } from '../../../actions/auth';
 import './Navbar.css';
 
 export default function Navbar() {
 	const dispatch = useDispatch();
-
+	const history = useHistory();
 	const authData = useSelector((state) => state.authData);
 
 	const onLogoutSuccess = async () => {
 		try {
 			dispatch(logOut());
+			history.push('/login');
 		} catch (error) {
 			console.log(error);
 		}

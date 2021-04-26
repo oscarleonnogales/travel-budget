@@ -98,3 +98,36 @@
 	vertical-align: sub;
 	margin-right: 0.5em;
 }
+
+.position-relative {
+	position: relative;
+	margin-top: 0.25em;
+}
+
+.password-signup-input {
+	margin-top: 0 !important;
+}
+
+.password-toggle-btn {
+	position: absolute;
+	right: 0;
+	padding: 1em;
+	z-index: 5;
+	top: 50%;
+	transform: translateY(-50%);
+	border: none;
+	outline: none;
+	background: none;
+	cursor: pointer;
+}
+
+.eye-icon {
+	width: 1.5em;
+	height: 1.5em;
+	transition: 200ms ease;
+	fill: currentColor;
+}
+
+.eye-icon:hover {
+	fill: var(--input-focus-border-color);
+}

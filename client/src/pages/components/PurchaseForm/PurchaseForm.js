@@ -43,7 +43,7 @@ export default function PurchaseForm() {
 			description: '',
 			amount: '',
 			currency: '',
-			category: '',
+			category: 'other',
 		});
 	}
 

@@ -10,7 +10,7 @@ API.interceptors.request.use((req) => {
 
 	const authData = JSON.parse(state.authData);
 	if (authData.token) {
-		req.headers.Authorization = `Bearers ${authData.token}`;
+		req.headers.Authorization = `Bearer ${authData.token}`;
 	}
 	return req;
 });

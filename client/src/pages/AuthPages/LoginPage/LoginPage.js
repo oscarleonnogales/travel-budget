@@ -16,6 +16,7 @@ export default function LoginPage() {
 	});
 
 	const onSuccess = async (res) => {
+		refreshTokenSetup(res);
 		const user = res?.profileObj;
 		const token = res?.tokenId;
 
@@ -25,6 +26,16 @@ export default function LoginPage() {
 		} catch (error) {
 			console.log(error);
 		}
+	};
+
+	const refreshTokenSetup = (res) => {
+		let refreshTiming = (res.tokenObj.expires_in || 3600 - 5 * 60) * 1000;
+		const refreshToken = async () => {
+			const newAuthResponse = await res.reloadAuthResponse();
+			refreshTiming = (newAuthResponse.expires_in || 3600 - 5 * 60) * 1000;
+			setTimeout(refreshToken, refreshTiming);
+		};
+		setTimeout(refreshToken, refreshTiming);
 	};
 
 	const handleChange = (e) => {

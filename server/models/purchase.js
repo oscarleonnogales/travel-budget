@@ -1,12 +1,9 @@
 import mongoose from 'mongoose';
-// const User = require('./user');
 
 const purchaseSchema = new mongoose.Schema({
-	// user: {
-	//     type: mongoose.Schema.Types.ObjectId,
-	//     required: true,
-	//     ref: 'User',
-	// },
+	user: {
+		type: String,
+	},
 	description: {
 		type: String,
 		required: true,

@@ -5,10 +5,13 @@ import Purchase from '../components/Purchase/Purchase';
 import dayjs from 'dayjs';
 import Navbar from '../components/Navbar/Navbar';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getPurchases } from '../../actions/purchases';
 
 import { Doughnut } from 'react-chartjs-2';
 
 export default function MonthlyPage() {
+	const dispatch = useDispatch();
 	const allPurchases = useSelector((state) => state.purchases);
 	const [chartData, setChartData] = useState({});
 	const [selectedPurchases, setSelectedPurchases] = useState(allPurchases);
@@ -21,6 +24,10 @@ export default function MonthlyPage() {
 	const user = {
 		categories: ['housing', 'groceries', 'food', 'transportation', 'luxuries', 'other'],
 	};
+
+	useEffect(() => {
+		dispatch(getPurchases());
+	}, [dispatch]);
 
 	useEffect(() => {
 		setSelectedPurchases(
