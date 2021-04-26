@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { googleLogIn, logIn, signUp } from '../../../actions/auth';
+import { googleLogIn, signUp } from '../../../actions/auth';
 import './SignupPage.css';
 import '../authPages.css';
 
