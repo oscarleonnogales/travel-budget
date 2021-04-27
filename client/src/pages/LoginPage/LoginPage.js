@@ -3,6 +3,7 @@ import { GoogleLogin } from 'react-google-login';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { googleLogIn, logIn } from '../../redux/actions/auth';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './LoginPage.css';
 
 export default function LoginPage() {
@@ -45,7 +46,6 @@ export default function LoginPage() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(logIn(formData, history));
-		history.push('/purchases');
 	};
 
 	const onFailure = (res) => {
@@ -56,6 +56,7 @@ export default function LoginPage() {
 
 	return (
 		<div className="login-page-container">
+			<ErrorMessage />
 			<h1 className="page-header">Login</h1>
 			<div className="login-logo-container">
 				<svg
@@ -74,7 +75,6 @@ export default function LoginPage() {
 					></path>
 				</svg>
 			</div>
-
 			<form className="login-form-container" onSubmit={handleSubmit}>
 				<div className="auth-form-group">
 					<label htmlFor="email" className="auth-form-label">

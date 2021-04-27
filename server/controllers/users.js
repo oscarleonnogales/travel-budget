@@ -31,7 +31,7 @@ export async function authenticateUser(req, res) {
 	const { email, password } = req.body;
 	try {
 		const existingUser = await User.findOne({ email: email });
-		if (!existingUser) return res.status(404).json({ message: "User doesn't exist" });
+		if (!existingUser) return res.status(200).json({ message: "User doesn't exist. Try a different email." });
 
 		const isPasswordCorrect = await bcrypt.compare(password, existingUser.password);
 		if (!isPasswordCorrect) return res.status(400).json({ message: 'Invalid Password' });

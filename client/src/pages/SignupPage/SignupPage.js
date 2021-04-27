@@ -3,6 +3,8 @@ import { GoogleLogin } from 'react-google-login';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { googleLogIn, signUp } from '../../redux/actions/auth';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import { setError } from '../../redux/actions/error';
 import './SignupPage.css';
 
 export default function SignupPage() {
@@ -41,16 +43,38 @@ export default function SignupPage() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		console.log('trying to submit');
 		if (validateForm()) dispatch(signUp(formData, history));
 	};
 
 	const validateForm = () => {
-		if (formData.firstName === '' || formData.firstName == null) return false;
-		if (formData.lastName === '' || formData.lastName == null) return false;
-		if (formData.email === '' || formData.email == null) return false;
-		if (formData.password === '' || formData.password == null) return false;
-		if (formData.confirmPassword === '' || formData.confirmPassword == null) return false;
-		if (formData.password !== formData.confirmPassword) return false;
+		console.log('validating form');
+		if (formData.firstName === '' || formData.firstName == null) {
+			console.log('firstname');
+			return false;
+		}
+		if (formData.lastName === '' || formData.lastName == null) {
+			console.log('lastName');
+			return false;
+		}
+		if (formData.email === '' || formData.email == null) {
+			console.log('email');
+			return false;
+		}
+		if (formData.password === '' || formData.password == null) {
+			console.log('password');
+			return false;
+		}
+		if (formData.confirmPassword === '' || formData.confirmPassword == null) {
+			console.log('confirmpassword');
+			return false;
+		}
+		if (formData.password !== formData.confirmPassword) {
+			console.log('making it here');
+			dispatch(setError('Passwords do not mach'));
+			return false;
+		}
+		console.log('forms good');
 		return true;
 	};
 
@@ -62,6 +86,7 @@ export default function SignupPage() {
 
 	return (
 		<div className="signup-page-container">
+			<ErrorMessage />
 			<h1 className="page-header">Sign up for Budget App</h1>
 			<div className="signup-logo-container">
 				<svg

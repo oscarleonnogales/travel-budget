@@ -3,14 +3,19 @@ import * as API from '../../API';
 export function signUp(formData, history) {
 	return async (dispatch) => {
 		try {
-			const authData = await API.signup(formData);
-			console.log(authData);
-			dispatch({
-				type: 'auth/signup',
-				payload: authData,
-			});
-
-			history.push('/purchases');
+			const response = await API.signup(formData);
+			if (response.token) {
+				dispatch({
+					type: 'auth/signup',
+					payload: response,
+				});
+				history.push('/purchases');
+			} else {
+				dispatch({
+					type: 'error/set',
+					payload: response.message,
+				});
+			}
 		} catch (error) {
 			console.log(error);
 		}
@@ -20,13 +25,19 @@ export function signUp(formData, history) {
 export function logIn(formData, history) {
 	return async (dispatch) => {
 		try {
-			const authData = await API.login(formData);
-			dispatch({
-				type: 'auth/login',
-				payload: authData,
-			});
-
-			history.push('/purchases');
+			const response = await API.login(formData);
+			if (response.token) {
+				dispatch({
+					type: 'auth/login',
+					payload: response,
+				});
+				history.push('/purchases');
+			} else {
+				dispatch({
+					type: 'error/set',
+					payload: response.message,
+				});
+			}
 		} catch (error) {
 			console.log(error);
 		}

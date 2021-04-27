@@ -34,9 +34,13 @@ export function updatePurchase(id, updatedPurchase) {
 
 // Users
 export function signup(formData) {
-	return API.post('/users/signup', formData).then((res) => res.data);
+	return API.post('/users/signup', formData)
+		.then((res) => res.data)
+		.catch((error) => error.response.data);
 }
 
 export function login(formData) {
-	return API.post('/users/login', formData).then((res) => res.data);
+	return API.post('/users/login', formData)
+		.then((res) => res.data)
+		.catch((error) => error.response.data);
 }
