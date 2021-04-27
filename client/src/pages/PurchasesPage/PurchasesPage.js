@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Purchase from '../components/Purchase/Purchase';
 import PurchaseForm from '../components/PurchaseForm/PurchaseForm';
 import Navbar from '../components/Navbar/Navbar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getPurchases } from '../../actions/purchases';
-import { useSelector } from 'react-redux';
 import './PurchasesPage.css';
 
 export default function PurchasesPage() {
 	const dispatch = useDispatch();
+	const authData = useSelector((state) => state.authData);
 	const allPurchases = useSelector((state) => state.purchases);
 
 	const [currentPage, setCurrentPage] = useState(1);
@@ -18,7 +18,7 @@ export default function PurchasesPage() {
 
 	useEffect(() => {
 		dispatch(getPurchases());
-	}, [dispatch]);
+	}, [dispatch, authData]);
 
 	useEffect(() => {
 		setEndIndex(currentPage * 10);

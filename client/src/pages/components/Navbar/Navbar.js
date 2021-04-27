@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GoogleLogout } from 'react-google-login';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { logOut } from '../../../actions/auth';
+import decode from 'jwt-decode';
 import './Navbar.css';
 
 export default function Navbar() {
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const location = useLocation();
 	const authData = useSelector((state) => state.authData);
+
+	useEffect(() => {
+		const token = authData?.user?.token;
+		if (token) {
+			const decodedToken = decode(token);
+			if (decodedToken.exp * 1000 < new Date().getTime()) dispatch(logOut());
+		}
+	}, [authData?.user?.token, dispatch, location]);
 
 	const onLogoutSuccess = async () => {
 		try {

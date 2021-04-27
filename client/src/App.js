@@ -17,12 +17,10 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Switch>
-				{/* Make these redirect if user is authenticated */}
 				<Route exact path="/" component={LandingPage} />
 				<Route exact path="/login" component={LoginPage} />
 				<Route exact path="/signup" component={SignupPage} />
 
-				{/* Make these a protected route */}
 				<ProtectedRoute exact path="/purchases" component={PurchasesPage} />
 				<ProtectedRoute exact path="/month-breakdown" component={MonthlyPage} />
 				<ProtectedRoute exact path="/year-breakdown" component={YearlyPage} />
