@@ -16,7 +16,9 @@ export default function ErrorMessage(rror) {
 	return (
 		<div className="error-message-container">
 			{error}
-			<button onClick={close}>&times;</button>
+			<button onClick={close} className="close-error-btn">
+				Close
+			</button>
 		</div>
 	);
 }

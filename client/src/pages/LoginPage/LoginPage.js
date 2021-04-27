@@ -45,7 +45,8 @@ export default function LoginPage() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(logIn(formData, history));
+		dispatch(logIn(formData));
+		history.push('/purchases');
 	};
 
 	const onFailure = (res) => {

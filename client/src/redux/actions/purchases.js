@@ -14,6 +14,13 @@ export function getPurchases() {
 	};
 }
 
+export function clearPurchases() {
+	return {
+		type: 'purchases/clear',
+		payload: null,
+	};
+}
+
 export function addPurchase(purchase) {
 	return async (dispatch) => {
 		try {

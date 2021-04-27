@@ -2,6 +2,8 @@ const purchasesReducer = (purchases = [], action) => {
 	switch (action.type) {
 		case 'purchases/fetch_all':
 			return action.payload;
+		case 'purchases/clear':
+			return [];
 		case 'purchases/add':
 			return [...purchases, action.payload];
 		case 'purchases/delete':

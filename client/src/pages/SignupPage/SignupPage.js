@@ -43,38 +43,23 @@ export default function SignupPage() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log('trying to submit');
-		if (validateForm()) dispatch(signUp(formData, history));
+		if (validateForm()) {
+			dispatch(signUp(formData));
+			history.push('/purchases');
+		}
 	};
 
 	const validateForm = () => {
 		console.log('validating form');
-		if (formData.firstName === '' || formData.firstName == null) {
-			console.log('firstname');
-			return false;
-		}
-		if (formData.lastName === '' || formData.lastName == null) {
-			console.log('lastName');
-			return false;
-		}
-		if (formData.email === '' || formData.email == null) {
-			console.log('email');
-			return false;
-		}
-		if (formData.password === '' || formData.password == null) {
-			console.log('password');
-			return false;
-		}
-		if (formData.confirmPassword === '' || formData.confirmPassword == null) {
-			console.log('confirmpassword');
-			return false;
-		}
+		if (formData.firstName === '' || formData.firstName == null) return false;
+		if (formData.lastName === '' || formData.lastName == null) return false;
+		if (formData.email === '' || formData.email == null) return false;
+		if (formData.password === '' || formData.password == null) return false;
+		if (formData.confirmPassword === '' || formData.confirmPassword == null) return false;
 		if (formData.password !== formData.confirmPassword) {
-			console.log('making it here');
 			dispatch(setError('Passwords do not mach'));
 			return false;
 		}
-		console.log('forms good');
 		return true;
 	};
 

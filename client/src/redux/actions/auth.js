@@ -1,6 +1,6 @@
 import * as API from '../../API';
 
-export function signUp(formData, history) {
+export function signUp(formData) {
 	return async (dispatch) => {
 		try {
 			const response = await API.signup(formData);
@@ -9,7 +9,6 @@ export function signUp(formData, history) {
 					type: 'auth/signup',
 					payload: response,
 				});
-				history.push('/purchases');
 			} else {
 				dispatch({
 					type: 'error/set',
@@ -22,7 +21,7 @@ export function signUp(formData, history) {
 	};
 }
 
-export function logIn(formData, history) {
+export function logIn(formData) {
 	return async (dispatch) => {
 		try {
 			const response = await API.login(formData);
@@ -31,7 +30,6 @@ export function logIn(formData, history) {
 					type: 'auth/login',
 					payload: response,
 				});
-				history.push('/purchases');
 			} else {
 				dispatch({
 					type: 'error/set',
