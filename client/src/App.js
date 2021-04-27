@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-// import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from './ProtectedRoute';
 
 import LandingPage from './pages/LandingPage/LandingPage';
 import LoginPage from './pages/AuthPages/LoginPage/LoginPage';
@@ -23,10 +23,10 @@ function App() {
 				<Route exact path="/signup" component={SignupPage} />
 
 				{/* Make these a protected route */}
-				<Route exact path="/purchases" component={PurchasesPage} />
-				<Route exact path="/month-breakdown" component={MonthlyPage} />
-				<Route exact path="/year-breakdown" component={YearlyPage} />
-				<Route exact path="/settings" component={SettingsPage} />
+				<ProtectedRoute exact path="/purchases" component={PurchasesPage} />
+				<ProtectedRoute exact path="/month-breakdown" component={MonthlyPage} />
+				<ProtectedRoute exact path="/year-breakdown" component={YearlyPage} />
+				<ProtectedRoute exact path="/settings" component={SettingsPage} />
 
 				<Route component={Page404} />
 			</Switch>

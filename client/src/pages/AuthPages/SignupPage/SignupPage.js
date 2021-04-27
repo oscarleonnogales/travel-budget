@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, useHistory } from 'react-router-dom';
 import { googleLogIn, signUp } from '../../../actions/auth';
 import './SignupPage.css';
 import '../authPages.css';
@@ -9,6 +9,7 @@ import '../authPages.css';
 export default function SignupPage() {
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const authData = useSelector((state) => state.authData);
 
 	const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 	const [formData, setFormData] = useState({
@@ -57,6 +58,8 @@ export default function SignupPage() {
 	const handleShowPassword = () => {
 		setPasswordIsVisible(!passwordIsVisible);
 	};
+
+	if (authData?.user) return <Redirect to="/purchases" />;
 
 	return (
 		<div className="signup-page-container">

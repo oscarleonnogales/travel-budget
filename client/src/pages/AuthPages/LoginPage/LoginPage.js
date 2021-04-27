@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, useHistory } from 'react-router-dom';
 import { googleLogIn, logIn } from '../../../actions/auth';
 import './LoginPage.css';
 import '../authPages.css';
@@ -9,6 +9,7 @@ import '../authPages.css';
 export default function LoginPage() {
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const authData = useSelector((state) => state.authData);
 
 	const [formData, setFormData] = useState({
 		email: '',
@@ -50,6 +51,8 @@ export default function LoginPage() {
 	const onFailure = (res) => {
 		console.log(res);
 	};
+
+	if (authData?.user) return <Redirect to="/purchases" />;
 
 	return (
 		<div className="login-page-container">
