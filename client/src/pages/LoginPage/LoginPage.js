@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
-import { googleLogIn, logIn } from '../../../actions/auth';
+import { googleLogIn, logIn } from '../../redux/actions/auth';
 import './LoginPage.css';
-import '../authPages.css';
 
 export default function LoginPage() {
 	const dispatch = useDispatch();

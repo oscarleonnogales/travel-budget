@@ -1,4 +1,4 @@
-import * as API from '../backend/API';
+import * as API from '../../API';
 
 export function signUp(formData, history) {
 	return async (dispatch) => {

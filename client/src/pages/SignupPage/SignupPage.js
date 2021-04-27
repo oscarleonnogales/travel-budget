@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
-import { googleLogIn, signUp } from '../../../actions/auth';
+import { googleLogIn, signUp } from '../../redux/actions/auth';
 import './SignupPage.css';
-import '../authPages.css';
 
 export default function SignupPage() {
 	const dispatch = useDispatch();

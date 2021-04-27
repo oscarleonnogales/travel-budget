@@ -7,11 +7,11 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import reducers from './reducers';
+import reducers from './redux/reducers';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import LoadingPage from '../src/pages/LoadingPage/LoadingPage';
+import LoadingPage from './pages/LoadingPage/LoadingPage';
 
 const persistConfig = {
 	key: 'budget-app.state',

@@ -3,8 +3,8 @@ import dayjs from 'dayjs';
 import './YearlyPage.css';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { getPurchases } from '../../actions/purchases';
-import Navbar from '../components/Navbar/Navbar';
+import { getPurchases } from '../../redux/actions/purchases';
+import Navbar from '../../components/Navbar/Navbar';
 import { Bar } from 'react-chartjs-2';
 
 export default function YearlyPage() {

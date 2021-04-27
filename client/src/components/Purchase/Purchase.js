@@ -2,8 +2,8 @@ import React from 'react';
 import dayjs from 'dayjs';
 import './Purchase.css';
 
-import { deletePurchase } from '../../../actions/purchases';
-import { setCurrentId } from '../../../actions/currentId';
+import { deletePurchase } from '../../redux/actions/purchases';
+import { setCurrentId } from '../../redux/actions/currentId';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Purchase({ purchase, renderButtons }) {

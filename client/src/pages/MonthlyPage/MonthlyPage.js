@@ -1,12 +1,12 @@
 import './MonthlyPage.css';
 
 import React, { useState, useEffect } from 'react';
-import Purchase from '../components/Purchase/Purchase';
+import Purchase from '../../components/Purchase/Purchase';
 import dayjs from 'dayjs';
-import Navbar from '../components/Navbar/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { getPurchases } from '../../actions/purchases';
+import { getPurchases } from '../../redux/actions/purchases';
 
 import { Doughnut } from 'react-chartjs-2';
 

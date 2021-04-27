@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from './components/ProtectedRoute';
 
 import LandingPage from './pages/LandingPage/LandingPage';
-import LoginPage from './pages/AuthPages/LoginPage/LoginPage';
-import SignupPage from './pages/AuthPages/SignupPage/SignupPage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import SignupPage from './pages/SignupPage/SignupPage';
 
 import PurchasesPage from './pages/PurchasesPage/PurchasesPage';
 import MonthlyPage from './pages/MonthlyPage/MonthlyPage';

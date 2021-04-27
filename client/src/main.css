@@ -15,6 +15,11 @@
 	--input-text-color: black;
 	--text-primary: #b6b6b6;
 	--input-shadow-color: var(--input-focus-border-color);
+
+	--input-border-color: black;
+	--input-focus-border-color: hsl(202, 78%, 49%);
+	--input-text-color: black;
+	--input-shadow-color: var(--auth-form-focus-border-color);
 }
 
 .form-label {
@@ -169,6 +174,59 @@ select:focus + .custom-arrow {
 	top: 35%;
 }
 
+.auth-form-group {
+	width: 100%;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.auth-form-group:first-child {
+	margin-top: 0;
+}
+
+.btn-container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 1rem;
+}
+
+.auth-link {
+	color: hsl(0, 0%, 100%);
+	font-weight: 750;
+	font-size: 1rem;
+	text-decoration: none;
+	text-shadow: black 0px 0px 2px;
+}
+
+.auth-link:hover {
+	color: hsl(0, 0%, 90%);
+}
+
+.bi-google {
+	width: 1.2em;
+	height: 1.2em;
+	margin-right: 0.5em;
+	vertical-align: sub;
+	fill: currentColor;
+}
+
+.google-btn {
+	padding: 0.375em 0.75em;
+	width: 100%;
+	min-height: 3em;
+	background: hsl(0, 0%, 100%);
+	outline: none;
+	border: 1px solid black;
+	border-radius: var(--border-radius);
+	color: black;
+	font-weight: 700;
+}
+
+.google-btn:hover {
+	background: hsl(0, 0%, 90%);
+}
+
 /* Desktop */
 @media only screen and (min-width: 600px) {
 	.main-page-content {
@@ -187,6 +245,10 @@ select:focus + .custom-arrow {
 		margin: 0;
 		padding: 1rem;
 		padding-bottom: calc(2 * var(--nav-icon-size));
+	}
+
+	.btn-container {
+		margin-bottom: 5rem;
 	}
 
 	:root {

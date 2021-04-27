@@ -3,7 +3,7 @@ import { GoogleLogout } from 'react-google-login';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import { logOut } from '../../../actions/auth';
+import { logOut } from '../../redux/actions/auth';
 import decode from 'jwt-decode';
 import './Navbar.css';
 
