@@ -17,7 +17,6 @@ export default function PurchasesPage() {
 	const [currentPurchases, setCurrentPurchases] = useState({});
 
 	useEffect(() => {
-		console.log('purchases page is calling the API');
 		dispatch(getPurchases());
 	}, [dispatch, authData]);
 

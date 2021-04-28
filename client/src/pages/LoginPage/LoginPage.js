@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { googleLogIn, logIn } from '../../redux/actions/auth';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './LoginPage.css';
@@ -16,6 +16,12 @@ export default function LoginPage() {
 		password: '',
 	});
 
+	useEffect(() => {
+		if (authData?.user) {
+			history.push('/purchases');
+		}
+	}, [authData, history]);
+
 	const onSuccess = async (res) => {
 		refreshTokenSetup(res);
 		const user = res?.profileObj;
@@ -23,7 +29,6 @@ export default function LoginPage() {
 
 		try {
 			dispatch(googleLogIn(user, token));
-			history.push('/purchases');
 		} catch (error) {
 			console.log(error);
 		}
@@ -46,14 +51,11 @@ export default function LoginPage() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(logIn(formData));
-		history.push('/purchases');
 	};
 
 	const onFailure = (res) => {
 		console.log(res);
 	};
-
-	if (authData?.user) return <Redirect to="/purchases" />;
 
 	return (
 		<div className="login-page-container">

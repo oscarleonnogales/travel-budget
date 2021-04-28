@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { googleLogIn, signUp } from '../../redux/actions/auth';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { setError } from '../../redux/actions/error';
@@ -21,13 +21,18 @@ export default function SignupPage() {
 		confirmPassword: '',
 	});
 
+	useEffect(() => {
+		if (authData?.user) {
+			history.push('/purchases');
+		}
+	}, [authData, history]);
+
 	const onSuccess = async (res) => {
 		const user = res?.profileObj;
 		const token = res?.tokenId;
 
 		try {
 			dispatch(googleLogIn(user, token));
-			history.push('/purchases');
 		} catch (error) {
 			console.log(error);
 		}
@@ -45,12 +50,10 @@ export default function SignupPage() {
 		e.preventDefault();
 		if (validateForm()) {
 			dispatch(signUp(formData));
-			history.push('/purchases');
 		}
 	};
 
 	const validateForm = () => {
-		console.log('validating form');
 		if (formData.firstName === '' || formData.firstName == null) return false;
 		if (formData.lastName === '' || formData.lastName == null) return false;
 		if (formData.email === '' || formData.email == null) return false;
@@ -66,8 +69,6 @@ export default function SignupPage() {
 	const handleShowPassword = () => {
 		setPasswordIsVisible(!passwordIsVisible);
 	};
-
-	if (authData?.user) return <Redirect to="/purchases" />;
 
 	return (
 		<div className="signup-page-container">
