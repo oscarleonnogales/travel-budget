@@ -4,15 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { googleLogIn, signUp } from '../../redux/actions/auth';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import { setError } from '../../redux/actions/error';
+import { setError, clearError } from '../../redux/actions/error';
+import { checkEmailUniqueness } from '../../API';
 import './SignupPage.css';
 
 export default function SignupPage() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const authData = useSelector((state) => state.authData);
+	const error = useSelector((state) => state.error);
 
 	const [passwordIsVisible, setPasswordIsVisible] = useState(false);
+	const [submitBtnDisabled, setSubmitBtnDisabled] = useState(true);
+
 	const [formData, setFormData] = useState({
 		firstName: '',
 		lastName: '',
@@ -54,16 +58,35 @@ export default function SignupPage() {
 	};
 
 	const validateForm = () => {
-		if (formData.firstName === '' || formData.firstName == null) return false;
-		if (formData.lastName === '' || formData.lastName == null) return false;
-		if (formData.email === '' || formData.email == null) return false;
-		if (formData.password === '' || formData.password == null) return false;
-		if (formData.confirmPassword === '' || formData.confirmPassword == null) return false;
+		let valid = true;
+		const emailErrorMessage = `There's already an account associated with that email address.`;
+
+		if (formData.firstName === '' || formData.firstName == null) valid = false;
+		if (formData.lastName === '' || formData.lastName == null) valid = false;
+		if (formData.email === '' || formData.email == null) valid = false;
+		if (error === emailErrorMessage) valid = false;
+		if (formData.password === '' || formData.password == null) valid = false;
+		if (formData.confirmPassword === '' || formData.confirmPassword == null) valid = false;
 		if (formData.password !== formData.confirmPassword) {
 			dispatch(setError('Passwords do not mach'));
-			return false;
+			valid = false;
 		}
-		return true;
+		return valid;
+	};
+
+	const validateEmail = async (e) => {
+		handleChange(e);
+		const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if (re.test(String(e.target.value).toLowerCase())) {
+			const errorMessage = `There's already an account associated with that email address.`;
+			if (!(await checkEmailUniqueness(e.target.value))) {
+				dispatch(setError(errorMessage));
+			} else {
+				if (error === errorMessage) dispatch(clearError());
+			}
+		} else {
+			//Not a valid email. Don't send request to server, but invalidate the email form input
+		}
 	};
 
 	const handleShowPassword = () => {
@@ -128,7 +151,7 @@ export default function SignupPage() {
 						className="auth-form-input"
 						required
 						value={formData.email}
-						onChange={handleChange}
+						onChange={validateEmail}
 					></input>
 				</div>
 				<div className="auth-form-group">
@@ -181,7 +204,7 @@ export default function SignupPage() {
 					></input>
 				</div>
 				<div className="submit-btn-container">
-					<button type="submit" className="signup-submit-btn">
+					<button type="submit" className="signup-submit-btn" disabled={submitBtnDisabled}>
 						<svg xmlns="http://www.w3.org/2000/svg" className="bi bi-lock" viewBox="0 0 16 16">
 							<path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
 						</svg>

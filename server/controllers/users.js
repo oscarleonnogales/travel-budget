@@ -46,3 +46,14 @@ export async function authenticateUser(req, res) {
 		res.status(500).json({ message: 'Something went wrong in the server' });
 	}
 }
+
+export async function validateEmail(req, res) {
+	const { email } = req.body;
+	try {
+		const existingUser = await User.findOne({ email: email });
+		if (existingUser) return res.status(200).send(false);
+		else return res.status(200).send(true);
+	} catch (error) {
+		console.log(error);
+	}
+}

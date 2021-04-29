@@ -44,3 +44,11 @@ export function login(formData) {
 		.then((res) => res.data)
 		.catch((error) => error.response.data);
 }
+
+export function checkEmailUniqueness(email) {
+	return API.post('/users/validate', { email })
+		.then((res) => {
+			return res.data;
+		})
+		.catch((error) => error.response.data);
+}

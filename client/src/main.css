@@ -45,6 +45,11 @@ button {
 	transition: 200ms ease;
 }
 
+button:disabled {
+	cursor: not-allowed;
+	background: red !important;
+}
+
 *,
 *::before,
 *::after {
