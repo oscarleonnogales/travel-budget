@@ -3,6 +3,7 @@ import { GoogleLogin } from 'react-google-login';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { googleLogIn, logIn } from '../../redux/actions/auth';
+import { setError } from '../../redux/actions/error';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './LoginPage.css';
 
@@ -53,8 +54,8 @@ export default function LoginPage() {
 		dispatch(logIn(formData));
 	};
 
-	const onFailure = (res) => {
-		console.log(res);
+	const onFailure = () => {
+		dispatch(setError('Error with Google login. Please try again later.'));
 	};
 
 	return (

@@ -1,4 +1,6 @@
 .error-message-container {
+	opacity: 0;
+	transition: opacity 400ms ease;
 	margin-top: 5rem;
 	color: #842029;
 	background-color: #f8d7da;
@@ -11,6 +13,10 @@
 	align-items: center;
 	text-align: center;
 	font-size: 1.05rem;
+}
+
+.error-message-container.active {
+	opacity: 1;
 }
 
 .close-error-btn {

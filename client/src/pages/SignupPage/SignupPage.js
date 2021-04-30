@@ -15,7 +15,7 @@ export default function SignupPage() {
 	const error = useSelector((state) => state.error);
 
 	const [passwordIsVisible, setPasswordIsVisible] = useState(false);
-	const [submitBtnDisabled, setSubmitBtnDisabled] = useState(true);
+	const [isFormValid, setIsFormValid] = useState(false);
 
 	const [formData, setFormData] = useState({
 		firstName: '',
@@ -24,6 +24,29 @@ export default function SignupPage() {
 		password: '',
 		confirmPassword: '',
 	});
+
+	const [interacted, setInteracted] = useState({
+		firstName: false,
+		lastName: false,
+		email: false,
+		password: false,
+		confirmPassword: false,
+	});
+
+	useEffect(() => {
+		const emailErrorMessage = `There's already an account associated with that email address.`;
+		if (
+			formData.firstName.length > 0 &&
+			formData.lastName.length > 0 &&
+			validateEmail(formData.email) &&
+			formData.password.length > 6 &&
+			formData.confirmPassword.length > 0 &&
+			formData.password === formData.confirmPassword &&
+			error !== emailErrorMessage
+		)
+			setIsFormValid(true);
+		else setIsFormValid(false);
+	}, [formData, error]);
 
 	useEffect(() => {
 		if (authData?.user) {
@@ -42,51 +65,42 @@ export default function SignupPage() {
 		}
 	};
 
-	const onFailure = (res) => {
-		console.log(res);
+	const onFailure = () => {
+		dispatch(setError('Error with Google login. Please try again later.'));
 	};
 
 	const handleChange = (e) => {
+		setInteracted({ ...interacted, [e.target.name]: true });
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (validateForm()) {
+		if (isFormValid) {
+			dispatch(clearError());
 			dispatch(signUp(formData));
-		}
-	};
-
-	const validateForm = () => {
-		let valid = true;
-		const emailErrorMessage = `There's already an account associated with that email address.`;
-
-		if (formData.firstName === '' || formData.firstName == null) valid = false;
-		if (formData.lastName === '' || formData.lastName == null) valid = false;
-		if (formData.email === '' || formData.email == null) valid = false;
-		if (error === emailErrorMessage) valid = false;
-		if (formData.password === '' || formData.password == null) valid = false;
-		if (formData.confirmPassword === '' || formData.confirmPassword == null) valid = false;
-		if (formData.password !== formData.confirmPassword) {
-			dispatch(setError('Passwords do not mach'));
-			valid = false;
-		}
-		return valid;
-	};
-
-	const validateEmail = async (e) => {
-		handleChange(e);
-		const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		if (re.test(String(e.target.value).toLowerCase())) {
-			const errorMessage = `There's already an account associated with that email address.`;
-			if (!(await checkEmailUniqueness(e.target.value))) {
-				dispatch(setError(errorMessage));
-			} else {
-				if (error === errorMessage) dispatch(clearError());
-			}
 		} else {
-			//Not a valid email. Don't send request to server, but invalidate the email form input
+			dispatch(setError('Please fill out all the necessary information.'));
 		}
+	};
+
+	const validateEmail = (email) => {
+		const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		return regex.test(String(email).toLowerCase());
+	};
+
+	const ensureEmailIsUnique = async (email) => {
+		const errorMessage = `There's already an account associated with that email address.`;
+		if (!(await checkEmailUniqueness(email))) {
+			dispatch(setError(errorMessage));
+		} else {
+			if (error === errorMessage) dispatch(clearError());
+		}
+	};
+
+	const handleEmailChange = (e) => {
+		handleChange(e);
+		if (validateEmail(e.target.value)) ensureEmailIsUnique(e.target.value);
 	};
 
 	const handleShowPassword = () => {
@@ -122,11 +136,14 @@ export default function SignupPage() {
 					<input
 						type="text"
 						name="firstName"
-						className="auth-form-input"
+						className={`auth-form-input ${formData.firstName.length === 0 && interacted.firstName ? 'invalid' : ''} ${
+							formData.firstName.length > 0 ? 'valid' : ''
+						}`}
 						required
 						value={formData.firstName}
 						onChange={handleChange}
 					></input>
+					<div className="auth-form-error">Please fill out your first name</div>
 				</div>
 				<div className="auth-form-group">
 					<label htmlFor="lastName" className="auth-form-label">
@@ -135,11 +152,14 @@ export default function SignupPage() {
 					<input
 						type="text"
 						name="lastName"
-						className="auth-form-input"
+						className={`auth-form-input ${formData.lastName.length === 0 && interacted.lastName ? 'invalid' : ''} ${
+							formData.lastName.length > 0 ? 'valid' : ''
+						}`}
 						required
 						value={formData.lastName}
 						onChange={handleChange}
 					></input>
+					<div className="auth-form-error">Please fill out your last name</div>
 				</div>
 				<div className="auth-form-group">
 					<label htmlFor="email" className="auth-form-label">
@@ -148,11 +168,18 @@ export default function SignupPage() {
 					<input
 						type="email"
 						name="email"
-						className="auth-form-input"
+						className={`auth-form-input ${
+							(formData.email.length === 0 && interacted.email) ||
+							(formData.email.length > 0 && !validateEmail(formData.email))
+								? 'invalid'
+								: ''
+						} ${validateEmail(formData.email) ? 'valid' : ''}`}
+						// ALso need to ensure the input is a valid input
 						required
 						value={formData.email}
-						onChange={validateEmail}
+						onChange={handleEmailChange}
 					></input>
+					<div className="auth-form-error">Invalid email address</div>
 				</div>
 				<div className="auth-form-group">
 					<label htmlFor="password" className="auth-form-label">
@@ -162,11 +189,14 @@ export default function SignupPage() {
 						<input
 							type={passwordIsVisible ? 'text' : 'password'}
 							name="password"
-							className="auth-form-input password-signup-input"
+							className={`auth-form-input ${formData.password.length <= 6 && interacted.password ? 'invalid' : ''} ${
+								formData.password.length > 6 ? 'valid' : ''
+							}`}
 							required
 							value={formData.password}
 							onChange={handleChange}
 						/>
+						<div className="auth-form-error">Password should be at least 6 characters long</div>
 						<button onClick={handleShowPassword} className="password-toggle-btn">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -197,14 +227,20 @@ export default function SignupPage() {
 					<input
 						type="password"
 						name="confirmPassword"
-						className="auth-form-input"
+						className={`auth-form-input ${
+							(formData.confirmPassword.length === 0 && interacted.confirmPassword) ||
+							(formData.confirmPassword.length > 0 && formData.confirmPassword !== formData.password)
+								? 'invalid'
+								: ''
+						} ${formData.confirmPassword.length > 0 && formData.password === formData.confirmPassword ? 'valid' : ''}`}
 						required
 						value={formData.confirmPassword}
 						onChange={handleChange}
 					></input>
+					<div className="auth-form-error">Passwords do not match</div>
 				</div>
 				<div className="submit-btn-container">
-					<button type="submit" className="signup-submit-btn" disabled={submitBtnDisabled}>
+					<button type="submit" className="signup-submit-btn" disabled={!isFormValid}>
 						<svg xmlns="http://www.w3.org/2000/svg" className="bi bi-lock" viewBox="0 0 16 16">
 							<path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
 						</svg>

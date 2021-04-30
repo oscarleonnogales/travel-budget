@@ -7,18 +7,20 @@ export default function ErrorMessage(rror) {
 	const dispatch = useDispatch();
 	const error = useSelector((state) => state.error);
 
-	if (!error) return null;
+	// if (!error) return null;
 
 	const close = () => {
 		dispatch(clearError());
 	};
 
 	return (
-		<div className="error-message-container">
+		<div className={`error-message-container ${error ? 'active' : ''}`}>
 			{error}
-			<button onClick={close} className="close-error-btn">
-				Close
-			</button>
+			{error && (
+				<button onClick={close} className="close-error-btn">
+					Close
+				</button>
+			)}
 		</div>
 	);
 }

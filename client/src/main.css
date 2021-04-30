@@ -45,11 +45,6 @@ button {
 	transition: 200ms ease;
 }
 
-button:disabled {
-	cursor: not-allowed;
-	background: red !important;
-}
-
 *,
 *::before,
 *::after {
@@ -90,6 +85,14 @@ body::-webkit-scrollbar-thumb {
 	outline: none;
 	margin-top: 0.25em;
 	transition: border-color 200ms ease-in, box-shadow 200ms ease-in;
+}
+
+.auth-form-input.invalid {
+	border: 1px solid red;
+}
+
+.auth-form-input.valid {
+	border: 1px solid green;
 }
 
 .auth-form-input:hover,

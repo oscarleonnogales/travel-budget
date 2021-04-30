@@ -56,6 +56,16 @@
 	font-weight: 700;
 }
 
+.signup-submit-btn:disabled {
+	cursor: not-allowed;
+	background: hsl(210, 70%, 65%);
+}
+
+.signup-submit-btn:disabled:hover {
+	cursor: not-allowed;
+	background: hsl(210, 70%, 65%);
+}
+
 .signup-submit-btn:hover {
 	background: hsl(210, 70%, 45%);
 }
@@ -130,4 +140,14 @@
 
 .eye-icon:hover {
 	fill: var(--input-focus-border-color);
+}
+
+.auth-form-error {
+	color: hsl(12, 100%, 45%);
+	margin-top: 0.25em;
+	display: none;
+}
+
+.auth-form-input.invalid + .auth-form-error {
+	display: block;
 }
