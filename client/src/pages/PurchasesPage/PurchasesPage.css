@@ -8,11 +8,11 @@
 	padding: 1em;
 }
 
-.transaction-btn-container {
+.purchase-btn-container {
 	display: flex;
 }
 
-.transaction-btn {
+.purchase-btn {
 	min-width: 3rem;
 	padding: 0.375em 0.75em;
 	outline: none;
@@ -55,11 +55,11 @@
 		transform: translateY(-3px);
 	}
 
-	.transaction-btn-container {
+	.purchase-btn-container {
 		display: none;
 	}
 
-	.transaction:hover > .transaction-btn-container {
+	.purchase:hover > .purchase-btn-container {
 		display: flex;
 	}
 }

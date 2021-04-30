@@ -73,7 +73,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .auth-form-input,
-.transaction-form-input {
+.purchase-form-input {
 	width: 100%;
 	padding: 0.375em 0.75em;
 	color: var(--primary-text-color);
@@ -96,7 +96,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .auth-form-input:hover,
-.transaction-form-input:hover {
+.purchase-form-input:hover {
 	border: 1px solid var(--input-focus-border-color);
 }
 
@@ -122,7 +122,7 @@ select {
 }
 
 .auth-form-input:focus,
-.transaction-form-input:focus {
+.purchase-form-input:focus {
 	border: 1px solid var(--input-focus-border-color);
 	box-shadow: 0 0 5px 2px var(--input-shadow-color);
 }

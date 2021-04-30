@@ -2,13 +2,13 @@
 	--form-background-color: var(--light-background);
 }
 
-.transaction-form_title {
+.purchase-form_title {
 	font-size: 1.25rem;
 	margin-bottom: 1rem;
 	min-width: 100%;
 }
 
-.transaction-form_container {
+.purchase-form_container {
 	background: var(--form-background-color);
 	box-shadow: 0 0 5px 2px black;
 	color: var(--primary-text-color);
@@ -20,15 +20,15 @@
 	flex-wrap: wrap;
 }
 
-.transaction-form-label {
+.purchase-form-label {
 	margin-bottom: 0.25em;
 }
 
-.transaction-form-input {
+.purchase-form-input {
 	margin-bottom: 0.5em;
 }
 
-.transaction-form-group {
+.purchase-form-group {
 	display: flex;
 	flex-direction: column;
 }
@@ -38,7 +38,7 @@
 	flex-direction: column;
 }
 
-.transaction-form-btn-container {
+.purchase-form-btn-container {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	column-gap: 1rem;
@@ -80,14 +80,14 @@
 
 /* Desktop */
 @media (min-width: 600px) {
-	.transaction-form_container {
+	.purchase-form_container {
 		flex-direction: row;
 		max-width: 800px;
 		margin: auto;
 		transition: transform 400ms ease;
 	}
 
-	.transaction-form_container:hover {
+	.purchase-form_container:hover {
 		transform: translateY(-3px);
 	}
 

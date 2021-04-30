@@ -48,11 +48,11 @@ export default function PurchaseForm() {
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className="transaction-form_container">
-			<h3 className="transaction-form_title">{currentId ? 'Edit' : 'Add'} Purchase</h3>
+		<form onSubmit={handleSubmit} className="purchase-form_container">
+			<h3 className="purchase-form_title">{currentId ? 'Edit' : 'Add'} Purchase</h3>
 			<div className="form-column">
-				<div className="transaction-form-group">
-					<label htmlFor="date" className="transaction-form-label">
+				<div className="purchase-form-group">
+					<label htmlFor="date" className="purchase-form-label">
 						Date
 					</label>
 					<input
@@ -61,12 +61,12 @@ export default function PurchaseForm() {
 						value={currentData.date && dayjs(currentData.date).format('YYYY-MM-DD')}
 						onChange={handleChange}
 						required
-						className="transaction-form-input"
+						className="purchase-form-input"
 					></input>
 				</div>
 
-				<div className="transaction-form-group">
-					<label htmlFor="description" className="transaction-form-label">
+				<div className="purchase-form-group">
+					<label htmlFor="description" className="purchase-form-label">
 						Description
 					</label>
 					<input
@@ -75,12 +75,12 @@ export default function PurchaseForm() {
 						value={currentData?.description}
 						onChange={handleChange}
 						required
-						className="transaction-form-input"
+						className="purchase-form-input"
 					></input>
 				</div>
 
-				<div className="transaction-form-group">
-					<label htmlFor="category" className="transaction-form-label">
+				<div className="purchase-form-group">
+					<label htmlFor="category" className="purchase-form-label">
 						Category
 					</label>
 					<div className="custom-select">
@@ -90,7 +90,7 @@ export default function PurchaseForm() {
 							value={currentData?.category}
 							onChange={handleChange}
 							required
-							className="transaction-form-input form-select"
+							className="purchase-form-input form-select"
 						>
 							<option value="unselected" disabled>
 								Choose an option
@@ -108,8 +108,8 @@ export default function PurchaseForm() {
 			</div>
 
 			<div className="form-column">
-				<div className="transaction-form-group">
-					<label htmlFor="amount" className="transaction-form-label">
+				<div className="purchase-form-group">
+					<label htmlFor="amount" className="purchase-form-label">
 						Amount
 					</label>
 					<input
@@ -120,12 +120,12 @@ export default function PurchaseForm() {
 						onChange={handleChange}
 						min="0"
 						required
-						className="transaction-form-input"
+						className="purchase-form-input"
 					></input>
 				</div>
 
-				<div className="transaction-form-group">
-					<label htmlFor="currency" className="transaction-form-label">
+				<div className="purchase-form-group">
+					<label htmlFor="currency" className="purchase-form-label">
 						Currency
 					</label>
 					<input
@@ -134,11 +134,11 @@ export default function PurchaseForm() {
 						value={currentData?.currency}
 						onChange={handleChange}
 						required
-						className="transaction-form-input"
+						className="purchase-form-input"
 					></input>
 				</div>
 			</div>
-			<div className="transaction-form-btn-container">
+			<div className="purchase-form-btn-container">
 				<button type="submit" className="save-btn form-btn">
 					{currentId ? 'Save Changes' : 'Add Purchase'}
 				</button>

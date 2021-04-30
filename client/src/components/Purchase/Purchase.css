@@ -1,28 +1,39 @@
-.transaction {
+.purchase {
 	border-bottom: 1px solid hsl(0, 0%, 80%);
 	padding-bottom: 0.5rem;
 	margin-bottom: 0.5rem;
 	color: var(--primary-text-color);
 }
 
-.transaction:last-child {
+.purchase:last-child {
 	border-bottom: none;
 	padding-bottom: 0;
 	margin-bottom: 0;
 }
 
-.transaction-description,
-.transaction-converted-price {
+.purchase-description,
+.purchase-converted-price {
 	font-size: 1.35rem;
 }
 
-.transaction-actual-price {
+.purchase-actual-price {
 	font-style: italic;
 }
 
-.transaction-row {
+.purchase-row {
 	display: flex;
 	justify-content: space-between;
+}
+
+.pruchase-category {
+	text-transform: capitalize;
+	font-style: italic;
+}
+
+.purchase-date {
+	--purchase-date-padding: 0.15em;
+	margin-top: var(--purchase-date-padding);
+	margin-bottom: var(--purchase-date-padding);
 }
 
 /* Desktop */

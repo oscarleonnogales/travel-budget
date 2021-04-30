@@ -12,27 +12,28 @@ export default function Purchase({ purchase, renderButtons }) {
 
 	return (
 		<>
-			<div className="transaction">
-				<div className="transaction-row">
-					<div className="transaction-description">{purchase.description}</div>
-					<div className="transaction-converted-price">${purchase.amount}</div>
+			<div className="purchase">
+				<div className="purchase-row">
+					<div className="purchase-description">{purchase.description}</div>
+					<div className="purchase-converted-price">${purchase.amount}</div>
 				</div>
-				<div className="transaction-row">
-					<div className="transaction-date">{dayjs(purchase.date).format('MMM DD, YYYY')}</div>
+				<div className="purchase-row">
+					<div className="purchase-date">{dayjs(purchase.date).format('MMM DD, YYYY')}</div>
 					{/* Do something here to only show if not the users default currency */}
 					{purchase.currency !== 'usd' && (
-						<div className="transaction-actual-price">
+						<div className="purchase-actual-price">
 							{purchase.amount} {purchase.currency}
 						</div>
 					)}
 				</div>
+				<div className="pruchase-category">{purchase.category}</div>
 				{renderButtons && (
-					<div className="transaction-btn-container">
-						<button className="save-btn transaction-btn" onClick={() => dispatch(setCurrentId(purchase._id))}>
+					<div className="purchase-btn-container">
+						<button className="save-btn purchase-btn" onClick={() => dispatch(setCurrentId(purchase._id))}>
 							Edit
 						</button>
 						{currentId !== purchase._id && (
-							<button className="cancel-btn transaction-btn" onClick={() => dispatch(deletePurchase(purchase._id))}>
+							<button className="cancel-btn purchase-btn" onClick={() => dispatch(deletePurchase(purchase._id))}>
 								&times;
 							</button>
 						)}

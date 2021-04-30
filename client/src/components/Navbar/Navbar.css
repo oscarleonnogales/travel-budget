@@ -46,6 +46,9 @@
 	width: 100%;
 	color: var(--text-primary);
 	text-decoration: none;
+	background: none;
+	outline: none;
+	border: none;
 }
 
 .logo {

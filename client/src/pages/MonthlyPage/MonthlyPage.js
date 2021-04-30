@@ -85,7 +85,7 @@ export default function MonthlyPage() {
 			<main className="main-page-content monthly-page">
 				<div className="page-column">
 					<div className="form-container">
-						<div className="transaction-form-group">
+						<div className="purchase-form-group">
 							<div className="form-group">
 								<label htmlFor="month" className="form-label">
 									Month
@@ -95,7 +95,7 @@ export default function MonthlyPage() {
 										htmlFor="month"
 										name="month"
 										required
-										className="form-select transaction-form-input"
+										className="form-select purchase-form-input"
 										onChange={(e) => handleChange(e)}
 										value={searchParameters.month}
 									>
@@ -127,7 +127,7 @@ export default function MonthlyPage() {
 										htmlFor="year"
 										name="year"
 										required
-										className="form-select transaction-form-input"
+										className="form-select purchase-form-input"
 										onChange={(e) => handleChange(e)}
 										value={searchParameters.year}
 									>

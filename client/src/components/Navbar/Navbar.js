@@ -140,7 +140,7 @@ export default function Navbar() {
 						clientId="137264865979-46uqmfrfqekug4el4n71mt2ulpmmd5t7.apps.googleusercontent.com"
 						onLogoutSuccess={onLogoutSuccess}
 						render={(renderProps) => (
-							<button className="navbar-link logout-nav-button" onClick={renderProps.onClick}>
+							<button className="navbar_link logout-nav-button" onClick={renderProps.onClick}>
 								<svg
 									aria-hidden="true"
 									focusable="false"
