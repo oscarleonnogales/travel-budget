@@ -7,15 +7,16 @@
 	border: 1px solid #842029;
 	border-radius: 5px;
 	padding: 1em;
-	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
 	font-size: 1.05rem;
+	display: none;
 }
 
 .error-message-container.active {
+	display: flex;
 	opacity: 1;
 }
 

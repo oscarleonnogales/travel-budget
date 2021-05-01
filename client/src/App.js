@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -11,9 +11,17 @@ import MonthlyPage from './pages/MonthlyPage/MonthlyPage';
 import YearlyPage from './pages/YearlyPage/YearlyPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import Page404 from './pages/Page404/Page404';
+import { useDispatch } from 'react-redux';
+import { loadCurrencyOptions } from './redux/actions/currencyOptions';
 import './main.css';
 
 function App() {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(loadCurrencyOptions());
+	}, [dispatch]);
+
 	return (
 		<BrowserRouter>
 			<Switch>

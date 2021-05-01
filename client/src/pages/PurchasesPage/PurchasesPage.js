@@ -3,6 +3,7 @@ import Purchase from '../../components/Purchase/Purchase';
 import PurchaseForm from '../../components/PurchaseForm/PurchaseForm';
 import Navbar from '../../components/Navbar/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getPurchases } from '../../redux/actions/purchases';
 import './PurchasesPage.css';
 
@@ -39,6 +40,7 @@ export default function PurchasesPage() {
 		<>
 			<Navbar></Navbar>
 			<main className="main-page-content">
+				<ErrorMessage />
 				<PurchaseForm />
 				{currentPurchases.length > 0 && (
 					<div className="purchases-container">

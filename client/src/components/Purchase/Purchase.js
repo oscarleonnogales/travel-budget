@@ -20,7 +20,7 @@ export default function Purchase({ purchase, renderButtons }) {
 				<div className="purchase-row">
 					<div className="purchase-date">{dayjs(purchase.date).format('MMM DD, YYYY')}</div>
 					{/* Do something here to only show if not the users default currency */}
-					{purchase.currency !== 'usd' && (
+					{purchase.currency !== 'USD' && (
 						<div className="purchase-actual-price">
 							{purchase.amount} {purchase.currency}
 						</div>

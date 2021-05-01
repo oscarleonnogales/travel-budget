@@ -3,7 +3,7 @@ import { GoogleLogin } from 'react-google-login';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { googleLogIn, logIn } from '../../redux/actions/auth';
-import { setError } from '../../redux/actions/error';
+import { setError, clearError } from '../../redux/actions/error';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './LoginPage.css';
 
@@ -20,8 +20,9 @@ export default function LoginPage() {
 	useEffect(() => {
 		if (authData?.user) {
 			history.push('/purchases');
+			dispatch(clearError());
 		}
-	}, [authData, history]);
+	}, [authData, dispatch, history]);
 
 	const onSuccess = async (res) => {
 		refreshTokenSetup(res);

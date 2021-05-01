@@ -36,13 +36,13 @@ export default function SignupPage() {
 	useEffect(() => {
 		const emailErrorMessage = `There's already an account associated with that email address.`;
 		if (
-			formData.firstName.length > 0 &&
-			formData.lastName.length > 0 &&
-			validateEmail(formData.email) &&
-			formData.password.length > 6 &&
-			formData.confirmPassword.length > 0 &&
 			formData.password === formData.confirmPassword &&
-			error !== emailErrorMessage
+			formData.confirmPassword.length > 0 &&
+			formData.password.length > 6 &&
+			validateEmail(formData.email) &&
+			error !== emailErrorMessage &&
+			formData.lastName.length > 0 &&
+			formData.firstName.length > 0
 		)
 			setIsFormValid(true);
 		else setIsFormValid(false);
@@ -51,8 +51,9 @@ export default function SignupPage() {
 	useEffect(() => {
 		if (authData?.user) {
 			history.push('/purchases');
+			dispatch(clearError());
 		}
-	}, [authData, history]);
+	}, [authData, dispatch, history]);
 
 	const onSuccess = async (res) => {
 		const user = res?.profileObj;

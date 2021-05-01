@@ -11,10 +11,11 @@ export default function PurchaseForm() {
 		description: '',
 		category: 'other',
 		amount: '',
-		currency: '',
+		currency: 'USD',
 	});
 	const currentId = useSelector((state) => state.currentId);
 	const purchases = useSelector((state) => state.purchases);
+	const currencyOptions = useSelector((state) => state.currencyOptions);
 
 	const dispatch = useDispatch();
 
@@ -42,7 +43,7 @@ export default function PurchaseForm() {
 			date: '',
 			description: '',
 			amount: '',
-			currency: '',
+			currency: 'USD',
 			category: 'other',
 		});
 	}
@@ -128,14 +129,24 @@ export default function PurchaseForm() {
 					<label htmlFor="currency" className="purchase-form-label">
 						Currency
 					</label>
-					<input
-						type="text"
-						name="currency"
-						value={currentData?.currency}
-						onChange={handleChange}
-						required
-						className="purchase-form-input"
-					></input>
+					<div className="custom-select">
+						<select
+							htmlFor="currency"
+							name="currency"
+							value={currentData?.currency}
+							onChange={handleChange}
+							required
+							className="purchase-form-input form-select"
+						>
+							<option value="unselected" disabled>
+								Choose an option
+							</option>
+							{currencyOptions?.map((currency) => (
+								<option value={currency}>{currency}</option>
+							))}
+						</select>
+						<span className="custom-arrow"></span>
+					</div>
 				</div>
 			</div>
 			<div className="purchase-form-btn-container">

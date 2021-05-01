@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearError } from '../../redux/actions/error';
 import './ErrorMessage.css';
 
-export default function ErrorMessage(rror) {
+export default function ErrorMessage() {
 	const dispatch = useDispatch();
 	const error = useSelector((state) => state.error);
 
