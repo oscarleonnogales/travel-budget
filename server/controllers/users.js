@@ -1,4 +1,5 @@
 import User from '../models/user.js';
+import GoogleUser from '../models/googleUser.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -17,7 +18,7 @@ export async function createNewUser(req, res) {
 			email,
 			password: hashedPassword,
 		});
-		newUser.save();
+		await newUser.save();
 
 		const token = jwt.sign({ email: newUser.email, id: newUser._id }, process.env.SESSION_SECRET, {
 			expiresIn: '1h',
@@ -25,6 +26,23 @@ export async function createNewUser(req, res) {
 		res.status(200).json({ user: newUser, token });
 	} catch (error) {
 		res.status(500).json({ message: 'Something went wrong in the server' });
+	}
+}
+
+export async function createGoogleUser(req, res) {
+	try {
+		if (req.userType !== 'google') throw new Error('User is not authenticated through Google');
+
+		const existingUser = await GoogleUser.findOne({ googleId: req.userId });
+		if (existingUser) return res.status(400).json({ message: 'Google User is already in the database' });
+
+		const newGoogleUser = await new GoogleUser({
+			googleId: req.userId,
+		});
+		await newGoogleUser.save();
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ message: error });
 	}
 }
 
@@ -47,11 +65,44 @@ export async function authenticateUser(req, res) {
 	}
 }
 
+export async function getUserSettings(req, res) {
+	try {
+		let user;
+		if (req.userType === 'jwt') user = await User.findOne({ _id: req.userId });
+		else if (req.userType === 'google') user = await GoogleUser.findOne({ googleId: req.userId });
+		return res.status(200).json({
+			defaultCurrency: user.defaultCurrency,
+			categories: user.categories,
+		});
+	} catch (error) {
+		res.status(400).json({ message: `Couldn't find user settings.` });
+	}
+}
+
+export async function setUserSettings(req, res) {
+	const { defaultCurrency, categories } = req.body;
+	try {
+		let user;
+		if (req.userType === 'jwt') user = await User.findOne({ _id: req.userId });
+		else if (req.userType === 'google') user = await GoogleUser.findOne({ googleId: req.userId });
+		user.defaultCurrency = defaultCurrency;
+		user.categories = categories;
+		await user.save();
+		return res.status(200).json({
+			defaultCurrency: user.defaultCurrency,
+			categories: user.categories,
+		});
+	} catch (error) {
+		res.status(500).json({ message: 'Something went wrong in the server' });
+	}
+}
+
 export async function validateEmail(req, res) {
 	const { email } = req.body;
 	try {
-		const existingUser = await User.findOne({ email: email });
-		if (existingUser) return res.status(200).send(false);
+		const user = await User.findOne({ email: email });
+		const googleUser = await GoogleUser.findOne({ email: email });
+		if (user || googleUser) return res.status(200).send(false);
 		else return res.status(200).send(true);
 	} catch (error) {
 		console.log(error);

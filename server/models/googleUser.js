@@ -2,23 +2,11 @@ import mongoose from 'mongoose';
 
 const defaultCategories = ['housing', 'groceries', 'food', 'transportation', 'luxuries'];
 
-const userSchema = new mongoose.Schema({
-	email: {
+const googleUserSchema = new mongoose.Schema({
+	googleId: {
 		type: String,
+		required: true,
 		unique: true,
-		required: true,
-	},
-	firstName: {
-		type: String,
-		required: true,
-	},
-	lastName: {
-		type: String,
-		required: true,
-	},
-	password: {
-		type: String,
-		required: true,
 	},
 	defaultCurrency: {
 		type: String,
@@ -31,4 +19,4 @@ const userSchema = new mongoose.Schema({
 	},
 });
 
-export default mongoose.model('User', userSchema);
+export default mongoose.model('GoogleUser', googleUserSchema);

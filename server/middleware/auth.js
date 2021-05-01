@@ -11,9 +11,11 @@ export async function authorize(req, res, next) {
 			if (token && isCustomToken) {
 				decodedData = jwt.verify(token, process.env.SESSION_SECRET);
 				req.userId = decodedData?.id;
+				req.userType = 'jwt';
 			} else {
 				decodedData = jwt.decode(token);
 				req.userId = decodedData?.sub;
+				req.userType = 'google';
 			}
 			next();
 		} catch (error) {
