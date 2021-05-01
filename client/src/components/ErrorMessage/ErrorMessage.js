@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearError } from '../../redux/actions/error';
 import './ErrorMessage.css';
 
-export default function ErrorMessage() {
+export default function ErrorMessage({ renderCloseButton }) {
 	const dispatch = useDispatch();
 	const error = useSelector((state) => state.error);
 
@@ -16,7 +16,7 @@ export default function ErrorMessage() {
 	return (
 		<div className={`error-message-container ${error ? 'active' : ''}`}>
 			{error}
-			{error && (
+			{error && renderCloseButton && (
 				<button onClick={close} className="close-error-btn">
 					Close
 				</button>

@@ -11,6 +11,8 @@ export default function LoginPage() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const authData = useSelector((state) => state.authData);
+	const error = useSelector((state) => state.error);
+	const googleErrorMessage = `Please click the Google button to continue instead.`;
 
 	const [formData, setFormData] = useState({
 		email: '',
@@ -59,9 +61,24 @@ export default function LoginPage() {
 		dispatch(setError('Error with Google login. Please try again later.'));
 	};
 
+	const handleEmailChange = (e) => {
+		handleChange(e);
+		ensureEmailIsNotGoogle(e.target.value);
+	};
+
+	const ensureEmailIsNotGoogle = (email) => {
+		const regex = /^[\w.+-]+@g(oogle)?mail\.com$/;
+		if (regex.test(String(email).toLocaleLowerCase())) {
+			dispatch(setError(googleErrorMessage));
+		} else {
+			console.log('not a gmail match');
+			if (error === googleErrorMessage) dispatch(clearError());
+		}
+	};
+
 	return (
 		<div className="login-page-container">
-			<ErrorMessage />
+			<ErrorMessage renderCloseButton={false} />
 			<h1 className="page-header">Login</h1>
 			<div className="login-logo-container">
 				<svg
@@ -91,7 +108,7 @@ export default function LoginPage() {
 						className="auth-form-input"
 						required
 						value={formData.email}
-						onChange={handleChange}
+						onChange={handleEmailChange}
 					></input>
 				</div>
 
@@ -110,7 +127,7 @@ export default function LoginPage() {
 				</div>
 
 				<div className="submit-btn-container">
-					<button type="submit" className="login-submit-btn">
+					<button type="submit" className="signup-submit-btn" disabled={error === googleErrorMessage}>
 						Log In
 					</button>
 				</div>

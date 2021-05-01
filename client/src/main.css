@@ -88,7 +88,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .auth-form-input.invalid {
-	border: 1px solid red;
+	border: 1px solid red !important;
 }
 
 .auth-form-input.valid {

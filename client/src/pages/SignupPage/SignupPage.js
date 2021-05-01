@@ -13,6 +13,7 @@ export default function SignupPage() {
 	const history = useHistory();
 	const authData = useSelector((state) => state.authData);
 	const error = useSelector((state) => state.error);
+	const googleErrorMessage = `It's not recommended to sign up manually with a Google account. Please click the Google button to continue instead.`;
 
 	const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 	const [isFormValid, setIsFormValid] = useState(false);
@@ -38,6 +39,7 @@ export default function SignupPage() {
 		if (
 			formData.password === formData.confirmPassword &&
 			formData.confirmPassword.length > 0 &&
+			!error &&
 			formData.password.length > 6 &&
 			validateEmail(formData.email) &&
 			error !== emailErrorMessage &&
@@ -99,9 +101,22 @@ export default function SignupPage() {
 		}
 	};
 
+	const ensureEmailIsNotGoogle = (email) => {
+		const regex = /^[\w.+-]+@g(oogle)?mail\.com$/;
+		if (regex.test(String(email).toLocaleLowerCase())) {
+			dispatch(setError(googleErrorMessage));
+		} else {
+			console.log('not a gmail match');
+			if (error === googleErrorMessage) dispatch(clearError());
+		}
+	};
+
 	const handleEmailChange = (e) => {
 		handleChange(e);
-		if (validateEmail(e.target.value)) ensureEmailIsUnique(e.target.value);
+		if (validateEmail(e.target.value)) {
+			ensureEmailIsUnique(e.target.value);
+			ensureEmailIsNotGoogle(e.target.value);
+		}
 	};
 
 	const handleShowPassword = () => {
@@ -110,7 +125,7 @@ export default function SignupPage() {
 
 	return (
 		<div className="signup-page-container">
-			<ErrorMessage />
+			<ErrorMessage renderCloseButton={false} />
 			<h1 className="page-header">Sign up for Budget App</h1>
 			<div className="signup-logo-container">
 				<svg
@@ -171,11 +186,11 @@ export default function SignupPage() {
 						name="email"
 						className={`auth-form-input ${
 							(formData.email.length === 0 && interacted.email) ||
-							(formData.email.length > 0 && !validateEmail(formData.email))
+							(formData.email.length > 0 && !validateEmail(formData.email)) ||
+							error === googleErrorMessage
 								? 'invalid'
 								: ''
 						} ${validateEmail(formData.email) ? 'valid' : ''}`}
-						// ALso need to ensure the input is a valid input
 						required
 						value={formData.email}
 						onChange={handleEmailChange}
