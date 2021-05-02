@@ -1,0 +1,6 @@
+.settings-group {
+	border: 1px solid hsl(0, 0%, 75%);
+	padding: 1em 1.5em;
+	background: white;
+	margin-bottom: 2rem;
+}
