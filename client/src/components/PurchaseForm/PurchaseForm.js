@@ -23,11 +23,11 @@ export default function PurchaseForm() {
 		if (currentId) setCurrentData(purchases.find((p) => p._id === currentId));
 	}, [currentId, purchases]);
 
-	function handleChange(e) {
+	const handleChange = (e) => {
 		setCurrentData({ ...currentData, [e.target.name]: e.target.value });
-	}
+	};
 
-	function handleSubmit(e) {
+	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (currentId) {
 			dispatch(updatePurchase(currentId, currentData));
@@ -35,9 +35,9 @@ export default function PurchaseForm() {
 			dispatch(addPurchase(currentData));
 		}
 		clearForm();
-	}
+	};
 
-	function clearForm() {
+	const clearForm = () => {
 		dispatch(setCurrentId(null));
 		setCurrentData({
 			date: '',
@@ -46,7 +46,7 @@ export default function PurchaseForm() {
 			currency: 'USD',
 			category: 'other',
 		});
-	}
+	};
 
 	return (
 		<form onSubmit={handleSubmit} className="purchase-form_container">
@@ -142,7 +142,9 @@ export default function PurchaseForm() {
 								Choose an option
 							</option>
 							{currencyOptions?.map((currency) => (
-								<option value={currency}>{currency}</option>
+								<option value={currency} key={currency}>
+									{currency}
+								</option>
 							))}
 						</select>
 						<span className="custom-arrow"></span>

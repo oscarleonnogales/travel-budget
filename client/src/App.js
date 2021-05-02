@@ -50,7 +50,7 @@ function App() {
 				<ProtectedRoute exact path="/purchases" component={PurchasesPage} />
 				<ProtectedRoute exact path="/month-breakdown" component={MonthlyPage} />
 				<ProtectedRoute exact path="/year-breakdown" component={YearlyPage} />
-				<Route exact path="/settings" component={SettingsPage} />
+				<ProtectedRoute exact path="/settings" component={SettingsPage} />
 
 				<Route component={Page404} />
 			</Switch>

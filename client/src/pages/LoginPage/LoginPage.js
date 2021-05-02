@@ -30,7 +30,6 @@ export default function LoginPage() {
 		const user = res?.profileObj;
 		const token = res?.tokenId;
 
-		console.log(res);
 		try {
 			dispatch(googleLogIn(user, token));
 		} catch (error) {
@@ -71,7 +70,6 @@ export default function LoginPage() {
 		if (regex.test(String(email).toLocaleLowerCase())) {
 			dispatch(setError(googleErrorMessage));
 		} else {
-			console.log('not a gmail match');
 			if (error === googleErrorMessage) dispatch(clearError());
 		}
 	};
