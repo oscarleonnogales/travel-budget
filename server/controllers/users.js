@@ -79,7 +79,7 @@ export async function getUserSettings(req, res) {
 	}
 }
 
-export async function setUserSettings(req, res) {
+export async function updateUserSettings(req, res) {
 	const { defaultCurrency, categories } = req.body;
 	try {
 		let user;

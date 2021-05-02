@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { logOut } from '../../redux/actions/auth';
 import { clearPurchases } from '../../redux/actions/purchases';
+import { clearUserSettings } from '../../redux/actions/userSettings';
 import decode from 'jwt-decode';
 import './Navbar.css';
 
@@ -21,6 +22,7 @@ export default function Navbar() {
 			if (decodedToken.exp * 1000 < new Date().getTime()) {
 				dispatch(logOut());
 				dispatch(clearPurchases());
+				dispatch(clearUserSettings());
 			}
 		}
 	}, [authData?.user?.token, dispatch, location]);

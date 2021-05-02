@@ -5,6 +5,7 @@ import currentIdReducer from './currentId';
 import authReducer from './auth';
 import errorReducer from './error';
 import currencyOptionsReducer from './currencyOptions';
+import userSettingsReducer from './userSettings';
 
 export default combineReducers({
 	purchases: purchasesReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
 	authData: authReducer,
 	error: errorReducer,
 	currencyOptions: currencyOptionsReducer,
+	userSettings: userSettingsReducer,
 });

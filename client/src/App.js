@@ -11,16 +11,26 @@ import MonthlyPage from './pages/MonthlyPage/MonthlyPage';
 import YearlyPage from './pages/YearlyPage/YearlyPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import Page404 from './pages/Page404/Page404';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadCurrencyOptions } from './redux/actions/currencyOptions';
+import { fetchUserSettings } from './redux/actions/userSettings';
+import { clearError } from './redux/actions/error';
 import './main.css';
 
 function App() {
 	const dispatch = useDispatch();
+	const authData = useSelector((state) => state.authData);
 
 	useEffect(() => {
 		dispatch(loadCurrencyOptions());
 	}, [dispatch]);
+
+	useEffect(() => {
+		if (authData?.user) {
+			dispatch(fetchUserSettings());
+			dispatch(clearError());
+		}
+	}, [authData, dispatch]);
 
 	return (
 		<BrowserRouter>

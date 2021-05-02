@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleLogin } from 'react-google-login';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { googleLogIn, logIn } from '../../redux/actions/auth';
 import { setError, clearError } from '../../redux/actions/error';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
@@ -10,7 +10,7 @@ import './LoginPage.css';
 export default function LoginPage() {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const authData = useSelector((state) => state.authData);
+	const userSettings = useSelector((state) => state.userSettings);
 	const error = useSelector((state) => state.error);
 	const googleErrorMessage = `Please click the Google button to continue instead.`;
 
@@ -20,17 +20,17 @@ export default function LoginPage() {
 	});
 
 	useEffect(() => {
-		if (authData?.user) {
+		if (userSettings?.defaultCurrency) {
 			history.push('/purchases');
-			dispatch(clearError());
 		}
-	}, [authData, dispatch, history]);
+	}, [userSettings, history]);
 
 	const onSuccess = async (res) => {
 		refreshTokenSetup(res);
 		const user = res?.profileObj;
 		const token = res?.tokenId;
 
+		console.log(res);
 		try {
 			dispatch(googleLogIn(user, token));
 		} catch (error) {

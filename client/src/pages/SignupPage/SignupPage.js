@@ -11,7 +11,7 @@ import './SignupPage.css';
 export default function SignupPage() {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const authData = useSelector((state) => state.authData);
+	const userSettings = useSelector((state) => state.userSettings);
 	const error = useSelector((state) => state.error);
 	const googleErrorMessage = `It's not recommended to sign up manually with a Google account. Please click the Google button to continue instead.`;
 
@@ -51,11 +51,10 @@ export default function SignupPage() {
 	}, [formData, error]);
 
 	useEffect(() => {
-		if (authData?.user) {
+		if (userSettings?.defaultCurrency) {
 			history.push('/purchases');
-			dispatch(clearError());
 		}
-	}, [authData, dispatch, history]);
+	}, [userSettings, history]);
 
 	const onSuccess = async (res) => {
 		const user = res?.profileObj;

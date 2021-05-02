@@ -7,7 +7,7 @@ import {
 	authenticateUser,
 	validateEmail,
 	getUserSettings,
-	setUserSettings,
+	updateUserSettings,
 } from '../controllers/users.js ';
 import { authorize } from '../middleware/auth.js';
 
@@ -21,6 +21,6 @@ router.post('/validate', validateEmail);
 
 router.get('/settings', authorize, getUserSettings);
 
-router.post('/settings', authorize, setUserSettings);
+router.put('/settings', authorize, updateUserSettings);
 
 export default router;

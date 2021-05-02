@@ -16,7 +16,7 @@ import LoadingPage from './pages/LoadingPage/LoadingPage';
 const persistConfig = {
 	key: 'budget-app.state',
 	storage,
-	whitelist: ['authData'],
+	whitelist: ['authData', 'userSettings'],
 };
 
 const persistedReducers = persistReducer(persistConfig, reducers);

@@ -52,3 +52,15 @@ export function checkEmailUniqueness(email) {
 		})
 		.catch((error) => error.response.data);
 }
+
+export function getUserSettings(user) {
+	return API.get('/users/settings')
+		.then((res) => res.data)
+		.catch((error) => error.response.data);
+}
+
+export function updateUserSettings(newSettings) {
+	return API.put('/users/settings', newSettings)
+		.then((res) => res.data)
+		.catch((error) => error.response.data);
+}
