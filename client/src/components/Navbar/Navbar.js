@@ -20,17 +20,18 @@ export default function Navbar() {
 		if (token) {
 			const decodedToken = decode(token);
 			if (decodedToken.exp * 1000 < new Date().getTime()) {
-				dispatch(logOut());
 				dispatch(clearPurchases());
 				dispatch(clearUserSettings());
+				dispatch(logOut());
 			}
 		}
 	}, [authData?.user?.token, dispatch, location]);
 
 	const onLogoutSuccess = async () => {
 		try {
-			dispatch(logOut());
 			dispatch(clearPurchases());
+			dispatch(clearUserSettings());
+			dispatch(logOut());
 			history.push('/login');
 		} catch (error) {
 			console.log(error);

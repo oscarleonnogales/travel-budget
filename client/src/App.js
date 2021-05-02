@@ -11,6 +11,7 @@ import MonthlyPage from './pages/MonthlyPage/MonthlyPage';
 import YearlyPage from './pages/YearlyPage/YearlyPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import Page404 from './pages/Page404/Page404';
+import { createGoogleUser, checkEmailUniqueness } from './API';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadCurrencyOptions } from './redux/actions/currencyOptions';
 import { fetchUserSettings } from './redux/actions/userSettings';
@@ -26,10 +27,17 @@ function App() {
 	}, [dispatch]);
 
 	useEffect(() => {
-		if (authData?.user) {
+		if (authData?.token?.length >= 500) {
+			async function fetchGoogleUserPreferences() {
+				let email = authData?.user?.email;
+				if (await checkEmailUniqueness(email)) await createGoogleUser(email);
+				dispatch(fetchUserSettings());
+			}
+			fetchGoogleUserPreferences();
+		} else if (authData?.user) {
 			dispatch(fetchUserSettings());
-			dispatch(clearError());
 		}
+		dispatch(clearError());
 	}, [authData, dispatch]);
 
 	return (
@@ -42,7 +50,7 @@ function App() {
 				<ProtectedRoute exact path="/purchases" component={PurchasesPage} />
 				<ProtectedRoute exact path="/month-breakdown" component={MonthlyPage} />
 				<ProtectedRoute exact path="/year-breakdown" component={YearlyPage} />
-				<ProtectedRoute exact path="/settings" component={SettingsPage} />
+				<Route exact path="/settings" component={SettingsPage} />
 
 				<Route component={Page404} />
 			</Switch>

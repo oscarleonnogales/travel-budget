@@ -53,6 +53,13 @@ export function checkEmailUniqueness(email) {
 		.catch((error) => error.response.data);
 }
 
+export function createGoogleUser(email) {
+	return API.post('/users/googleSignup', { email })
+		.then((res) => res.data)
+		.catch((error) => error.response.data);
+}
+
+// Settings
 export function getUserSettings(user) {
 	return API.get('/users/settings')
 		.then((res) => res.data)

@@ -30,6 +30,7 @@ export async function createNewUser(req, res) {
 }
 
 export async function createGoogleUser(req, res) {
+	const { email } = req.body;
 	try {
 		if (req.userType !== 'google') throw new Error('User is not authenticated through Google');
 
@@ -38,8 +39,10 @@ export async function createGoogleUser(req, res) {
 
 		const newGoogleUser = await new GoogleUser({
 			googleId: req.userId,
+			email,
 		});
 		await newGoogleUser.save();
+		return res.status(201).json({ created: true });
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ message: error });

@@ -5,7 +5,7 @@ const userSettingsReducer = (userSettings = {}, action) => {
 		case 'userSettings/update':
 			return action.payload;
 		case 'userSettings/clear':
-			return userSettings;
+			return {};
 		default:
 			return userSettings;
 	}
