@@ -1,6 +1,44 @@
 .settings-group {
-	border: 1px solid hsl(0, 0%, 75%);
-	padding: 1em 1.5em;
-	background: white;
+	background: var(--form-background-color);
+	box-shadow: 0 0 5px 2px black;
+	color: var(--primary-text-color);
+	border: none;
+	padding: 1em;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
 	margin-bottom: 2rem;
+}
+
+.settings-group-title {
+	font-size: 1.4rem;
+	margin-right: 0.5em;
+}
+
+.settings-group-header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.settings-group-form {
+	margin-top: 0.5em;
+	display: none;
+	/* opacity: 0; */
+}
+
+/* Desktop */
+@media (min-width: 600px) {
+	.settings-group {
+		max-width: 800px;
+		transition: transform 400ms ease;
+	}
+
+	.settings-group:hover {
+		transform: translateY(-3px);
+	}
+}
+
+/* Mobile */
+@media (max-width: 600px) {
 }

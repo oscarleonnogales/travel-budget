@@ -4,7 +4,6 @@ export default function PasswordInput({ name, password, interacted, handleChange
 	const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 
 	const handleShowPassword = () => {
-		console.log('clicking button');
 		setPasswordIsVisible(!passwordIsVisible);
 	};
 
