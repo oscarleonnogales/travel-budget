@@ -21,11 +21,11 @@
 	align-items: center;
 }
 
-.settings-group-form {
+/* .settings-group-form {
 	margin-top: 0.5em;
 	display: none;
-	/* opacity: 0; */
-}
+	opacity: 0;
+} */
 
 /* Desktop */
 @media (min-width: 600px) {

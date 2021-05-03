@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import FormHeader from './FormHeader';
 
 export default function PersonInformationForm() {
 	const dispatch = useDispatch();
@@ -11,6 +12,10 @@ export default function PersonInformationForm() {
 		lastName: authData?.user?.lastName || authData?.user?.familyName,
 	});
 
+	const changeVisibility = () => {
+		setPersonalInfoFormVisible(!personalInfoFormVisible);
+	};
+
 	const handlePersonalInfoSubmit = (e) => {
 		e.preventDefault();
 	};
@@ -21,33 +26,34 @@ export default function PersonInformationForm() {
 
 	return (
 		<div className="settings-group">
-			<div className="settings-group-header">
-				<h3 className="settings-group-title">Personal Information</h3>
-				<button type="button" className="dropdown-btn">
-					DR
-				</button>
-			</div>
-			<form onSubmit={handlePersonalInfoSubmit} className="settings-group-form">
-				<div className="settings-form-group">
-					<label htmlFor="firstName">First Name</label>
-					<input
-						type="text"
-						name="firstName"
-						onChange={handlePersonalInfoChange}
-						value={personalInformation.firstName}
-					></input>
-				</div>
-				<div className="settings-form-group">
-					<label htmlFor="lastName">Last Name</label>
-					<input
-						type="text"
-						name="lastName"
-						onChange={handlePersonalInfoChange}
-						value={personalInformation.lastName}
-					></input>
-				</div>
-				<button type="submit">Save Changes</button>
-			</form>
+			<FormHeader
+				title={'Personal Information'}
+				visible={personalInfoFormVisible}
+				changeVisibility={changeVisibility}
+			/>
+			{personalInfoFormVisible && (
+				<form onSubmit={handlePersonalInfoSubmit} className="settings-group-form">
+					<div className="settings-form-group">
+						<label htmlFor="firstName">First Name</label>
+						<input
+							type="text"
+							name="firstName"
+							onChange={handlePersonalInfoChange}
+							value={personalInformation.firstName}
+						></input>
+					</div>
+					<div className="settings-form-group">
+						<label htmlFor="lastName">Last Name</label>
+						<input
+							type="text"
+							name="lastName"
+							onChange={handlePersonalInfoChange}
+							value={personalInformation.lastName}
+						></input>
+					</div>
+					<button type="submit">Save Changes</button>
+				</form>
+			)}
 		</div>
 	);
 }

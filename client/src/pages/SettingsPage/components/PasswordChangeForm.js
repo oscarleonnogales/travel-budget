@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PasswordInput from '../../../components/PasswordInput';
+import FormHeader from './FormHeader';
 
 export default function PasswordChangeForm() {
 	const [newPassword, setNewPassword] = useState('');
@@ -10,6 +11,10 @@ export default function PasswordChangeForm() {
 		newPassword: false,
 		confirmPassword: false,
 	});
+
+	const changeVisibility = () => {
+		setPasswordFormVisible(!passwordFormVisible);
+	};
 
 	const handleNewPasswordChange = (e) => {
 		setInteracted({ ...interacted, [e.target.name]: true });
@@ -22,27 +27,29 @@ export default function PasswordChangeForm() {
 
 	return (
 		<div className="settings-group">
-			<h3 className="settings-group-title">Change Your Password</h3>
-			<form onSubmit={handleNewPasswordSubmit} className="settings-group-form">
-				<div className="settings-form-group">
-					<label htmlFor="oldPassword">Old Password</label>
-					<input type="password" name="oldPassword" />
-				</div>
-				<div className="settings-form-group">
-					<label htmlFor="newPassword">New Password</label>
-					<PasswordInput
-						name={'newPassword'}
-						password={newPassword}
-						interacted={interacted.newPassword}
-						handleChange={handleNewPasswordChange}
-					/>
-				</div>
-				<div className="settings-form-group">
-					<label htmlFor="confirmPassword">Confirm Password</label>
-					<input type="password" name="confirmPassword" />
-				</div>
-				<button type="submit">Save Changes</button>
-			</form>
+			<FormHeader title={'Change Your Password'} visible={passwordFormVisible} changeVisibility={changeVisibility} />
+			{passwordFormVisible && (
+				<form onSubmit={handleNewPasswordSubmit} className="settings-group-form">
+					<div className="settings-form-group">
+						<label htmlFor="oldPassword">Old Password</label>
+						<input type="password" name="oldPassword" />
+					</div>
+					<div className="settings-form-group">
+						<label htmlFor="newPassword">New Password</label>
+						<PasswordInput
+							name={'newPassword'}
+							password={newPassword}
+							interacted={interacted.newPassword}
+							handleChange={handleNewPasswordChange}
+						/>
+					</div>
+					<div className="settings-form-group">
+						<label htmlFor="confirmPassword">Confirm Password</label>
+						<input type="password" name="confirmPassword" />
+					</div>
+					<button type="submit">Save Changes</button>
+				</form>
+			)}
 		</div>
 	);
 }
