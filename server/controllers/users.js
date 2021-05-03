@@ -68,6 +68,23 @@ export async function authenticateUser(req, res) {
 	}
 }
 
+export async function changePassword(req, res) {
+	const { oldPassword, newPassword, confirmPassword } = req.body;
+	try {
+		const user = await User.findOne({ _id: req.userId });
+		if (!user) throw new Error(`Couldn't find user.`);
+		if (!(await bcrypt.compare(oldPassword, user.password))) throw new Error(`Old password was entered incorrectly`);
+		if (newPassword !== confirmPassword) throw new Error('Passwords do not match');
+
+		const newHashedPassword = await bcrypt.hash(newPassword, 12);
+		user.password = newHashedPassword;
+		await user.save();
+		res.status(200).json({ success: true });
+	} catch (error) {
+		res.status(500).json({ message: error.message });
+	}
+}
+
 export async function getUserSettings(req, res) {
 	try {
 		let user;

@@ -59,6 +59,13 @@ export function createGoogleUser(email) {
 		.catch((error) => error.response.data);
 }
 
+//Change settings
+export function changePassword(passwordForm) {
+	return API.put('/users/change-password', passwordForm)
+		.then((res) => res.data)
+		.catch((error) => error.response.data);
+}
+
 // Settings
 export function getUserSettings(user) {
 	return API.get('/users/settings')

@@ -8,6 +8,7 @@ import {
 	validateEmail,
 	getUserSettings,
 	updateUserSettings,
+	changePassword,
 } from '../controllers/users.js ';
 import { authorize } from '../middleware/auth.js';
 
@@ -16,6 +17,8 @@ router.post('/signup', createNewUser);
 router.post('/googleSignup', authorize, createGoogleUser);
 
 router.post('/login', authenticateUser);
+
+router.put('/change-password', authorize, changePassword);
 
 router.post('/validate', validateEmail);
 
