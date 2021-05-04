@@ -2,25 +2,28 @@ import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPurchase, updatePurchase } from '../../redux/actions/purchases';
+import { setError, clearError } from '../../redux/actions/error';
 import { setCurrentId } from '../../redux/actions/currentId';
 import './PurchaseForm.css';
 
 export default function PurchaseForm() {
-	const [currentData, setCurrentData] = useState({
-		date: '',
-		description: '',
-		category: 'other',
-		amount: '',
-		currency: 'USD',
-	});
 	const currentId = useSelector((state) => state.currentId);
 	const purchases = useSelector((state) => state.purchases);
 	const currencyOptions = useSelector((state) => state.currencyOptions);
-
+	const userSettings = useSelector((state) => state.userSettings);
 	const dispatch = useDispatch();
 
+	const [currentData, setCurrentData] = useState({
+		date: '',
+		description: '',
+		categoryId: '',
+		amount: '',
+		currency: userSettings?.defaultCurrency,
+	});
+
 	useEffect(() => {
-		if (currentId) setCurrentData(purchases.find((p) => p._id === currentId));
+		const selectedPurchase = purchases.find((p) => p._id === currentId);
+		if (currentId) setCurrentData({ ...selectedPurchase, categoryId: selectedPurchase.category.categoryId });
 	}, [currentId, purchases]);
 
 	const handleChange = (e) => {
@@ -29,22 +32,34 @@ export default function PurchaseForm() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (
+			!currentData.date ||
+			!currentData.description ||
+			!currentData.categoryId ||
+			!currentData.amount ||
+			!currentData.currency
+		) {
+			dispatch(setError('Please complete the form'));
+			return;
+		}
 		if (currentId) {
 			dispatch(updatePurchase(currentId, currentData));
 		} else {
 			dispatch(addPurchase(currentData));
 		}
+		dispatch(clearError());
 		clearForm();
 	};
 
 	const clearForm = () => {
 		dispatch(setCurrentId(null));
+		dispatch(clearError());
 		setCurrentData({
 			date: '',
 			description: '',
 			amount: '',
-			currency: 'USD',
-			category: 'other',
+			currency: userSettings?.defaultCurrency,
+			categoryId: '',
 		});
 	};
 
@@ -86,9 +101,9 @@ export default function PurchaseForm() {
 					</label>
 					<div className="custom-select">
 						<select
-							htmlFor="category"
-							name="category"
-							value={currentData?.category}
+							htmlFor="categoryId"
+							name="categoryId"
+							value={currentData?.categoryId || 'unselected'}
 							onChange={handleChange}
 							required
 							className="purchase-form-input form-select"
@@ -96,12 +111,11 @@ export default function PurchaseForm() {
 							<option value="unselected" disabled>
 								Choose an option
 							</option>
-							<option value="other">Other</option>
-							<option value="housing">Housing</option>
-							<option value="groceries">Groceries</option>
-							<option value="food">Food</option>
-							<option value="transportation">Transportation</option>
-							<option value="luxuries">Luxuries</option>
+							{userSettings?.categories?.map((category) => (
+								<option key={category.categoryId} value={category.categoryId}>
+									{category.categoryName}
+								</option>
+							))}
 						</select>
 						<span className="custom-arrow"></span>
 					</div>

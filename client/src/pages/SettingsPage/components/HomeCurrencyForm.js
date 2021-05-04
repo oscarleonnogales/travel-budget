@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PasswordInput from '../../../components/PasswordInput';
 import FormHeader from './FormHeader';
 
 export default function HomeCurrencyForm() {
@@ -10,14 +9,6 @@ export default function HomeCurrencyForm() {
 
 	const [settingsFormVisible, setSettingsFormVisible] = useState(false);
 	const [newUserSettings, setNewUserSettings] = useState(userSettings);
-
-	const [password, setPassword] = useState('');
-	const [interactedPassword, setInteractedPassword] = useState(false);
-
-	const changePassword = (e) => {
-		setInteractedPassword(true);
-		setPassword(e.target.value);
-	};
 
 	const changeVisibility = () => {
 		setSettingsFormVisible(!settingsFormVisible);
@@ -58,15 +49,6 @@ export default function HomeCurrencyForm() {
 							</select>
 							<span className="custom-arrow"></span>
 						</div>
-					</div>
-					<div className="settings-form-group">
-						<label htmlFor="password">Password</label>
-						<PasswordInput
-							name={'password'}
-							password={password}
-							interacted={interactedPassword}
-							handleChange={changePassword}
-						/>
 					</div>
 					<button type="submit">Save Changes</button>
 				</form>

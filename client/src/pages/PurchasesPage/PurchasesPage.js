@@ -42,9 +42,9 @@ export default function PurchasesPage() {
 			<main className="main-page-content">
 				<ErrorMessage />
 				<PurchaseForm />
-				{currentPurchases.length > 0 && (
+				{currentPurchases?.length > 0 && (
 					<div className="purchases-container">
-						{currentPurchases.map((purchase) => {
+						{currentPurchases?.map((purchase) => {
 							return <Purchase purchase={purchase} renderButtons={true} key={purchase._id} />;
 						})}
 					</div>

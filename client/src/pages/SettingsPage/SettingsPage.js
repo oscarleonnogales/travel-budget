@@ -35,7 +35,7 @@ export default function SettingsPage() {
 					</button>
 				</div>
 				<MessageContext.Provider value={messageContexValue}>
-					<PersonalInformationForm />
+					{authData?.user?.firstName && <PersonalInformationForm />}
 					<HomeCurrencyForm />
 					<CategoriesForm />
 					{authData?.user?.firstName && <PasswordChangeForm />}

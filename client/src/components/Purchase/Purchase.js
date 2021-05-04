@@ -26,7 +26,7 @@ export default function Purchase({ purchase, renderButtons }) {
 						</div>
 					)}
 				</div>
-				<div className="pruchase-category">{purchase.category}</div>
+				<div className="pruchase-category">{purchase.category.categoryName}</div>
 				{renderButtons && (
 					<div className="purchase-btn-container">
 						<button className="save-btn purchase-btn" onClick={() => dispatch(setCurrentId(purchase._id))}>

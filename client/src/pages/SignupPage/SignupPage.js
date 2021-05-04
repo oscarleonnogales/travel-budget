@@ -18,7 +18,6 @@ export default function SignupPage() {
 	const error = useSelector((state) => state.error);
 	const googleErrorMessage = `It's not recommended to sign up manually with a Google account. Please click the Google button to continue instead.`;
 
-	const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 	const [isFormValid, setIsFormValid] = useState(false);
 
 	const [formData, setFormData] = useState({
@@ -76,7 +75,6 @@ export default function SignupPage() {
 	const onSuccess = async (res) => {
 		const user = res?.profileObj;
 		const token = res?.tokenId;
-		console.log(res);
 
 		try {
 			dispatch(googleLogIn(user, token));
@@ -133,10 +131,6 @@ export default function SignupPage() {
 			ensureEmailIsUnique(e.target.value);
 			ensureEmailIsNotGoogle(e.target.value);
 		}
-	};
-
-	const handleShowPassword = () => {
-		setPasswordIsVisible(!passwordIsVisible);
 	};
 
 	return (

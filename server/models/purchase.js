@@ -9,7 +9,7 @@ const purchaseSchema = new mongoose.Schema({
 		required: true,
 	},
 	category: {
-		type: String,
+		type: {},
 		required: true,
 	},
 	date: {

@@ -1,4 +1,6 @@
 import Purchase from '../models/purchase.js';
+import User from '../models/user.js';
+import GoogleUser from '../models/googleUser.js';
 
 export async function getPurchases(req, res) {
 	try {
@@ -11,12 +13,18 @@ export async function getPurchases(req, res) {
 
 export async function createNewPurchase(req, res) {
 	try {
+		let user;
+		if (req.userType === 'google') user = await GoogleUser.findOne({ googleId: req.userId });
+		else if (req.userType === 'jwt') user = await User.findOne({ _id: req.userId });
+
+		const category = [...user.categories].find((category) => category.categoryId === req.body.categoryId);
+
 		const newPurchase = new Purchase({
 			description: req.body.description,
 			amount: req.body.amount,
 			currency: req.body.currency,
 			date: req.body.date,
-			category: req.body.category,
+			category: category,
 			user: req.userId,
 		});
 		await newPurchase.save();

@@ -4,7 +4,7 @@ import FormHeader from './FormHeader';
 
 export default function CategoriesForm() {
 	const dispatch = useDispatch();
-	const categories = useSelector((state) => state.authData?.user?.categories);
+	const categories = useSelector((state) => state.userSettings?.categories);
 
 	const [categoriesFormVisible, setCategoriesFormVisible] = useState(false);
 	const [newCategories, setNewCategories] = useState(categories);
@@ -46,7 +46,7 @@ export default function CategoriesForm() {
 				// 	</div>
 				// 	<button type="submit">Save Changes</button>
 				// </form>
-				categories.map((category) => <li key={category}>{category}</li>)}
+				categories?.map((category) => <li key={category}>{category}</li>)}
 		</div>
 	);
 }

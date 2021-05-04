@@ -1,6 +1,28 @@
 import mongoose from 'mongoose';
+import { v4 as uuid } from 'uuid';
 
-const defaultCategories = ['housing', 'groceries', 'food', 'transportation', 'luxuries'];
+const defaultCategories = [
+	{
+		categoryId: uuid(),
+		categoryName: 'housing',
+	},
+	{
+		categoryId: uuid(),
+		categoryName: 'groceries',
+	},
+	{
+		categoryId: uuid(),
+		categoryName: 'food',
+	},
+	{
+		categoryId: uuid(),
+		categoryName: 'transportation',
+	},
+	{
+		categoryId: uuid(),
+		categoryName: 'luxuries',
+	},
+];
 
 const googleUserSchema = new mongoose.Schema({
 	email: {
@@ -19,7 +41,7 @@ const googleUserSchema = new mongoose.Schema({
 		default: 'USD',
 	},
 	categories: {
-		type: [String],
+		type: {},
 		default: defaultCategories,
 	},
 });
