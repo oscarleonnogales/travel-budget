@@ -10,22 +10,26 @@
 	margin-bottom: 2rem;
 }
 
-.settings-group-title {
+.group-title-btn {
 	font-size: 1.4rem;
-	margin-right: 0.5em;
+	cursor: pointer;
+	background: none;
+	outline: none;
+	border: none;
+	text-align: left;
 }
 
-.settings-group-header {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+.dropdown-btn-icon {
+	width: 1.25em;
+	height: 1.25em;
+	fill: var(--primary-text-color);
+	vertical-align: sub;
+	transform: translateY(2px);
 }
 
-/* .settings-group-form {
-	margin-top: 0.5em;
-	display: none;
-	opacity: 0;
-} */
+.settings-form-group {
+	margin-top: 1em;
+}
 
 .success-message-container {
 	opacity: 0;

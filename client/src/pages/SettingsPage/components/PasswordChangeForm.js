@@ -62,7 +62,7 @@ export default function PasswordChangeForm() {
 				<form onSubmit={handleSubmit} className="settings-group-form">
 					<div className="settings-form-group">
 						<label htmlFor="oldPassword">Old Password</label>
-						<input type="password" name="oldPassword" onChange={handleChange} />
+						<input type="password" name="oldPassword" onChange={handleChange} required />
 					</div>
 					<div className="settings-form-group">
 						<label htmlFor="newPassword">New Password</label>
@@ -75,7 +75,7 @@ export default function PasswordChangeForm() {
 					</div>
 					<div className="settings-form-group">
 						<label htmlFor="confirmPassword">Confirm Password</label>
-						<input type="password" name="confirmPassword" onChange={handleChange} />
+						<input type="password" name="confirmPassword" onChange={handleChange} required />
 					</div>
 					<button type="submit">Save Changes</button>
 				</form>
