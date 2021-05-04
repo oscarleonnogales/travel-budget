@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { googleLogIn, logIn } from '../../redux/actions/auth';
 import { setError, clearError } from '../../redux/actions/error';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import { checkEmailUniqueness, createGoogleUser } from '../../API';
+import { fetchUserSettings } from '../../redux/actions/userSettings';
 import './LoginPage.css';
 
 export default function LoginPage() {
@@ -12,12 +14,27 @@ export default function LoginPage() {
 	const history = useHistory();
 	const userSettings = useSelector((state) => state.userSettings);
 	const error = useSelector((state) => state.error);
+	const authData = useSelector((state) => state.authData);
 	const googleErrorMessage = `Please click the Google button to continue instead.`;
 
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
 	});
+
+	useEffect(() => {
+		if (authData?.token?.length >= 500) {
+			async function fetchGoogleUserPreferences() {
+				let email = authData?.user?.email;
+				if (await checkEmailUniqueness(email)) await createGoogleUser(email);
+				dispatch(fetchUserSettings());
+			}
+			fetchGoogleUserPreferences();
+		} else if (authData?.user) {
+			dispatch(fetchUserSettings());
+		}
+		dispatch(clearError());
+	}, [authData, dispatch]);
 
 	useEffect(() => {
 		if (userSettings?.defaultCurrency) {

@@ -11,34 +11,16 @@ import MonthlyPage from './pages/MonthlyPage/MonthlyPage';
 import YearlyPage from './pages/YearlyPage/YearlyPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import Page404 from './pages/Page404/Page404';
-import { createGoogleUser, checkEmailUniqueness } from './API';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loadCurrencyOptions } from './redux/actions/currencyOptions';
-import { fetchUserSettings } from './redux/actions/userSettings';
-import { clearError } from './redux/actions/error';
 import './main.css';
 
 function App() {
 	const dispatch = useDispatch();
-	const authData = useSelector((state) => state.authData);
 
 	useEffect(() => {
 		dispatch(loadCurrencyOptions());
 	}, [dispatch]);
-
-	useEffect(() => {
-		if (authData?.token?.length >= 500) {
-			async function fetchGoogleUserPreferences() {
-				let email = authData?.user?.email;
-				if (await checkEmailUniqueness(email)) await createGoogleUser(email);
-				dispatch(fetchUserSettings());
-			}
-			fetchGoogleUserPreferences();
-		} else if (authData?.user) {
-			dispatch(fetchUserSettings());
-		}
-		dispatch(clearError());
-	}, [authData, dispatch]);
 
 	return (
 		<BrowserRouter>

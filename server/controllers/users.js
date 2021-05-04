@@ -125,6 +125,19 @@ export async function validateEmail(req, res) {
 		if (user || googleUser) return res.status(200).send(false);
 		else return res.status(200).send(true);
 	} catch (error) {
-		console.log(error);
+		res.status(500).json({ message: 'Something went wrong in the server' });
+	}
+}
+
+export async function changeName(req, res) {
+	const { firstName, lastName } = req.body;
+	try {
+		const user = await User.findOne({ _id: req.userId });
+		user.firstName = firstName;
+		user.lastName = lastName;
+		await user.save();
+		res.status(200).json({ user });
+	} catch (error) {
+		res.status(500).json({ message: 'Something went wrong in the server' });
 	}
 }

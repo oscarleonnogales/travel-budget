@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { changeName } from '../../../redux/actions/auth';
+import { MessageContext } from '../SettingsPage';
+
 import FormHeader from './FormHeader';
 
 export default function PersonInformationForm() {
 	const dispatch = useDispatch();
 	const authData = useSelector((state) => state.authData);
+	const { changeMessage } = useContext(MessageContext);
 
 	const [personalInfoFormVisible, setPersonalInfoFormVisible] = useState(false);
 	const [personalInformation, setPersonalInformation] = useState({
@@ -16,8 +20,10 @@ export default function PersonInformationForm() {
 		setPersonalInfoFormVisible(!personalInfoFormVisible);
 	};
 
-	const handlePersonalInfoSubmit = (e) => {
+	const handlePersonalInfoSubmit = async (e) => {
 		e.preventDefault();
+		dispatch(changeName(personalInformation));
+		changeMessage('Your name has been changed successfully');
 	};
 
 	const handlePersonalInfoChange = (e) => {
@@ -40,7 +46,8 @@ export default function PersonInformationForm() {
 							name="firstName"
 							onChange={handlePersonalInfoChange}
 							value={personalInformation.firstName}
-						></input>
+							required
+						/>
 					</div>
 					<div className="settings-form-group">
 						<label htmlFor="lastName">Last Name</label>
@@ -49,7 +56,8 @@ export default function PersonInformationForm() {
 							name="lastName"
 							onChange={handlePersonalInfoChange}
 							value={personalInformation.lastName}
-						></input>
+							required
+						/>
 					</div>
 					<button type="submit">Save Changes</button>
 				</form>

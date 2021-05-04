@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import PasswordInput from '../../../components/PasswordInput';
 import FormHeader from './FormHeader';
 
-export default function UserSettingsForm() {
+export default function HomeCurrencyForm() {
 	const dispatch = useDispatch();
 	const userSettings = useSelector((state) => state.userSettings);
 	const currencyOptions = useSelector((state) => state.currencyOptions);
 
 	const [settingsFormVisible, setSettingsFormVisible] = useState(false);
 	const [newUserSettings, setNewUserSettings] = useState(userSettings);
+
+	const [password, setPassword] = useState('');
+	const [interactedPassword, setInteractedPassword] = useState(false);
+
+	const changePassword = (e) => {
+		setInteractedPassword(true);
+		setPassword(e.target.value);
+	};
 
 	const changeVisibility = () => {
 		setSettingsFormVisible(!settingsFormVisible);
@@ -24,11 +33,7 @@ export default function UserSettingsForm() {
 
 	return (
 		<div className="settings-group">
-			<FormHeader
-				title={'Organizing Your Purchases'}
-				visible={settingsFormVisible}
-				changeVisibility={changeVisibility}
-			/>
+			<FormHeader title={'Home Currency'} visible={settingsFormVisible} changeVisibility={changeVisibility} />
 			{settingsFormVisible && (
 				<form onSubmit={handleSettingsSubmit} className="settings-group-form">
 					<div className="settings-form-group">
@@ -55,7 +60,13 @@ export default function UserSettingsForm() {
 						</div>
 					</div>
 					<div className="settings-form-group">
-						<label htmlFor="categories">Purchase Categories</label>
+						<label htmlFor="password">Password</label>
+						<PasswordInput
+							name={'password'}
+							password={password}
+							interacted={interactedPassword}
+							handleChange={changePassword}
+						/>
 					</div>
 					<button type="submit">Save Changes</button>
 				</form>

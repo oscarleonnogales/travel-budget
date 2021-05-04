@@ -5,7 +5,8 @@ import { useHistory } from 'react-router-dom';
 import { googleLogIn, signUp } from '../../redux/actions/auth';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { setError, clearError } from '../../redux/actions/error';
-import { checkEmailUniqueness } from '../../API';
+import { checkEmailUniqueness, createGoogleUser } from '../../API';
+import { fetchUserSettings } from '../../redux/actions/userSettings';
 import './SignupPage.css';
 import PasswordInput from '../../components/PasswordInput';
 
@@ -13,6 +14,7 @@ export default function SignupPage() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const userSettings = useSelector((state) => state.userSettings);
+	const authData = useSelector((state) => state.authData);
 	const error = useSelector((state) => state.error);
 	const googleErrorMessage = `It's not recommended to sign up manually with a Google account. Please click the Google button to continue instead.`;
 
@@ -50,6 +52,20 @@ export default function SignupPage() {
 			setIsFormValid(true);
 		else setIsFormValid(false);
 	}, [formData, error]);
+
+	useEffect(() => {
+		if (authData?.token?.length >= 500) {
+			async function fetchGoogleUserPreferences() {
+				let email = authData?.user?.email;
+				if (await checkEmailUniqueness(email)) await createGoogleUser(email);
+				dispatch(fetchUserSettings());
+			}
+			fetchGoogleUserPreferences();
+		} else if (authData?.user) {
+			dispatch(fetchUserSettings());
+		}
+		dispatch(clearError());
+	}, [authData, dispatch]);
 
 	useEffect(() => {
 		if (userSettings?.defaultCurrency) {

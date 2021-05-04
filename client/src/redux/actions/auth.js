@@ -55,3 +55,17 @@ export function logOut() {
 		payload: {},
 	};
 }
+
+export function changeName(formData) {
+	return async (dispatch) => {
+		try {
+			const updatedUserInfo = await API.changeName(formData);
+			dispatch({
+				type: 'auth/change-name',
+				payload: updatedUserInfo,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}

@@ -8,6 +8,8 @@ const authReducer = (authData = {}, action) => {
 			return action.payload;
 		case 'auth/logout':
 			return action.payload;
+		case 'auth/change-name':
+			return { ...authData, ...action.payload };
 		default:
 			return authData;
 	}

@@ -78,3 +78,9 @@ export function updateUserSettings(newSettings) {
 		.then((res) => res.data)
 		.catch((error) => error.response.data);
 }
+
+export function changeName(formData) {
+	return API.put('/users/namechange', formData)
+		.then((res) => res.data)
+		.catch((error) => error.response.data);
+}

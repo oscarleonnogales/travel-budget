@@ -3,9 +3,10 @@ import { useSelector } from 'react-redux';
 import './SettingsPage.css';
 import Navbar from '../../components/Navbar/Navbar';
 import PersonalInformationForm from './components/PersonInformationForm';
-import UserSettingsForm from './components/UserSettingsForm';
+import HomeCurrencyForm from './components/HomeCurrencyForm';
 import PasswordChangeForm from './components/PasswordChangeForm';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import CategoriesForm from './components/CategoriesForm';
 
 export const MessageContext = React.createContext();
 
@@ -35,7 +36,8 @@ export default function SettingsPage() {
 				</div>
 				<MessageContext.Provider value={messageContexValue}>
 					<PersonalInformationForm />
-					<UserSettingsForm />
+					<HomeCurrencyForm />
+					<CategoriesForm />
 					{authData?.user?.firstName && <PasswordChangeForm />}
 				</MessageContext.Provider>
 			</main>
