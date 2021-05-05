@@ -20,15 +20,14 @@ export async function createNewPurchase(req, res) {
 		else if (req.userType === 'jwt') user = await User.findOne({ _id: req.userId });
 
 		const category = [...user.categories].find((category) => category.categoryId === categoryId);
-		getConvertedPrice(currency, amount, user.defaultCurrency);
 		const newPurchase = new Purchase({
 			description: description,
-			amount: amount,
+			amount: parseInt(amount),
 			currency: currency,
 			date: date,
 			category: category,
 			user: req.userId,
-			convertedPrice: getConvertedPrice(currency, amount, user.defaultCurrency),
+			convertedPrice: await getConvertedPrice(currency, amount, user.defaultCurrency),
 		});
 		await newPurchase.save();
 		res.status(201).json(newPurchase);
@@ -49,6 +48,7 @@ export async function deletePurchase(req, res) {
 			res.status(204).json({ message: 'Purchase successfully deleted.' });
 		}
 	} catch (error) {
+		console.log(error);
 		res.status(500).json({ message: 'Server Error. Try again later.' });
 	}
 }
@@ -67,12 +67,13 @@ export async function updatePurchase(req, res) {
 
 		const category = [...user.categories].find((category) => category.categoryId === categoryId);
 
+		if (purchase.amount !== amount)
+			purchase.convertedPrice = await getConvertedPrice(currency, amount, user.defaultCurrency);
 		purchase.description = description;
 		purchase.date = date;
 		purchase.amount = amount;
 		purchase.currency = currency;
 		purchase.category = category;
-		purchase.convertedPrice = getConvertedPrice(currency, amount, user.defaultCurrency);
 
 		await purchase.save();
 		res.status(201).json(purchase);
@@ -84,8 +85,8 @@ export async function updatePurchase(req, res) {
 async function getConvertedPrice(currencyUsed, amount, homeCurrency) {
 	if (currencyUsed === homeCurrency) return amount;
 	const REQUEST_URI = `${process.env.EXCHANGE_RATE_URI}/${process.env.EXCHANGE_RATE_API_KEY}`;
-	const response = await axios.get(`${REQUEST_URI}/pair/${currencyUsed}/${homeCurrency}/${amount}`);
-
-	if (response.result === 'success') return response.conversion_result;
-	else return -1;
+	const data = await axios.get(`${REQUEST_URI}/pair/${currencyUsed}/${homeCurrency}/${amount}`).then((res) => res.data);
+	if (data.result === 'success') {
+		return data.conversion_result;
+	} else return -1;
 }

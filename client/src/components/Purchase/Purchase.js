@@ -16,7 +16,7 @@ export default function Purchase({ purchase, renderButtons }) {
 			<div className="purchase">
 				<div className="purchase-row">
 					<div className="purchase-description">{purchase.description}</div>
-					<div className="purchase-converted-price">${purchase.amount}</div>
+					<div className="purchase-converted-price">${purchase.convertedPrice}</div>
 				</div>
 				<div className="purchase-row">
 					<div className="purchase-date">{dayjs(purchase.date).format('MMM DD, YYYY')}</div>
