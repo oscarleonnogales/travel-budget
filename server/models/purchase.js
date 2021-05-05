@@ -25,6 +25,10 @@ const purchaseSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	convertedPrice: {
+		type: Number,
+		required: true,
+	},
 });
 
 const Purchase = mongoose.model('Purchase', purchaseSchema);

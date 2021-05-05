@@ -13,17 +13,13 @@ import { Doughnut } from 'react-chartjs-2';
 export default function MonthlyPage() {
 	const dispatch = useDispatch();
 	const allPurchases = useSelector((state) => state.purchases);
+	const userSettings = useSelector((state) => state.userSettings);
 	const [chartData, setChartData] = useState({});
 	const [selectedPurchases, setSelectedPurchases] = useState(allPurchases);
 	const [searchParameters, setSearchParameters] = useState({
 		year: new Date().getFullYear(),
 		month: new Date().getMonth(),
 	});
-
-	//Temporary until we have authentication
-	const user = {
-		categories: ['housing', 'groceries', 'food', 'transportation', 'luxuries', 'other'],
-	};
 
 	useEffect(() => {
 		dispatch(getPurchases());
@@ -39,14 +35,14 @@ export default function MonthlyPage() {
 
 	useEffect(() => {
 		setChartData({
-			labels: [...user.categories],
+			labels: [...userSettings.categories].map((category) => category.categoryName),
 			datasets: [
 				{
 					label: 'April 2020',
 					// label: `${searchParameters.month} ${searchParameters.year}`,
-					data: [...user.categories].map((category) => {
+					data: [...userSettings.categories].map((category) => {
 						return selectedPurchases.reduce((total, purchase) => {
-							return purchase.category === category ? (total += purchase.amount) : total;
+							return purchase.category.categoryId === category.categoryId ? (total += purchase.amount) : total;
 						}, 0);
 					}),
 					backgroundColor: [

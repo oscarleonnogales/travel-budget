@@ -1,6 +1,7 @@
 import Purchase from '../models/purchase.js';
 import User from '../models/user.js';
 import GoogleUser from '../models/googleUser.js';
+import axios from 'axios';
 
 export async function getPurchases(req, res) {
 	try {
@@ -12,20 +13,22 @@ export async function getPurchases(req, res) {
 }
 
 export async function createNewPurchase(req, res) {
+	const { description, date, amount, currency, categoryId } = req.body;
 	try {
 		let user;
 		if (req.userType === 'google') user = await GoogleUser.findOne({ googleId: req.userId });
 		else if (req.userType === 'jwt') user = await User.findOne({ _id: req.userId });
 
-		const category = [...user.categories].find((category) => category.categoryId === req.body.categoryId);
-
+		const category = [...user.categories].find((category) => category.categoryId === categoryId);
+		getConvertedPrice(currency, amount, user.defaultCurrency);
 		const newPurchase = new Purchase({
-			description: req.body.description,
-			amount: req.body.amount,
-			currency: req.body.currency,
-			date: req.body.date,
+			description: description,
+			amount: amount,
+			currency: currency,
+			date: date,
 			category: category,
 			user: req.userId,
+			convertedPrice: getConvertedPrice(currency, amount, user.defaultCurrency),
 		});
 		await newPurchase.save();
 		res.status(201).json(newPurchase);
@@ -51,23 +54,38 @@ export async function deletePurchase(req, res) {
 }
 
 export async function updatePurchase(req, res) {
+	const { description, date, amount, currency, categoryId } = req.body;
 	try {
 		const purchase = await Purchase.findById(req.params.id);
 		if (!purchase) return res.status(404).send(`No purchase with id: ${id}`);
+		if (purchase.user != req.userId)
+			return res.status(403).json({ message: 'You are not the creator of this purchase.' });
 
-		if (purchase.user != req.userId) {
-			res.status(403).json({ message: 'You are not the creator of this purchase.' });
-		} else {
-			purchase.description = req.body.description;
-			purchase.date = req.body.date;
-			purchase.amount = req.body.amount;
-			purchase.currency = req.body.currency;
-			purchase.category = req.body.category;
+		let user;
+		if (req.userType === 'google') user = await GoogleUser.findOne({ googleId: req.userId });
+		else if (req.userType === 'jwt') user = await User.findOne({ _id: req.userId });
 
-			await purchase.save();
-			res.status(201).json(purchase);
-		}
+		const category = [...user.categories].find((category) => category.categoryId === categoryId);
+
+		purchase.description = description;
+		purchase.date = date;
+		purchase.amount = amount;
+		purchase.currency = currency;
+		purchase.category = category;
+		purchase.convertedPrice = getConvertedPrice(currency, amount, user.defaultCurrency);
+
+		await purchase.save();
+		res.status(201).json(purchase);
 	} catch (error) {
 		res.status(500).json({ message: 'Server Error. Try again later.' });
 	}
+}
+
+async function getConvertedPrice(currencyUsed, amount, homeCurrency) {
+	if (currencyUsed === homeCurrency) return amount;
+	const REQUEST_URI = `${process.env.EXCHANGE_RATE_URI}/${process.env.EXCHANGE_RATE_API_KEY}`;
+	const response = await axios.get(`${REQUEST_URI}/pair/${currencyUsed}/${homeCurrency}/${amount}`);
+
+	if (response.result === 'success') return response.conversion_result;
+	else return -1;
 }

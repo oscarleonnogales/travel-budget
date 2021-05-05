@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function Purchase({ purchase, renderButtons }) {
 	const dispatch = useDispatch();
 	const currentId = useSelector((state) => state.currentId);
+	const userSettings = useSelector((state) => state.userSettings);
 
 	return (
 		<>
@@ -19,8 +20,7 @@ export default function Purchase({ purchase, renderButtons }) {
 				</div>
 				<div className="purchase-row">
 					<div className="purchase-date">{dayjs(purchase.date).format('MMM DD, YYYY')}</div>
-					{/* Do something here to only show if not the users default currency */}
-					{purchase.currency !== 'USD' && (
+					{purchase.currency !== userSettings?.defaultCurrency && (
 						<div className="purchase-actual-price">
 							{purchase.amount} {purchase.currency}
 						</div>
