@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getPurchases } from '../../redux/actions/purchases';
 import './PurchasesPage.css';
+import PaginationButtons from './components/PaginationButtons';
+import PurchasesContainer from '../../components/PurchasesContainer/PurchasesContainer';
 
 export default function PurchasesPage() {
 	const dispatch = useDispatch();
@@ -42,25 +44,14 @@ export default function PurchasesPage() {
 			<main className="main-page-content">
 				<ErrorMessage />
 				<PurchaseForm />
-				{currentPurchases?.length > 0 && (
-					<div className="purchases-container">
-						{currentPurchases?.map((purchase) => {
-							return <Purchase purchase={purchase} renderButtons={true} key={purchase._id} />;
-						})}
-					</div>
-				)}
-				<div className="pagination-btns-container">
-					{startIndex > 0 && (
-						<button className="pagination-btn" onClick={() => decreasePage()}>
-							Previous
-						</button>
-					)}
-					{endIndex < allPurchases.length && (
-						<button className="pagination-btn" onClick={() => increasePage()}>
-							Next
-						</button>
-					)}
-				</div>
+				{currentPurchases?.length > 0 && <PurchasesContainer purchases={currentPurchases} renderButtons={true} />}
+				<PaginationButtons
+					startIndex={startIndex}
+					endIndex={endIndex}
+					allPurchases={allPurchases}
+					increasePage={increasePage}
+					decreasePage={decreasePage}
+				/>
 			</main>
 		</>
 	);

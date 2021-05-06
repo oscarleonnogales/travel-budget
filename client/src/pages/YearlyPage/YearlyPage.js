@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import dayjs from 'dayjs';
 import './YearlyPage.css';
 import { useSelector } from 'react-redux';
@@ -6,10 +6,11 @@ import { useDispatch } from 'react-redux';
 import { getPurchases } from '../../redux/actions/purchases';
 import Navbar from '../../components/Navbar/Navbar';
 import { Bar } from 'react-chartjs-2';
+import { ViewPortContext } from '../../App';
 
 export default function YearlyPage() {
 	const dispatch = useDispatch();
-
+	const { isMobileDevice } = useContext(ViewPortContext);
 	const allPurchases = useSelector((state) => state.purchases);
 	const [chartData, setChartData] = useState({});
 
@@ -58,7 +59,7 @@ export default function YearlyPage() {
 			<Navbar></Navbar>
 			<main className="main-page-content yearly-page">
 				<div className="graph-container">
-					<Bar height={100} width={100} data={chartData} options={{ maintainAspectRatio: false }} />
+					<Bar height={100} width={100} data={chartData} options={{ maintainAspectRatio: isMobileDevice }} />
 				</div>
 			</main>
 		</>

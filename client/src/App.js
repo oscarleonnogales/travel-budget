@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
+import { useDispatch } from 'react-redux';
+import { loadCurrencyOptions } from './redux/actions/currencyOptions';
+import './main.css';
 
 import LandingPage from './pages/LandingPage/LandingPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignupPage from './pages/SignupPage/SignupPage';
-
 import PurchasesPage from './pages/PurchasesPage/PurchasesPage';
 import MonthlyPage from './pages/MonthlyPage/MonthlyPage';
 import YearlyPage from './pages/YearlyPage/YearlyPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import Page404 from './pages/Page404/Page404';
-import { useDispatch } from 'react-redux';
-import { loadCurrencyOptions } from './redux/actions/currencyOptions';
-import './main.css';
 
 export const ViewPortContext = React.createContext();
 

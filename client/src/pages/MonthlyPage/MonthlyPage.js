@@ -1,6 +1,5 @@
 import './MonthlyPage.css';
 import React, { useState, useEffect, useContext } from 'react';
-import Purchase from '../../components/Purchase/Purchase';
 import dayjs from 'dayjs';
 import Navbar from '../../components/Navbar/Navbar';
 import { useSelector } from 'react-redux';
@@ -8,6 +7,8 @@ import { useDispatch } from 'react-redux';
 import { getPurchases } from '../../redux/actions/purchases';
 import { ViewPortContext } from '../../App';
 import { Doughnut } from 'react-chartjs-2';
+import MonthForm from './components/MonthForm';
+import PurchasesContainer from '../../components/PurchasesContainer/PurchasesContainer';
 
 export default function MonthlyPage() {
 	const dispatch = useDispatch();
@@ -20,10 +21,6 @@ export default function MonthlyPage() {
 		year: new Date().getFullYear(),
 		month: new Date().getMonth(),
 	});
-
-	useEffect(() => {
-		console.log(isMobileDevice);
-	}, [isMobileDevice]);
 
 	useEffect(() => {
 		dispatch(getPurchases());
@@ -68,92 +65,30 @@ export default function MonthlyPage() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedPurchases]);
 
-	async function handleChange(e) {
+	const handleChange = (e) => {
 		setSearchParameters({ ...searchParameters, [e.target.name]: parseInt(e.target.value) });
-	}
+	};
 
-	function resetDate() {
+	const resetDate = () => {
 		setSearchParameters({
 			year: new Date().getFullYear(),
 			month: new Date().getMonth(),
 		});
-	}
+	};
 
 	return (
 		<>
 			<Navbar></Navbar>
 			<main className="main-page-content monthly-page">
-				<div className="page-column">
-					<div className="form-container">
-						<div className="purchase-form-group">
-							<div className="form-group">
-								<label htmlFor="month" className="form-label">
-									Month
-								</label>
-								<div className="custom-select mb-1">
-									<select
-										htmlFor="month"
-										name="month"
-										required
-										className="form-select purchase-form-input"
-										onChange={(e) => handleChange(e)}
-										value={searchParameters.month}
-									>
-										<option value="unselected" disabled>
-											Select a month
-										</option>
-										<option value="0">January</option>
-										<option value="1">February</option>
-										<option value="2">March</option>
-										<option value="3">April</option>
-										<option value="4">May</option>
-										<option value="5">June</option>
-										<option value="6">July</option>
-										<option value="7">August</option>
-										<option value="8">September</option>
-										<option value="9">October</option>
-										<option value="10">November</option>
-										<option value="11">December</option>
-									</select>
-									<span className="custom-arrow"></span>
-								</div>
-							</div>
-							<div className="form-group">
-								<label htmlFor="year" className="form-label">
-									Year
-								</label>
-								<div className="custom-select mb-1">
-									<select
-										htmlFor="year"
-										name="year"
-										required
-										className="form-select purchase-form-input"
-										onChange={(e) => handleChange(e)}
-										value={searchParameters.year}
-									>
-										<option value="unselected" disabled>
-											Select a year
-										</option>
-										<option value="2021">2021</option>
-										<option value="2020">2020</option>
-										<option value="2019">2019</option>
-										<option value="2018">2018</option>
-										<option value="2017">2017</option>
-									</select>
-									<span className="custom-arrow"></span>
-								</div>
-							</div>
-							<button className="save-btn form-btn" onClick={() => resetDate()}>
-								Current Month
-							</button>
-						</div>
-					</div>
-					<div className="month-purchases-container">
-						{selectedPurchases.map((purchase) => {
-							return <Purchase purchase={purchase} renderButtons={false} key={purchase._id} />;
-						})}
-					</div>
-				</div>
+				<MonthForm
+					allPurchases={allPurchases}
+					handleChange={handleChange}
+					resetDate={resetDate}
+					searchParameters={searchParameters}
+				/>
+
+				{selectedPurchases?.length > 0 && <PurchasesContainer purchases={selectedPurchases} renderButtons={false} />}
+
 				<div className="graph-container">
 					<Doughnut height={100} width={100} data={chartData} options={{ maintainAspectRatio: isMobileDevice }} />
 				</div>
