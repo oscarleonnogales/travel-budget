@@ -1,25 +1,29 @@
 import './MonthlyPage.css';
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Purchase from '../../components/Purchase/Purchase';
 import dayjs from 'dayjs';
 import Navbar from '../../components/Navbar/Navbar';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getPurchases } from '../../redux/actions/purchases';
-
+import { ViewPortContext } from '../../App';
 import { Doughnut } from 'react-chartjs-2';
 
 export default function MonthlyPage() {
 	const dispatch = useDispatch();
 	const allPurchases = useSelector((state) => state.purchases);
 	const userSettings = useSelector((state) => state.userSettings);
+	const { isMobileDevice } = useContext(ViewPortContext);
 	const [chartData, setChartData] = useState({});
 	const [selectedPurchases, setSelectedPurchases] = useState(allPurchases);
 	const [searchParameters, setSearchParameters] = useState({
 		year: new Date().getFullYear(),
 		month: new Date().getMonth(),
 	});
+
+	useEffect(() => {
+		console.log(isMobileDevice);
+	}, [isMobileDevice]);
 
 	useEffect(() => {
 		dispatch(getPurchases());
@@ -42,7 +46,7 @@ export default function MonthlyPage() {
 					// label: `${searchParameters.month} ${searchParameters.year}`,
 					data: [...userSettings.categories].map((category) => {
 						return selectedPurchases.reduce((total, purchase) => {
-							return purchase.category.categoryId === category.categoryId ? (total += purchase.amount) : total;
+							return purchase.category.categoryId === category.categoryId ? (total += purchase.convertedPrice) : total;
 						}, 0);
 					}),
 					backgroundColor: [
@@ -151,7 +155,7 @@ export default function MonthlyPage() {
 					</div>
 				</div>
 				<div className="graph-container">
-					<Doughnut height={100} width={100} data={chartData} />
+					<Doughnut height={100} width={100} data={chartData} options={{ maintainAspectRatio: isMobileDevice }} />
 				</div>
 			</main>
 		</>

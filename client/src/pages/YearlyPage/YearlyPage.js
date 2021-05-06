@@ -58,7 +58,7 @@ export default function YearlyPage() {
 			<Navbar></Navbar>
 			<main className="main-page-content yearly-page">
 				<div className="graph-container">
-					<Bar height={100} width={100} data={chartData} />
+					<Bar height={100} width={100} data={chartData} options={{ maintainAspectRatio: false }} />
 				</div>
 			</main>
 		</>

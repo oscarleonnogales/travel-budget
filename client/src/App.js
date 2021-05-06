@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -15,28 +15,41 @@ import { useDispatch } from 'react-redux';
 import { loadCurrencyOptions } from './redux/actions/currencyOptions';
 import './main.css';
 
+export const ViewPortContext = React.createContext();
+
 function App() {
 	const dispatch = useDispatch();
+	const [isMobileDevice, setIsMobileDevice] = useState(window.innerWidth <= 600);
+
+	useEffect(() => {
+		window.addEventListener('resize', () => setIsMobileDevice(window.innerWidth <= 600));
+	}, []);
 
 	useEffect(() => {
 		dispatch(loadCurrencyOptions());
 	}, [dispatch]);
 
+	const viewportContextValue = {
+		isMobileDevice,
+	};
+
 	return (
-		<BrowserRouter>
-			<Switch>
-				<Route exact path="/" component={LandingPage} />
-				<Route exact path="/login" component={LoginPage} />
-				<Route exact path="/signup" component={SignupPage} />
+		<ViewPortContext.Provider value={viewportContextValue}>
+			<BrowserRouter>
+				<Switch>
+					<Route exact path="/" component={LandingPage} />
+					<Route exact path="/login" component={LoginPage} />
+					<Route exact path="/signup" component={SignupPage} />
 
-				<ProtectedRoute exact path="/purchases" component={PurchasesPage} />
-				<ProtectedRoute exact path="/month-breakdown" component={MonthlyPage} />
-				<ProtectedRoute exact path="/year-breakdown" component={YearlyPage} />
-				<ProtectedRoute exact path="/settings" component={SettingsPage} />
+					<ProtectedRoute exact path="/purchases" component={PurchasesPage} />
+					<ProtectedRoute exact path="/month-breakdown" component={MonthlyPage} />
+					<ProtectedRoute exact path="/year-breakdown" component={YearlyPage} />
+					<ProtectedRoute exact path="/settings" component={SettingsPage} />
 
-				<Route component={Page404} />
-			</Switch>
-		</BrowserRouter>
+					<Route component={Page404} />
+				</Switch>
+			</BrowserRouter>
+		</ViewPortContext.Provider>
 	);
 }
 

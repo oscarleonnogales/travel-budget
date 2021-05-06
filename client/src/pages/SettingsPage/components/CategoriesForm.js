@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Category from './Category';
 import FormHeader from './FormHeader';
 
 export default function CategoriesForm() {
@@ -8,6 +9,14 @@ export default function CategoriesForm() {
 
 	const [categoriesFormVisible, setCategoriesFormVisible] = useState(false);
 	const [newCategories, setNewCategories] = useState(categories);
+
+	useEffect(() => {
+		console.log(newCategories);
+	}, [newCategories]);
+
+	const removeCategory = (id) => {
+		setNewCategories([...newCategories].filter((category) => category.categoryId !== id));
+	};
 
 	const changeVisibility = () => {
 		setCategoriesFormVisible(!categoriesFormVisible);
@@ -46,7 +55,9 @@ export default function CategoriesForm() {
 				// 	</div>
 				// 	<button type="submit">Save Changes</button>
 				// </form>
-				categories?.map((category) => <li key={category}>{category}</li>)}
+				[...newCategories]?.map((category) => (
+					<Category key={category.categoryId} category={category} removeCategory={removeCategory} />
+				))}
 		</div>
 	);
 }
