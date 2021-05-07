@@ -15,24 +15,25 @@ export default function MonthlyPage() {
 	const allPurchases = useSelector((state) => state.purchases);
 	const userSettings = useSelector((state) => state.userSettings);
 	const { isMobileDevice } = useContext(ViewPortContext);
-	const [chartData, setChartData] = useState({});
+
 	const [selectedPurchases, setSelectedPurchases] = useState(allPurchases);
-	const [searchParameters, setSearchParameters] = useState({
-		year: new Date().getFullYear(),
-		month: new Date().getMonth(),
-	});
+	const [chartData, setChartData] = useState({});
+
+	const [searchMonth, setSearchMonth] = useState(new Date().getMonth() + 1);
+	const [searchYear, setSearchYear] = useState(new Date().getFullYear());
+
+	// useEffect(() => {
+	// 	console.log('current search year', searchYear);
+	// 	console.log('current search month', searchMonth);
+	// }, [searchMonth, searchYear]);
 
 	useEffect(() => {
 		dispatch(getPurchases());
 	}, [dispatch]);
 
 	useEffect(() => {
-		setSelectedPurchases(
-			allPurchases.filter(
-				(p) => dayjs(p.date).format('M-YYYY') === `${searchParameters.month + 1}-${searchParameters.year}`
-			)
-		);
-	}, [allPurchases, searchParameters]);
+		setSelectedPurchases(allPurchases.filter((p) => dayjs(p.date).format('M-YYYY') === `${searchMonth}-${searchYear}`));
+	}, [allPurchases, searchMonth, searchYear]);
 
 	useEffect(() => {
 		setChartData({
@@ -65,15 +66,17 @@ export default function MonthlyPage() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [selectedPurchases]);
 
-	const handleChange = (e) => {
-		setSearchParameters({ ...searchParameters, [e.target.name]: parseInt(e.target.value) });
+	const changeSearchMonth = (month) => {
+		setSearchMonth(month);
+	};
+
+	const changeSearchYear = (e) => {
+		setSearchYear(parseInt(e.target.value));
 	};
 
 	const resetDate = () => {
-		setSearchParameters({
-			year: new Date().getFullYear(),
-			month: new Date().getMonth(),
-		});
+		setSearchMonth(new Date().getMonth() + 1);
+		setSearchYear(new Date().getFullYear());
 	};
 
 	return (
@@ -82,9 +85,11 @@ export default function MonthlyPage() {
 			<main className="main-page-content monthly-page">
 				<MonthForm
 					allPurchases={allPurchases}
-					handleChange={handleChange}
+					changeSearchMonth={changeSearchMonth}
+					changeSearchYear={changeSearchYear}
 					resetDate={resetDate}
-					searchParameters={searchParameters}
+					searchYear={searchYear}
+					searchMonth={searchMonth}
 				/>
 
 				{selectedPurchases?.length > 0 && <PurchasesContainer purchases={selectedPurchases} renderButtons={false} />}

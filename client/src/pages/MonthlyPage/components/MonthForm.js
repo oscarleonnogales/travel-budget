@@ -1,74 +1,75 @@
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 
-export default function MonthForm({ allPurchases, handleChange, resetDate, searchParameters }) {
-	const [years, setYears] = useState([]);
-	const [uniqueDates, setUniqueDates] = useState([]);
+const monthNames = [
+	'January',
+	'February',
+	'March',
+	'April',
+	'May',
+	'June',
+	'July',
+	'August',
+	'September',
+	'October',
+	'November',
+	'December',
+];
+
+export default function MonthForm(props) {
+	const { allPurchases, changeSearchMonth, changeSearchYear, resetDate, searchMonth, searchYear } = props;
+	const [uniqueYears, setUniqueYears] = useState([]);
+	const [uniqueMonths, setUniqueMonths] = useState([]);
+
+	const [activeMonths, setActiveMonths] = useState();
 
 	useEffect(() => {
-		const newDates = [];
+		const newUniqueMonths = [];
 		[...allPurchases].forEach((p) => {
 			const year = dayjs(p.date).format('YYYY');
 			const month = dayjs(p.date).format('M');
-			if (!years.includes(year)) setYears([...years, year]);
+			if (!uniqueYears.includes(year)) setUniqueYears([...uniqueYears, year]);
 
-			let isDateUnique = true;
-			newDates.forEach((date) => {
+			let isMonthUnique = true;
+			newUniqueMonths.forEach((date) => {
 				if (date.year === year && date.month === month) {
-					isDateUnique = false;
+					isMonthUnique = false;
 				}
 			});
 
-			if (isDateUnique)
-				newDates.push({
+			if (isMonthUnique) {
+				newUniqueMonths.push({
 					year,
 					month,
 				});
+			}
 		});
-		setUniqueDates(newDates);
-	}, [allPurchases, years]);
+		setUniqueMonths(newUniqueMonths);
+	}, [allPurchases, uniqueYears]);
+
+	// useEffect(() => {
+	// 	console.log('active months are');
+	// 	console.log(activeMonths);
+	// }, [activeMonths]);
+
+	// useEffect(() => {
+	// 	console.log('uniqueMonths are');
+	// 	console.log(uniqueMonths);
+	// }, [uniqueMonths]);
 
 	useEffect(() => {
-		console.log('uniqueDates');
-		console.log(uniqueDates);
-		console.log('years');
-		console.log(years);
-	}, [uniqueDates, years]);
+		setActiveMonths(uniqueMonths.filter((date) => parseInt(date.year) === searchYear));
+	}, [searchYear, uniqueMonths]);
+
+	// This only runs when the searchYear changes, but we need it's own useEffect as it's run asynchronously
+	// Do not add searchYear to the dependency array, or we'll run this code when we reset the date
+	useEffect(() => {
+		if (activeMonths?.length > 0 && searchYear) changeSearchMonth(parseInt(activeMonths[0].month));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [activeMonths]);
 
 	return (
 		<div className="form-container">
-			<div className="form-group">
-				<label htmlFor="month" className="form-label">
-					Month
-				</label>
-				<div className="custom-select mb-1">
-					<select
-						htmlFor="month"
-						name="month"
-						required
-						className="form-select purchase-form-input"
-						onChange={(e) => handleChange(e)}
-						value={searchParameters.month}
-					>
-						<option value="unselected" disabled>
-							Select a month
-						</option>
-						<option value="0">January</option>
-						<option value="1">February</option>
-						<option value="2">March</option>
-						<option value="3">April</option>
-						<option value="4">May</option>
-						<option value="5">June</option>
-						<option value="6">July</option>
-						<option value="7">August</option>
-						<option value="8">September</option>
-						<option value="9">October</option>
-						<option value="10">November</option>
-						<option value="11">December</option>
-					</select>
-					<span className="custom-arrow"></span>
-				</div>
-			</div>
 			<div className="form-group">
 				<label htmlFor="year" className="form-label">
 					Year
@@ -79,15 +80,40 @@ export default function MonthForm({ allPurchases, handleChange, resetDate, searc
 						name="year"
 						required
 						className="form-select purchase-form-input"
-						onChange={(e) => handleChange(e)}
-						value={searchParameters.year}
+						onChange={(e) => changeSearchYear(e)}
+						value={searchYear}
 					>
 						<option value="unselected" disabled>
 							Select a year
 						</option>
-						{years.map((year) => (
+						{uniqueYears.map((year) => (
 							<option key={year} value={year}>
 								{year}
+							</option>
+						))}
+					</select>
+					<span className="custom-arrow"></span>
+				</div>
+			</div>
+			<div className="form-group">
+				<label htmlFor="month" className="form-label">
+					Month
+				</label>
+				<div className="custom-select mb-1">
+					<select
+						htmlFor="month"
+						name="month"
+						required
+						className="form-select purchase-form-input"
+						onChange={(e) => changeSearchMonth(parseInt(e.target.value))}
+						value={searchMonth}
+					>
+						<option value="unselected" disabled>
+							Select a month
+						</option>
+						{activeMonths?.map((activeMonth) => (
+							<option value={activeMonth.month} key={activeMonth.month}>
+								{monthNames[activeMonth.month - 1]}
 							</option>
 						))}
 					</select>
