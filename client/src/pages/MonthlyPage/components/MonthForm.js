@@ -47,16 +47,6 @@ export default function MonthForm(props) {
 		setUniqueMonths(newUniqueMonths);
 	}, [allPurchases, uniqueYears]);
 
-	// useEffect(() => {
-	// 	console.log('active months are');
-	// 	console.log(activeMonths);
-	// }, [activeMonths]);
-
-	// useEffect(() => {
-	// 	console.log('uniqueMonths are');
-	// 	console.log(uniqueMonths);
-	// }, [uniqueMonths]);
-
 	useEffect(() => {
 		setActiveMonths(uniqueMonths.filter((date) => parseInt(date.year) === searchYear));
 	}, [searchYear, uniqueMonths]);

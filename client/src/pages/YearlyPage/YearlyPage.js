@@ -8,17 +8,38 @@ import Navbar from '../../components/Navbar/Navbar';
 import { Bar } from 'react-chartjs-2';
 import { ViewPortContext } from '../../App';
 
+const monthNames = [
+	'January',
+	'February',
+	'March',
+	'April',
+	'May',
+	'June',
+	'July',
+	'August',
+	'September',
+	'October',
+	'November',
+	'December',
+];
+
 export default function YearlyPage() {
 	const dispatch = useDispatch();
 	const { isMobileDevice } = useContext(ViewPortContext);
 	const allPurchases = useSelector((state) => state.purchases);
+	// const userSettings = useSelector((state) => state.userSettings);
 	const [chartData, setChartData] = useState({});
+	const [uniqueYears, setUniqueYears] = useState([]);
+	const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
-	//Temporary until we have authentication
-	const user = {
-		categories: ['housing', 'groceries', 'food', 'transportation', 'luxuries', 'other'],
-		years: [2019, 2020, 2021],
-	};
+	useEffect(() => {
+		const newUniqueYears = [];
+		[...allPurchases].forEach((purchase) => {
+			const year = dayjs(purchase.date).format('YYYY');
+			if (!newUniqueYears.includes(year)) newUniqueYears.push(year);
+		});
+		setUniqueYears(newUniqueYears);
+	}, [allPurchases]);
 
 	useEffect(() => {
 		dispatch(getPurchases());
@@ -26,13 +47,16 @@ export default function YearlyPage() {
 
 	useEffect(() => {
 		setChartData({
-			labels: [...user.years],
+			labels: [...monthNames],
 			datasets: [
 				{
-					label: 'Yearly Total',
-					data: [...user.years].map((year) => {
+					label: `${selectedYear} Summary`,
+					data: [...monthNames].map((month) => {
 						return allPurchases.reduce((total, purchase) => {
-							return dayjs(purchase.date).format('YYYY') === `${year}` ? (total += purchase.amount) : total;
+							return dayjs(purchase.date).format('MMMM') === month &&
+								dayjs(purchase.date).format('YYYY') === selectedYear
+								? (total += purchase.amount)
+								: total;
 						}, 0);
 					}),
 					backgroundColor: [
@@ -54,10 +78,36 @@ export default function YearlyPage() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [allPurchases]);
 
+	const handleChange = (e) => {
+		setSelectedYear(e.target.value);
+	};
+
 	return (
 		<>
 			<Navbar></Navbar>
 			<main className="main-page-content yearly-page">
+				<div className="selecte-form-container">
+					<div className="custom-select mb-1">
+						<select
+							htmlFor="selectedYear"
+							name="selectedYear"
+							required
+							className="form-select purchase-form-input"
+							onChange={handleChange}
+							value={selectedYear}
+						>
+							<option value="unselected" disabled>
+								Select a year
+							</option>
+							{uniqueYears?.map((year) => (
+								<option value={year} key={year}>
+									{year}
+								</option>
+							))}
+						</select>
+						<span className="custom-arrow"></span>
+					</div>
+				</div>
 				<div className="graph-container">
 					<Bar height={100} width={100} data={chartData} options={{ maintainAspectRatio: isMobileDevice }} />
 				</div>

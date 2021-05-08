@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Purchase from '../../components/Purchase/Purchase';
 import PurchaseForm from '../../components/PurchaseForm/PurchaseForm';
 import Navbar from '../../components/Navbar/Navbar';
 import { useDispatch, useSelector } from 'react-redux';

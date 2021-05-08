@@ -11,6 +11,8 @@ export default function Purchase({ purchase, renderButtons }) {
 	const currentId = useSelector((state) => state.currentId);
 	const userSettings = useSelector((state) => state.userSettings);
 
+	console.log(purchase.date);
+	console.log(dayjs(purchase.date).format('MMM DD, YYYY'));
 	return (
 		<>
 			<div className="purchase">

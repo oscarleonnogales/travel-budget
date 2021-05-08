@@ -80,7 +80,6 @@ export default function PurchaseForm() {
 						className="purchase-form-input"
 					></input>
 				</div>
-
 				<div className="purchase-form-group">
 					<label htmlFor="description" className="purchase-form-label">
 						Description
@@ -94,7 +93,6 @@ export default function PurchaseForm() {
 						className="purchase-form-input"
 					></input>
 				</div>
-
 				<div className="purchase-form-group">
 					<label htmlFor="category" className="purchase-form-label">
 						Category
@@ -121,24 +119,7 @@ export default function PurchaseForm() {
 					</div>
 				</div>
 			</div>
-
 			<div className="form-column">
-				<div className="purchase-form-group">
-					<label htmlFor="amount" className="purchase-form-label">
-						Amount
-					</label>
-					<input
-						type="number"
-						name="amount"
-						step="0.01"
-						value={currentData?.amount}
-						onChange={handleChange}
-						min="0"
-						required
-						className="purchase-form-input"
-					></input>
-				</div>
-
 				<div className="purchase-form-group">
 					<label htmlFor="currency" className="purchase-form-label">
 						Currency
@@ -163,6 +144,21 @@ export default function PurchaseForm() {
 						</select>
 						<span className="custom-arrow"></span>
 					</div>
+				</div>
+				<div className="purchase-form-group">
+					<label htmlFor="amount" className="purchase-form-label">
+						Amount
+					</label>
+					<input
+						type="number"
+						name="amount"
+						step="0.01"
+						value={currentData?.amount}
+						onChange={handleChange}
+						min="0"
+						required
+						className="purchase-form-input"
+					></input>
 				</div>
 			</div>
 			<div className="purchase-form-btn-container">

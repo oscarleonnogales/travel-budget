@@ -22,11 +22,6 @@ export default function MonthlyPage() {
 	const [searchMonth, setSearchMonth] = useState(new Date().getMonth() + 1);
 	const [searchYear, setSearchYear] = useState(new Date().getFullYear());
 
-	// useEffect(() => {
-	// 	console.log('current search year', searchYear);
-	// 	console.log('current search month', searchMonth);
-	// }, [searchMonth, searchYear]);
-
 	useEffect(() => {
 		dispatch(getPurchases());
 	}, [dispatch]);
