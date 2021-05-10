@@ -29,9 +29,9 @@ export default function YearlyPage() {
 	const dispatch = useDispatch();
 	const { isMobileDevice } = useContext(ViewPortContext);
 	const allPurchases = useSelector((state) => state.purchases);
-	// const userSettings = useSelector((state) => state.userSettings);
 	const [chartData, setChartData] = useState({});
 	const [uniqueYears, setUniqueYears] = useState([]);
+	const [reducedTotals, setReducedTotals] = useState([]);
 	const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
 	useEffect(() => {
@@ -48,37 +48,55 @@ export default function YearlyPage() {
 	}, [dispatch]);
 
 	useEffect(() => {
+		const newData = [...monthNames].map((month) => {
+			return allPurchases.reduce((total, purchase) => {
+				const purchaseMonth = dayjs.utc(purchase.date).format('MMMM');
+				const purchaseYear = dayjs.utc(purchase.date).format('YYYY');
+
+				// console.log(`${purchaseMonth} === ${month} && ${purchaseYear} === ${selectedYear}`);
+				// if (purchaseMonth === month) console.log('months match');
+				// console.log(`purchase year is ${purchaseYear}`);
+				// console.log(`selected year is ${selectedYear}`);
+				// if (parseInt(purchaseYear) === selectedYear) console.log('years match');
+				if (purchaseMonth === month && parseInt(purchaseYear) === selectedYear) console.log('should be a match');
+
+				return dayjs.utc(purchase.date).format('MMMM') === month &&
+					parseInt(dayjs.utc(purchase.date).format('YYYY')) === selectedYear
+					? (total += purchase.convertedPrice)
+					: total;
+			}, 0);
+		});
+		// setChartData(newData);
+		console.log('newData', newData);
+		setReducedTotals(newData);
+	}, [allPurchases, selectedYear]);
+
+	useEffect(() => {
 		setChartData({
 			labels: [...monthNames],
 			datasets: [
 				{
 					label: `${selectedYear} Summary`,
-					data: [...monthNames].map((month) => {
-						return allPurchases.reduce((total, purchase) => {
-							return dayjs.utc(purchase.date).format('MMMM') === month &&
-								dayjs.utc(purchase.date).format('YYYY') === selectedYear
-								? (total += purchase.amount)
-								: total;
-						}, 0);
-					}),
+					data: reducedTotals,
 					backgroundColor: [
 						'rgba(54, 162, 235, 1)',
 						'rgba(255, 99, 132, 1)',
 						'rgba(255, 206, 86, 1)',
+						'rgba(96, 113, 150, 1)',
+						'rgba(105, 153, 93, 1)',
 						'rgba(75, 192, 192, 1)',
 						'rgba(153, 102, 255, 1)',
-						'rgba(255, 159, 64, 1)',
+						'rgba(255, 149, 110, 1)',
 						'rgb(64, 99, 255)',
-						'rgb(184, 27, 48)',
+						'rgba(221, 80, 74, 1)',
 						'rgb(14, 167, 9)',
-						'rgb(97, 97, 97)',
+						'rgb(255, 199, 89)',
 					],
 					hoverOffset: 4,
 				},
 			],
 		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [allPurchases]);
+	}, [reducedTotals, selectedYear]);
 
 	const handleChange = (e) => {
 		setSelectedYear(e.target.value);
@@ -88,7 +106,11 @@ export default function YearlyPage() {
 		<>
 			<Navbar></Navbar>
 			<main className="main-page-content yearly-page">
-				<div className="selecte-form-container">
+				<div className="year-graph-container graph-container">
+					<Bar height={100} width={100} data={chartData} options={{ maintainAspectRatio: isMobileDevice }} />
+				</div>
+				<div className="select-form-container">
+					<label htmlFor="selectedYear">Select a Year</label>
 					<div className="custom-select mb-1">
 						<select
 							htmlFor="selectedYear"
@@ -109,9 +131,6 @@ export default function YearlyPage() {
 						</select>
 						<span className="custom-arrow"></span>
 					</div>
-				</div>
-				<div className="graph-container">
-					<Bar height={100} width={100} data={chartData} options={{ maintainAspectRatio: isMobileDevice }} />
 				</div>
 			</main>
 		</>

@@ -50,13 +50,15 @@ export default function MonthlyPage() {
 						'rgba(54, 162, 235, 1)',
 						'rgba(255, 99, 132, 1)',
 						'rgba(255, 206, 86, 1)',
+						'rgba(96, 113, 150, 1)',
+						'rgba(105, 153, 93, 1)',
 						'rgba(75, 192, 192, 1)',
 						'rgba(153, 102, 255, 1)',
-						'rgba(255, 159, 64, 1)',
+						'rgba(255, 149, 110, 1)',
 						'rgb(64, 99, 255)',
-						'rgb(184, 27, 48)',
+						'rgba(221, 80, 74, 1)',
 						'rgb(14, 167, 9)',
-						'rgb(97, 97, 97)',
+						'rgb(255, 199, 89)',
 					],
 					hoverOffset: 4,
 				},
@@ -82,7 +84,7 @@ export default function MonthlyPage() {
 		<>
 			<Navbar></Navbar>
 			<main className="main-page-content monthly-page">
-				<div className="graph-container">
+				<div className="graph-container monthly-graph-container">
 					<Doughnut height={100} width={100} data={chartData} options={{ maintainAspectRatio: isMobileDevice }} />
 				</div>
 				<div className="form-and-purchases">

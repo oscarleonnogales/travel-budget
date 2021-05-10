@@ -15,6 +15,7 @@
 .graph-container:hover {
 	transform: translateY(-3px);
 }
+
 .monthly-page {
 	display: grid;
 	row-gap: 1.5rem;
@@ -31,16 +32,11 @@
 
 /* Desktop */
 @media screen and (min-width: 600px) {
-	:root {
-		--grid-container-width: minmax(500px, 100px);
-	}
-
 	.monthly-page {
-		/* min-height: 100vh; */
 		display: flex;
 	}
 
-	.graph-container {
+	.monthly-graph-container {
 		position: sticky;
 		left: calc(2 * (var(--nav-icon-size)));
 		top: 1.5rem;

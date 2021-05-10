@@ -8,21 +8,6 @@ export default function PurchasesContainer({ purchases, renderButtons }) {
 			{purchases?.map((purchase) => {
 				return <Purchase purchase={purchase} renderButtons={renderButtons} key={purchase._id} />;
 			})}
-			{purchases?.map((purchase) => {
-				return <Purchase purchase={purchase} renderButtons={renderButtons} key={purchase._id} />;
-			})}
-			{purchases?.map((purchase) => {
-				return <Purchase purchase={purchase} renderButtons={renderButtons} key={purchase._id} />;
-			})}
-			{purchases?.map((purchase) => {
-				return <Purchase purchase={purchase} renderButtons={renderButtons} key={purchase._id} />;
-			})}
-			{purchases?.map((purchase) => {
-				return <Purchase purchase={purchase} renderButtons={renderButtons} key={purchase._id} />;
-			})}
-			{purchases?.map((purchase) => {
-				return <Purchase purchase={purchase} renderButtons={renderButtons} key={purchase._id} />;
-			})}
 		</div>
 	);
 }
