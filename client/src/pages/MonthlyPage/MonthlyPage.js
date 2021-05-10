@@ -82,19 +82,20 @@ export default function MonthlyPage() {
 		<>
 			<Navbar></Navbar>
 			<main className="main-page-content monthly-page">
-				<MonthForm
-					allPurchases={allPurchases}
-					changeSearchMonth={changeSearchMonth}
-					changeSearchYear={changeSearchYear}
-					resetDate={resetDate}
-					searchYear={searchYear}
-					searchMonth={searchMonth}
-				/>
-
-				{selectedPurchases?.length > 0 && <PurchasesContainer purchases={selectedPurchases} renderButtons={false} />}
-
 				<div className="graph-container">
 					<Doughnut height={100} width={100} data={chartData} options={{ maintainAspectRatio: isMobileDevice }} />
+				</div>
+				<div className="form-and-purchases">
+					<MonthForm
+						allPurchases={allPurchases}
+						changeSearchMonth={changeSearchMonth}
+						changeSearchYear={changeSearchYear}
+						resetDate={resetDate}
+						searchYear={searchYear}
+						searchMonth={searchMonth}
+					/>
+
+					{selectedPurchases?.length > 0 && <PurchasesContainer purchases={selectedPurchases} renderButtons={false} />}
 				</div>
 			</main>
 		</>

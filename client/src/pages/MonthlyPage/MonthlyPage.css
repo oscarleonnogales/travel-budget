@@ -31,14 +31,28 @@
 
 /* Desktop */
 @media screen and (min-width: 600px) {
+	:root {
+		--grid-container-width: minmax(500px, 100px);
+	}
+
 	.monthly-page {
-		min-height: 100vh;
-		grid-template-columns: minmax(100px, 600px) 1fr;
+		/* min-height: 100vh; */
+		display: flex;
 	}
 
 	.graph-container {
+		position: sticky;
+		left: calc(2 * (var(--nav-icon-size)));
+		top: 1.5rem;
 		margin-left: 1.5rem;
-		min-width: 500px;
+		width: 100%;
+		height: calc(100vh - 2 * (1.5rem));
+	}
+
+	.form-and-purchases {
+		margin-left: 1.5rem;
+		width: 100%;
+		max-width: 800px;
 	}
 }
 

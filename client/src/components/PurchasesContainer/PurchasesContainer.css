@@ -1,0 +1,22 @@
+.purchases-container {
+	background: var(--light-background);
+	color: var(--primary-text-color);
+	box-shadow: 0 0 5px 2px black;
+	border-radius: 5px;
+	border: none;
+	margin: auto;
+	padding: 1em;
+	width: 100%;
+}
+
+/* Desktop */
+@media (min-width: 600px) {
+	.purchases-container {
+		max-width: 800px !important;
+		transition: transform 400ms ease;
+	}
+
+	.purchases-container:hover {
+		transform: translateY(-3px);
+	}
+}
