@@ -1,6 +1,7 @@
 import './MonthlyPage.css';
 import React, { useState, useEffect, useContext } from 'react';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import Navbar from '../../components/Navbar/Navbar';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -9,6 +10,7 @@ import { ViewPortContext } from '../../App';
 import { Doughnut } from 'react-chartjs-2';
 import MonthForm from './components/MonthForm';
 import PurchasesContainer from '../../components/PurchasesContainer/PurchasesContainer';
+dayjs.extend(utc);
 
 export default function MonthlyPage() {
 	const dispatch = useDispatch();
@@ -27,7 +29,9 @@ export default function MonthlyPage() {
 	}, [dispatch]);
 
 	useEffect(() => {
-		setSelectedPurchases(allPurchases.filter((p) => dayjs(p.date).format('M-YYYY') === `${searchMonth}-${searchYear}`));
+		setSelectedPurchases(
+			allPurchases.filter((p) => dayjs.utc(p.date).format('M-YYYY') === `${searchMonth}-${searchYear}`)
+		);
 	}, [allPurchases, searchMonth, searchYear]);
 
 	useEffect(() => {

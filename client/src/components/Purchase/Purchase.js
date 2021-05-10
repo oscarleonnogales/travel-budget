@@ -1,18 +1,18 @@
 import React from 'react';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import './Purchase.css';
 
 import { deletePurchase } from '../../redux/actions/purchases';
 import { setCurrentId } from '../../redux/actions/currentId';
 import { useDispatch, useSelector } from 'react-redux';
+dayjs.extend(utc);
 
 export default function Purchase({ purchase, renderButtons }) {
 	const dispatch = useDispatch();
 	const currentId = useSelector((state) => state.currentId);
 	const userSettings = useSelector((state) => state.userSettings);
 
-	console.log(purchase.date);
-	console.log(dayjs(purchase.date).format('MMM DD, YYYY'));
 	return (
 		<>
 			<div className="purchase">
@@ -21,7 +21,7 @@ export default function Purchase({ purchase, renderButtons }) {
 					<div className="purchase-converted-price">${purchase.convertedPrice}</div>
 				</div>
 				<div className="purchase-row">
-					<div className="purchase-date">{dayjs(purchase.date).format('MMM DD, YYYY')}</div>
+					<div className="purchase-date">{dayjs.utc(purchase.date).format('MMM DD, YYYY')}</div>
 					{purchase.currency !== userSettings?.defaultCurrency && (
 						<div className="purchase-actual-price">
 							{purchase.amount} {purchase.currency}

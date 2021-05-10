@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import './YearlyPage.css';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -7,6 +8,7 @@ import { getPurchases } from '../../redux/actions/purchases';
 import Navbar from '../../components/Navbar/Navbar';
 import { Bar } from 'react-chartjs-2';
 import { ViewPortContext } from '../../App';
+dayjs.extend(utc);
 
 const monthNames = [
 	'January',
@@ -35,7 +37,7 @@ export default function YearlyPage() {
 	useEffect(() => {
 		const newUniqueYears = [];
 		[...allPurchases].forEach((purchase) => {
-			const year = dayjs(purchase.date).format('YYYY');
+			const year = dayjs.utc(purchase.date).format('YYYY');
 			if (!newUniqueYears.includes(year)) newUniqueYears.push(year);
 		});
 		setUniqueYears(newUniqueYears);
@@ -53,8 +55,8 @@ export default function YearlyPage() {
 					label: `${selectedYear} Summary`,
 					data: [...monthNames].map((month) => {
 						return allPurchases.reduce((total, purchase) => {
-							return dayjs(purchase.date).format('MMMM') === month &&
-								dayjs(purchase.date).format('YYYY') === selectedYear
+							return dayjs.utc(purchase.date).format('MMMM') === month &&
+								dayjs.utc(purchase.date).format('YYYY') === selectedYear
 								? (total += purchase.amount)
 								: total;
 						}, 0);

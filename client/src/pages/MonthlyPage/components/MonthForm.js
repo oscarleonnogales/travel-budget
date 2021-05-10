@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 const monthNames = [
 	'January',
@@ -26,8 +28,8 @@ export default function MonthForm(props) {
 	useEffect(() => {
 		const newUniqueMonths = [];
 		[...allPurchases].forEach((p) => {
-			const year = dayjs(p.date).format('YYYY');
-			const month = dayjs(p.date).format('M');
+			const year = dayjs.utc(p.date).format('YYYY');
+			const month = dayjs.utc(p.date).format('M');
 			if (!uniqueYears.includes(year)) setUniqueYears([...uniqueYears, year]);
 
 			let isMonthUnique = true;
