@@ -87,6 +87,6 @@ async function getConvertedPrice(currencyUsed, amount, homeCurrency) {
 	const REQUEST_URI = `${process.env.EXCHANGE_RATE_URI}/${process.env.EXCHANGE_RATE_API_KEY}`;
 	const data = await axios.get(`${REQUEST_URI}/pair/${currencyUsed}/${homeCurrency}/${amount}`).then((res) => res.data);
 	if (data.result === 'success') {
-		return data.conversion_result;
+		return parseFloat(data.conversion_result).toFixed(2);
 	} else return -1;
 }

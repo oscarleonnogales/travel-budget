@@ -129,9 +129,9 @@ select {
 
 .custom-select {
 	position: relative;
-	height: 40px;
-	margin-bottom: 0.5rem;
-	margin-top: 0.5rem;
+	height: 38px;
+	margin-bottom: 0.5em;
+	margin-top: 0.25em;
 }
 
 .custom-select:hover > .custom-arrow,
