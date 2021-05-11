@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 export async function createNewUser(req, res) {
-	const { firstName, lastName, email, password, confirmPassword } = req.body;
+	const { firstName, lastName, email, password, confirmPassword, currency } = req.body;
 	try {
 		const existingUser = await User.findOne({ email: email });
 		if (existingUser)
@@ -16,6 +16,7 @@ export async function createNewUser(req, res) {
 			firstName,
 			lastName,
 			email,
+			defaultCurrency: currency,
 			password: hashedPassword,
 		});
 		await newUser.save();

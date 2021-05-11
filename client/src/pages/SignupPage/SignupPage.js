@@ -16,6 +16,7 @@ export default function SignupPage() {
 	const userSettings = useSelector((state) => state.userSettings);
 	const authData = useSelector((state) => state.authData);
 	const error = useSelector((state) => state.error);
+	const currencyOptions = useSelector((state) => state.currencyOptions);
 	const googleErrorMessage = `It's not recommended to sign up manually with a Google account. Please click the Google button to continue instead.`;
 
 	const [isFormValid, setIsFormValid] = useState(false);
@@ -24,6 +25,7 @@ export default function SignupPage() {
 		firstName: '',
 		lastName: '',
 		email: '',
+		currency: 'USD',
 		password: '',
 		confirmPassword: '',
 	});
@@ -32,6 +34,7 @@ export default function SignupPage() {
 		firstName: false,
 		lastName: false,
 		email: false,
+		currency: false,
 		password: false,
 		confirmPassword: false,
 	});
@@ -103,7 +106,8 @@ export default function SignupPage() {
 	};
 
 	const validateEmail = (email) => {
-		const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		const regex =
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		return regex.test(String(email).toLowerCase());
 	};
 
@@ -206,6 +210,30 @@ export default function SignupPage() {
 						onChange={handleEmailChange}
 					></input>
 					<div className="auth-form-error">Invalid email address</div>
+				</div>
+				<div className="auth-form-group">
+					<label htmlFor="currency" className="auth-form-label">
+						Home Currency
+					</label>
+					<div className="custom-select">
+						<select
+							htmlFor="currency"
+							name="currency"
+							value={formData.currency || 'USD'}
+							onChange={handleChange}
+							className="purchase-form-input form-select"
+						>
+							<option value="unselected" disabled>
+								Choose an option
+							</option>
+							{currencyOptions?.map((currency) => (
+								<option key={currency} value={currency}>
+									{currency}
+								</option>
+							))}
+						</select>
+						<span className="custom-arrow"></span>
+					</div>
 				</div>
 				<div className="auth-form-group">
 					<label htmlFor="password" className="auth-form-label">
