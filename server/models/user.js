@@ -4,27 +4,35 @@ import { v4 as uuid } from 'uuid';
 const defaultCategories = [
 	{
 		categoryId: uuid(),
-		categoryName: 'housing',
+		categoryName: 'Housing',
 	},
 	{
 		categoryId: uuid(),
-		categoryName: 'groceries',
+		categoryName: 'Groceries',
 	},
 	{
 		categoryId: uuid(),
-		categoryName: 'food',
+		categoryName: 'Restaurants/Takeout',
 	},
 	{
 		categoryId: uuid(),
-		categoryName: 'transportation',
+		categoryName: 'Transportation',
 	},
 	{
 		categoryId: uuid(),
-		categoryName: 'luxuries',
+		categoryName: 'Entertainment',
 	},
 	{
 		categoryId: uuid(),
-		categoryName: 'other',
+		categoryName: 'Luxuries',
+	},
+	{
+		categoryId: uuid(),
+		categoryName: 'Personal Care',
+	},
+	{
+		categoryId: uuid(),
+		categoryName: 'Other',
 	},
 ];
 

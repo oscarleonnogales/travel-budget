@@ -14,7 +14,7 @@ export default function PurchaseForm() {
 	const dispatch = useDispatch();
 
 	const [currentData, setCurrentData] = useState({
-		date: '',
+		date: new Date(),
 		description: '',
 		categoryId: '',
 		amount: '',
@@ -55,7 +55,7 @@ export default function PurchaseForm() {
 		dispatch(setCurrentId(null));
 		dispatch(clearError());
 		setCurrentData({
-			date: '',
+			date: new Date(),
 			description: '',
 			amount: '',
 			currency: userSettings?.defaultCurrency,
