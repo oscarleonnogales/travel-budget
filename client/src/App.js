@@ -4,6 +4,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { useDispatch } from 'react-redux';
 import { loadCurrencyOptions } from './redux/actions/currencyOptions';
 import './main.css';
+import WebFont from 'webfontloader';
 
 import LandingPage from './pages/LandingPage/LandingPage';
 import LoginPage from './pages/LoginPage/LoginPage';
@@ -13,6 +14,12 @@ import MonthlyPage from './pages/MonthlyPage/MonthlyPage';
 import YearlyPage from './pages/YearlyPage/YearlyPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import Page404 from './pages/Page404/Page404';
+
+WebFont.load({
+	google: {
+		families: ['Source Sans Pro', 'Source Code Pro'],
+	},
+});
 
 export const ViewPortContext = React.createContext();
 
