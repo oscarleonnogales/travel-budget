@@ -59,28 +59,27 @@ export function createGoogleUser(email) {
 		.catch((error) => error.response.data);
 }
 
-//Change settings
-export function changePassword(passwordForm) {
-	return API.put('/users/change-password', passwordForm)
-		.then((res) => res.data)
-		.catch((error) => error.response.data);
-}
-
 // Settings
 export function getUserSettings(user) {
-	return API.get('/users/settings')
+	return API.get('/settings')
 		.then((res) => res.data)
 		.catch((error) => error.response.data);
 }
 
 export function updateUserSettings(newSettings) {
-	return API.put('/users/settings', newSettings)
+	return API.put('/settings', newSettings)
 		.then((res) => res.data)
 		.catch((error) => error.response.data);
 }
 
 export function changeName(formData) {
-	return API.put('/users/namechange', formData)
+	return API.put('/settings/name', formData)
+		.then((res) => res.data)
+		.catch((error) => error.response.data);
+}
+
+export function changePassword(passwordForm) {
+	return API.put('/settings/password', passwordForm)
 		.then((res) => res.data)
 		.catch((error) => error.response.data);
 }
