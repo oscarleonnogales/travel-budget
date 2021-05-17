@@ -11,6 +11,7 @@ import cors from 'cors';
 import indexRouter from './routes/index.js';
 import purchasesRouter from './routes/purchases.js';
 import usersRouter from './routes/users.js';
+import settingsRouter from './routes/settings.js';
 
 // Setting up dependencies
 mongoose.connect(process.env.DATABASE_URL, {
@@ -29,6 +30,7 @@ app.use(cors()); // Set to only allow requests from client during production
 // Route handling
 app.use('/users', usersRouter);
 app.use('/purchases', purchasesRouter);
+app.use('/settings', settingsRouter);
 app.use('/', indexRouter);
 
 app.listen(process.env.PORT || 3001);
