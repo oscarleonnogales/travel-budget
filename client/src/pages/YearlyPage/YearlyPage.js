@@ -48,32 +48,22 @@ export default function YearlyPage() {
 	}, [dispatch]);
 
 	useEffect(() => {
-		const newData = [...monthNames].map((month) => {
+		const newData = monthNames.map((month) => {
 			return allPurchases.reduce((total, purchase) => {
 				const purchaseMonth = dayjs.utc(purchase.date).format('MMMM');
 				const purchaseYear = dayjs.utc(purchase.date).format('YYYY');
 
-				// console.log(`${purchaseMonth} === ${month} && ${purchaseYear} === ${selectedYear}`);
-				// if (purchaseMonth === month) console.log('months match');
-				// console.log(`purchase year is ${purchaseYear}`);
-				// console.log(`selected year is ${selectedYear}`);
-				// if (parseInt(purchaseYear) === selectedYear) console.log('years match');
-				if (purchaseMonth === month && parseInt(purchaseYear) === selectedYear) console.log('should be a match');
-
-				return dayjs.utc(purchase.date).format('MMMM') === month &&
-					parseInt(dayjs.utc(purchase.date).format('YYYY')) === selectedYear
+				return purchaseMonth === month && parseInt(purchaseYear) === selectedYear
 					? (total += purchase.convertedPrice)
 					: total;
 			}, 0);
 		});
-		// setChartData(newData);
-		console.log('newData', newData);
 		setReducedTotals(newData);
 	}, [allPurchases, selectedYear]);
 
 	useEffect(() => {
 		setChartData({
-			labels: [...monthNames],
+			labels: monthNames,
 			datasets: [
 				{
 					label: `${selectedYear} Summary`,
