@@ -83,3 +83,9 @@ export function changeDefaultCurrency(newCurrency) {
 		.then((res) => res.data)
 		.catch((error) => error.response.data);
 }
+
+export function setPurchaseCategories(newCategories) {
+	return API.put('/settings/categories', { newCategories })
+		.then((res) => res.data)
+		.catch((error) => error.response.data);
+}

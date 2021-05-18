@@ -87,6 +87,24 @@ export async function changeDefaultCurrency(req, res) {
 			newCurrency: newCurrency,
 		});
 	} catch (error) {
+		res.status(500).json({ success: false, message: error.message });
+	}
+}
+
+export async function setPurchaseCategories(req, res) {
+	const { newCategories } = req.body;
+	try {
+		let user;
+		if (req.userType === 'jwt') user = await User.findOne({ _id: req.userId });
+		else if (req.userType === 'google') user = await GoogleUser.findOne({ googleId: req.userId });
+		user.categories = newCategories;
+		await user.save();
+
+		res.status(200).json({
+			success: true,
+			categories: user.categories,
+		});
+	} catch (error) {
 		console.log(error);
 		res.status(500).json({ success: false, message: error.message });
 	}

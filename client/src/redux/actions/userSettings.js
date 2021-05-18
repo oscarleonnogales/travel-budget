@@ -41,3 +41,24 @@ export function changeDefaultCurrency(currency) {
 		}
 	};
 }
+
+export function changeCategories(newCategories) {
+	return async (dispatch) => {
+		try {
+			const response = await API.setPurchaseCategories(newCategories);
+			if (response.success) {
+				dispatch({
+					type: 'userSettings/categoriesChange',
+					payload: response.categories,
+				});
+			} else {
+				dispatch({
+					type: 'error/set',
+					payload: response.message,
+				});
+			}
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
+}
