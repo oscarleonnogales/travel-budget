@@ -66,12 +66,6 @@ export function getUserSettings(user) {
 		.catch((error) => error.response.data);
 }
 
-export function updateUserSettings(newSettings) {
-	return API.put('/settings', newSettings)
-		.then((res) => res.data)
-		.catch((error) => error.response.data);
-}
-
 export function changeName(formData) {
 	return API.put('/settings/name', formData)
 		.then((res) => res.data)
@@ -80,6 +74,12 @@ export function changeName(formData) {
 
 export function changePassword(passwordForm) {
 	return API.put('/settings/password', passwordForm)
+		.then((res) => res.data)
+		.catch((error) => error.response.data);
+}
+
+export function changeDefaultCurrency(newCurrency) {
+	return API.put('/settings/currency', { newCurrency })
 		.then((res) => res.data)
 		.catch((error) => error.response.data);
 }

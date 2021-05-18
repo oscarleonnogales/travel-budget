@@ -29,9 +29,9 @@ export default function Navbar() {
 
 	const onLogoutSuccess = async () => {
 		try {
+			dispatch(logOut());
 			dispatch(clearPurchases());
 			dispatch(clearUserSettings());
-			dispatch(logOut());
 			history.push('/login');
 		} catch (error) {
 			console.log(error);

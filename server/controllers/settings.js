@@ -2,6 +2,7 @@ import User from '../models/user.js';
 import GoogleUser from '../models/googleUser.js';
 import bcrypt from 'bcrypt';
 import Purchase from '../models/purchase.js';
+import axios from 'axios';
 
 export async function getUserSettings(req, res) {
 	try {
@@ -66,23 +67,28 @@ export async function changePassword(req, res) {
 }
 
 export async function changeDefaultCurrency(req, res) {
-	const { defaultCurrency } = req.body;
+	const { newCurrency } = req.body;
 	try {
 		let user;
 		if (req.userType === 'jwt') {
 			user = await User.findOne({ _id: req.userId });
 		} else if (req.userType === 'google') user = await GoogleUser.findOne({ googleId: req.userId });
-		user.defaultCurrency = defaultCurrency;
+		user.defaultCurrency = newCurrency;
 		await user.save();
 
 		// Recalculate all purchases to the new currency
 		const purchases = await Purchase.find({ user: req.userId });
 		purchases.forEach(async (purchase) => {
-			purchase.convertedPrice = await getConvertedPrice(purchase, defaultCurrency);
+			purchase.convertedPrice = await getConvertedPrice(purchase, newCurrency);
 			await purchase.save();
 		});
+		res.status(200).json({
+			success: true,
+			newCurrency: newCurrency,
+		});
 	} catch (error) {
-		res.status(500).json({ message: error.message });
+		console.log(error);
+		res.status(500).json({ success: false, message: error.message });
 	}
 }
 

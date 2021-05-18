@@ -8,6 +8,7 @@ import FormHeader from './FormHeader';
 export default function PersonInformationForm() {
 	const dispatch = useDispatch();
 	const authData = useSelector((state) => state.authData);
+	const error = useSelector((state) => state.error);
 	const { changeMessage } = useContext(MessageContext);
 
 	const [personalInfoFormVisible, setPersonalInfoFormVisible] = useState(false);
@@ -23,7 +24,7 @@ export default function PersonInformationForm() {
 	const handlePersonalInfoSubmit = async (e) => {
 		e.preventDefault();
 		dispatch(changeName(personalInformation));
-		changeMessage('Your name has been changed successfully');
+		if (error === null) changeMessage('Your name has been changed successfully');
 	};
 
 	const handlePersonalInfoChange = (e) => {

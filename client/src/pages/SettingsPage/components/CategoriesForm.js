@@ -8,7 +8,7 @@ export default function CategoriesForm() {
 	const categories = useSelector((state) => state.userSettings?.categories);
 
 	const [categoriesFormVisible, setCategoriesFormVisible] = useState(false);
-	const [newCategories, setNewCategories] = useState([...categories]);
+	const [newCategories, setNewCategories] = useState([...categories] || null);
 
 	const removeCategory = (id) => {
 		setNewCategories(newCategories.filter((category) => category.categoryId !== id));

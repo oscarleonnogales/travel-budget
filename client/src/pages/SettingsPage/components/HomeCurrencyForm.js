@@ -1,25 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { changeDefaultCurrency } from '../../../redux/actions/userSettings';
 import FormHeader from './FormHeader';
+import { MessageContext } from '../SettingsPage';
 
 export default function HomeCurrencyForm() {
 	const dispatch = useDispatch();
 	const userSettings = useSelector((state) => state.userSettings);
 	const currencyOptions = useSelector((state) => state.currencyOptions);
+	const error = useSelector((state) => state.error);
 
 	const [settingsFormVisible, setSettingsFormVisible] = useState(false);
-	const [newUserSettings, setNewUserSettings] = useState(userSettings);
+	const [newCurrency, setNewCurrency] = useState(userSettings.defaultCurrency);
+
+	const { changeMessage } = useContext(MessageContext);
 
 	const changeVisibility = () => {
 		setSettingsFormVisible(!settingsFormVisible);
 	};
 
-	const handleSettingsChange = (e) => {
-		setNewUserSettings({ ...newUserSettings, [e.target.name]: e.target.value });
+	const handleCurrencyChange = (e) => {
+		setNewCurrency(e.target.value);
 	};
 
 	const handleSettingsSubmit = (e) => {
 		e.preventDefault();
+		if (currencyOptions.defaultCurrency === newCurrency) return;
+		dispatch(changeDefaultCurrency(newCurrency));
+		if (error === null) changeMessage(`Home currency set to ${newCurrency}`);
 	};
 
 	return (
@@ -33,8 +41,8 @@ export default function HomeCurrencyForm() {
 							<select
 								htmlFor="defaultCurrency"
 								name="defaultCurrency"
-								value={newUserSettings?.defaultCurrency}
-								onChange={handleSettingsChange}
+								value={newCurrency}
+								onChange={handleCurrencyChange}
 								required
 								className="purchase-form-input form-select"
 							>

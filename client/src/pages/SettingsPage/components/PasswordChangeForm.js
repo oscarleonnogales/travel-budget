@@ -3,11 +3,12 @@ import PasswordInput from '../../../components/PasswordInput';
 import { changePassword } from '../../../API';
 import FormHeader from './FormHeader';
 import { MessageContext } from '../SettingsPage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setError, clearError } from '../../../redux/actions/error';
 
 export default function PasswordChangeForm() {
 	const dispatch = useDispatch();
+	const error = useSelector((state) => state.error);
 	const { changeMessage } = useContext(MessageContext);
 	const [passwordForm, setPasswordForm] = useState({
 		oldPassword: '',
@@ -44,7 +45,7 @@ export default function PasswordChangeForm() {
 		const response = await changePassword(passwordForm);
 
 		if (response.success) {
-			changeMessage('Your password has been changed');
+			if (error === null) changeMessage('Your password has been changed');
 			setPasswordForm({
 				oldPassword: '',
 				newPassword: '',
