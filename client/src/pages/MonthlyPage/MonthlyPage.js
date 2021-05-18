@@ -39,12 +39,14 @@ export default function MonthlyPage() {
 			labels: [...userSettings.categories].map((category) => category.categoryName),
 			datasets: [
 				{
-					label: 'April 2020',
-					// label: `${searchParameters.month} ${searchParameters.year}`,
 					data: [...userSettings.categories].map((category) => {
-						return selectedPurchases.reduce((total, purchase) => {
-							return purchase.category.categoryId === category.categoryId ? (total += purchase.convertedPrice) : total;
-						}, 0);
+						return parseFloat(
+							selectedPurchases.reduce((total, purchase) => {
+								return purchase.category.categoryId === category.categoryId
+									? (total += purchase.convertedPrice)
+									: total;
+							}, 0)
+						).toFixed(2);
 					}),
 					backgroundColor: [
 						'rgba(54, 162, 235, 1)',

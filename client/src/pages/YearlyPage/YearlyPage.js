@@ -49,14 +49,16 @@ export default function YearlyPage() {
 
 	useEffect(() => {
 		const newData = monthNames.map((month) => {
-			return allPurchases.reduce((total, purchase) => {
-				const purchaseMonth = dayjs.utc(purchase.date).format('MMMM');
-				const purchaseYear = dayjs.utc(purchase.date).format('YYYY');
+			return parseFloat(
+				allPurchases.reduce((total, purchase) => {
+					const purchaseMonth = dayjs.utc(purchase.date).format('MMMM');
+					const purchaseYear = dayjs.utc(purchase.date).format('YYYY');
 
-				return purchaseMonth === month && parseInt(purchaseYear) === selectedYear
-					? (total += purchase.convertedPrice)
-					: total;
-			}, 0);
+					return purchaseMonth === month && parseInt(purchaseYear) === selectedYear
+						? (total += purchase.convertedPrice)
+						: total;
+				}, 0)
+			).toFixed(2);
 		});
 		setReducedTotals(newData);
 	}, [allPurchases, selectedYear]);
