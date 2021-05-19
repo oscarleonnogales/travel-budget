@@ -21,6 +21,7 @@ export default function MonthlyPage() {
 
 	const [selectedPurchases, setSelectedPurchases] = useState(allPurchases);
 	const [chartData, setChartData] = useState({});
+	const [categoryTotals, setCategoryTotals] = useState([]);
 
 	const [searchMonth, setSearchMonth] = useState(new Date().getMonth() + 1);
 	const [searchYear, setSearchYear] = useState(new Date().getFullYear());
@@ -36,19 +37,26 @@ export default function MonthlyPage() {
 	}, [allPurchases, searchMonth, searchYear]);
 
 	useEffect(() => {
+		const totals = [...userSettings.categories].map((category) => {
+			return {
+				name: category.categoryName,
+				total: parseFloat(
+					selectedPurchases.reduce((total, purchase) => {
+						return purchase.category.categoryId === category.categoryId ? (total += purchase.convertedPrice) : total;
+					}, 0)
+				).toFixed(2),
+			};
+		});
+		console.log(totals);
+		setCategoryTotals(totals);
+	}, [selectedPurchases, userSettings.categories]);
+
+	useEffect(() => {
 		setChartData({
 			labels: [...userSettings.categories].map((category) => category.categoryName),
 			datasets: [
 				{
-					data: [...userSettings.categories].map((category) => {
-						return parseFloat(
-							selectedPurchases.reduce((total, purchase) => {
-								return purchase.category.categoryId === category.categoryId
-									? (total += purchase.convertedPrice)
-									: total;
-							}, 0)
-						).toFixed(2);
-					}),
+					data: categoryTotals.map((category) => category.total),
 					backgroundColor: [
 						'rgba(54, 162, 235, 1)',
 						'rgba(255, 99, 132, 1)',
@@ -67,8 +75,7 @@ export default function MonthlyPage() {
 				},
 			],
 		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [selectedPurchases]);
+	}, [categoryTotals, userSettings.categories]);
 
 	const changeSearchMonth = (month) => {
 		setSearchMonth(month);
@@ -100,7 +107,7 @@ export default function MonthlyPage() {
 						searchMonth={searchMonth}
 					/>
 
-					<MonthReport />
+					<MonthReport categoryTotals={categoryTotals} purchases={selectedPurchases} />
 				</div>
 			</main>
 		</>
