@@ -57,7 +57,7 @@ export default function PasswordChangeForm() {
 	};
 
 	return (
-		<div className="settings-group">
+		<div className="container settings-group">
 			<FormHeader title={'Change Your Password'} visible={passwordFormVisible} changeVisibility={changeVisibility} />
 			{passwordFormVisible && (
 				<form onSubmit={handleSubmit} className="settings-group-form">

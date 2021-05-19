@@ -71,7 +71,7 @@ export default function CategoriesForm() {
 	};
 
 	return (
-		<div className="settings-group">
+		<div className="container settings-group">
 			<FormHeader title={'Purchase Categories'} visible={categoriesFormVisible} changeVisibility={changeVisibility} />
 			{categoriesFormVisible && (
 				<form onSubmit={handleSubmit}>

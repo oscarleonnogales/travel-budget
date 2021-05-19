@@ -64,7 +64,7 @@ export default function PurchaseForm() {
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="purchase-form_container">
+		<form onSubmit={handleSubmit} className="container purchase-form_container">
 			<h3 className="purchase-form_title">{currentId ? 'Edit' : 'Add'} Purchase</h3>
 			<div className="form-column">
 				<div className="purchase-form-group">

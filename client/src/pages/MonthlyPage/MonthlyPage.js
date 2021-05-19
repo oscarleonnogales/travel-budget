@@ -9,6 +9,7 @@ import { getPurchases } from '../../redux/actions/purchases';
 import { ViewPortContext } from '../../App';
 import { Doughnut } from 'react-chartjs-2';
 import MonthForm from './components/MonthForm';
+import MonthReport from './components/MonthReport';
 
 dayjs.extend(utc);
 
@@ -86,7 +87,7 @@ export default function MonthlyPage() {
 		<>
 			<Navbar></Navbar>
 			<main className="main-page-content monthly-page">
-				<div className="graph-container monthly-graph-container">
+				<div className="container monthly-graph-container">
 					<Doughnut height={100} width={100} data={chartData} options={{ maintainAspectRatio: isMobileDevice }} />
 				</div>
 				<div className="form-and-purchases">
@@ -99,7 +100,7 @@ export default function MonthlyPage() {
 						searchMonth={searchMonth}
 					/>
 
-					<div className="monthly-report"></div>
+					<MonthReport />
 				</div>
 			</main>
 		</>

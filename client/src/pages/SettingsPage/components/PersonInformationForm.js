@@ -32,7 +32,7 @@ export default function PersonInformationForm() {
 	};
 
 	return (
-		<div className="settings-group">
+		<div className="container settings-group">
 			<FormHeader
 				title={'Personal Information'}
 				visible={personalInfoFormVisible}

@@ -6,7 +6,7 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getPurchases } from '../../redux/actions/purchases';
 import './PurchasesPage.css';
 import PaginationButtons from './components/PaginationButtons';
-import PurchasesContainer from './components/Purchase/PurchasesContainer/PurchasesContainer';
+import PurchasesContainer from './components/PurchasesContainer/PurchasesContainer';
 
 export default function PurchasesPage() {
 	const dispatch = useDispatch();

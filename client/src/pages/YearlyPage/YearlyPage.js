@@ -98,10 +98,10 @@ export default function YearlyPage() {
 		<>
 			<Navbar></Navbar>
 			<main className="main-page-content yearly-page">
-				<div className="year-graph-container graph-container">
+				<div className="year-graph-container container">
 					<Bar height={100} width={100} data={chartData} options={{ maintainAspectRatio: isMobileDevice }} />
 				</div>
-				<div className="select-form-container">
+				<div className="container select-form-container">
 					<label htmlFor="selectedYear">Select a Year</label>
 					<div className="custom-select mb-1">
 						<select

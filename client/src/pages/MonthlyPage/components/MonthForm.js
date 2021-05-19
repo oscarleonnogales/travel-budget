@@ -61,7 +61,7 @@ export default function MonthForm(props) {
 	}, [activeMonths]);
 
 	return (
-		<div className="form-container">
+		<div className="container form-container">
 			<div className="form-group">
 				<label htmlFor="year" className="form-label">
 					Year

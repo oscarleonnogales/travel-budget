@@ -9,11 +9,6 @@
 }
 
 .purchase-form_container {
-	background: var(--form-background-color);
-	box-shadow: 0 0 5px 2px black;
-	color: var(--primary-text-color);
-	border: none;
-	padding: 1em;
 	margin-bottom: 2rem !important;
 	display: flex;
 	flex-direction: column;
@@ -84,11 +79,6 @@
 		flex-direction: row;
 		max-width: 800px;
 		margin: auto;
-		transition: transform 400ms ease;
-	}
-
-	.purchase-form_container:hover {
-		transform: translateY(-3px);
 	}
 
 	.form-column {

@@ -31,7 +31,7 @@ export default function HomeCurrencyForm() {
 	};
 
 	return (
-		<div className="settings-group">
+		<div className="container settings-group">
 			<FormHeader title={'Home Currency'} visible={settingsFormVisible} changeVisibility={changeVisibility} />
 			{settingsFormVisible && (
 				<form onSubmit={handleSettingsSubmit} className="settings-group-form">
