@@ -39,7 +39,7 @@ export default function ReportCategory({ category, purchases }) {
 							return (
 								<div className="report__purchase" key={purchase._id}>
 									<div className="report__purchase-description">{purchase.description}</div>
-									<div className="report__purchase-amount">${purchase.convertedPrice}</div>
+									<div className="report__purchase-amount">${purchase.convertedPrice.toFixed(2)}</div>
 								</div>
 							);
 						} else return null;
