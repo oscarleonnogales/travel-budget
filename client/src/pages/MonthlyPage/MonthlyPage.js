@@ -37,7 +37,7 @@ export default function MonthlyPage() {
 	}, [allPurchases, searchMonth, searchYear]);
 
 	useEffect(() => {
-		const totals = [...userSettings.categories].map((category) => {
+		let totals = [...userSettings.categories].map((category) => {
 			return {
 				name: category.categoryName,
 				total: parseFloat(
@@ -47,13 +47,14 @@ export default function MonthlyPage() {
 				).toFixed(2),
 			};
 		});
-		console.log(totals);
+		totals = totals.filter((category) => Number(category.total) !== 0);
+		totals = totals.sort((a, b) => Number(a.total) < Number(b.total));
 		setCategoryTotals(totals);
 	}, [selectedPurchases, userSettings.categories]);
 
 	useEffect(() => {
 		setChartData({
-			labels: [...userSettings.categories].map((category) => category.categoryName),
+			labels: categoryTotals.map((category) => category.name),
 			datasets: [
 				{
 					data: categoryTotals.map((category) => category.total),
