@@ -3,6 +3,35 @@
 	padding-bottom: 0.5rem;
 	margin-bottom: 0.5rem;
 	color: var(--primary-text-color);
+	display: grid;
+	width: 100%;
+	grid-template-rows: repeat(2, min-content);
+	grid-template-columns: max-content 1fr max-content;
+	grid-column-gap: 1em;
+	grid-template-areas:
+		'date text pricing'
+		'. buttons buttons';
+}
+
+.purchase-pricing {
+	grid-area: pricing;
+	text-align: right;
+}
+
+.purchase-date {
+	grid-area: date;
+	align-self: center;
+	white-space: nowrap;
+}
+
+.purchase-text {
+	grid-area: text;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.purchase-btn-container {
+	grid-area: buttons;
 }
 
 .purchase:last-child {
@@ -20,11 +49,6 @@
 	font-style: italic;
 }
 
-.purchase-row {
-	display: flex;
-	justify-content: space-between;
-}
-
 .pruchase-category {
 	text-transform: capitalize;
 	font-style: italic;
@@ -35,5 +59,3 @@
 	margin-top: var(--purchase-date-padding);
 	margin-bottom: var(--purchase-date-padding);
 }
-
-/* Desktop */

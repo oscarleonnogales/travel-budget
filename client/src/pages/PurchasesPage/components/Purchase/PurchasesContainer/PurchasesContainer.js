@@ -1,5 +1,5 @@
 import React from 'react';
-import Purchase from '../Purchase/Purchase';
+import Purchase from '../Purchase';
 import './PurchasesContainer.css';
 
 export default function PurchasesContainer({ purchases, renderButtons }) {

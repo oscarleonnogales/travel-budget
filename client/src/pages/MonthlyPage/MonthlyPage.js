@@ -9,7 +9,7 @@ import { getPurchases } from '../../redux/actions/purchases';
 import { ViewPortContext } from '../../App';
 import { Doughnut } from 'react-chartjs-2';
 import MonthForm from './components/MonthForm';
-import PurchasesContainer from '../../components/PurchasesContainer/PurchasesContainer';
+
 dayjs.extend(utc);
 
 export default function MonthlyPage() {
@@ -99,7 +99,7 @@ export default function MonthlyPage() {
 						searchMonth={searchMonth}
 					/>
 
-					{selectedPurchases?.length > 0 && <PurchasesContainer purchases={selectedPurchases} renderButtons={false} />}
+					<div className="monthly-report"></div>
 				</div>
 			</main>
 		</>
