@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PurchaseForm from '../../components/PurchaseForm/PurchaseForm';
+import PurchaseForm from './components/PurchaseForm/PurchaseForm';
 import Navbar from '../../components/Navbar/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPurchase, updatePurchase } from '../../redux/actions/purchases';
-import { setError, clearError } from '../../redux/actions/error';
-import { setCurrentId } from '../../redux/actions/currentId';
+import { addPurchase, updatePurchase } from '../../../../redux/actions/purchases';
+import { setError, clearError } from '../../../../redux/actions/error';
+import { setCurrentId } from '../../../../redux/actions/currentId';
 import './PurchaseForm.css';
 
 export default function PurchaseForm() {
