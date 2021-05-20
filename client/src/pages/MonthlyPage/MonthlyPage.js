@@ -31,6 +31,10 @@ export default function MonthlyPage() {
 	}, [dispatch]);
 
 	useEffect(() => {
+		console.log(categoryTotals);
+	}, [categoryTotals]);
+
+	useEffect(() => {
 		setSelectedPurchases(
 			allPurchases.filter((p) => dayjs.utc(p.date).format('M-YYYY') === `${searchMonth}-${searchYear}`)
 		);

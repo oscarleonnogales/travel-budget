@@ -1,8 +1,4 @@
-.year-graph-container {
-	width: 100%;
-}
-
-.select-form-container {
+.year-form-container {
 	margin-top: 1.5rem;
 }
 
@@ -11,8 +7,15 @@
 	.year-graph-container {
 		min-height: 400px;
 	}
+
+	.year-form-container {
+		width: min-content;
+	}
 }
 
 /* Mobile */
 @media only screen and (max-width: 600px) {
+	.year-form-container {
+		width: 100%;
+	}
 }

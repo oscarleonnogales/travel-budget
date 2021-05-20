@@ -7,7 +7,9 @@ import { useDispatch } from 'react-redux';
 import { getPurchases } from '../../redux/actions/purchases';
 import Navbar from '../../components/Navbar/Navbar';
 import { Bar } from 'react-chartjs-2';
+import YearForm from './components/YearForm';
 import { ViewPortContext } from '../../App';
+import YearReport from './components/YearReport';
 dayjs.extend(utc);
 
 const monthNames = [
@@ -29,10 +31,14 @@ export default function YearlyPage() {
 	const dispatch = useDispatch();
 	const { isMobileDevice } = useContext(ViewPortContext);
 	const allPurchases = useSelector((state) => state.purchases);
+	const userSettings = useSelector((state) => state.userSettings);
 	const [chartData, setChartData] = useState({});
 	const [uniqueYears, setUniqueYears] = useState([]);
 	const [reducedTotals, setReducedTotals] = useState([]);
 	const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+
+	const [selectedPurchases, setSelectedPurchases] = useState(allPurchases);
+	const [reportDetails, setReportDetails] = useState({});
 
 	useEffect(() => {
 		const newUniqueYears = [];
@@ -42,6 +48,35 @@ export default function YearlyPage() {
 		});
 		setUniqueYears(newUniqueYears);
 	}, [allPurchases]);
+
+	useEffect(() => {
+		setSelectedPurchases(allPurchases.filter((p) => dayjs.utc(p.date).format('YYYY') === `${selectedYear}`));
+	}, [selectedYear, allPurchases]);
+
+	useEffect(() => {
+		function getMonthlyTotals(monthName) {
+			const monthNamePurchases = selectedPurchases.filter((p) => dayjs.utc(p.date).format('MMMM') === monthName);
+			let totals = [...userSettings.categories].map((category) => {
+				return {
+					category: category.categoryName,
+					total: parseFloat(
+						monthNamePurchases.reduce((total, purchase) => {
+							return purchase.category.categoryId === category.categoryId ? (total += purchase.convertedPrice) : total;
+						}, 0)
+					).toFixed(2),
+				};
+			});
+			totals = totals.filter((category) => Number(category.total) !== 0);
+			totals = totals.sort((a, b) => Number(a.total) < Number(b.total));
+			return totals;
+		}
+		setReportDetails(
+			monthNames.map((month) => ({
+				monthName: month,
+				summary: getMonthlyTotals(month),
+			}))
+		);
+	}, [selectedPurchases, userSettings.categories]);
 
 	useEffect(() => {
 		dispatch(getPurchases());
@@ -101,29 +136,8 @@ export default function YearlyPage() {
 				<div className="year-graph-container container">
 					<Bar height={100} width={100} data={chartData} options={{ maintainAspectRatio: isMobileDevice }} />
 				</div>
-				<div className="container select-form-container">
-					<label htmlFor="selectedYear">Select a Year</label>
-					<div className="custom-select mb-1">
-						<select
-							htmlFor="selectedYear"
-							name="selectedYear"
-							required
-							className="form-select purchase-form-input"
-							onChange={handleChange}
-							value={selectedYear}
-						>
-							<option value="unselected" disabled>
-								Select a year
-							</option>
-							{uniqueYears?.map((year) => (
-								<option value={year} key={year}>
-									{year}
-								</option>
-							))}
-						</select>
-						<span className="custom-arrow"></span>
-					</div>
-				</div>
+				<YearForm handleChange={handleChange} selectedYear={selectedYear} uniqueYears={uniqueYears} />
+				<YearReport />
 			</main>
 		</>
 	);
