@@ -3,13 +3,6 @@
 	margin-bottom: 1em;
 }
 
-.year-report__category {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	margin-left: 3rem;
-	margin-bottom: 0.25em;
-}
-
 .year-report__categoryTotal,
 .year-report__categoryName {
 	overflow: hidden;
@@ -50,6 +43,13 @@
 	.year-report {
 		grid-area: report;
 	}
+
+	.year-report__category {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		margin-left: 3rem;
+		margin-bottom: 0.25em;
+	}
 }
 
 /* Mobile */
@@ -60,5 +60,17 @@
 
 	.year-report {
 		margin-top: 1.5rem;
+	}
+
+	.year-report__category {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		margin-left: 2rem;
+		margin-bottom: 0.25em;
+	}
+
+	.year-report__categoryTotal {
+		text-align: right;
+		margin-right: 2rem;
 	}
 }
