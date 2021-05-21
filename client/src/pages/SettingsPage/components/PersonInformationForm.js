@@ -41,26 +41,34 @@ export default function PersonInformationForm() {
 			{personalInfoFormVisible && (
 				<form onSubmit={handlePersonalInfoSubmit} className="settings-group-form">
 					<div className="settings-form-group">
-						<label htmlFor="firstName">First Name</label>
+						<label htmlFor="firstName" className="settings-form-label">
+							First Name
+						</label>
 						<input
 							type="text"
 							name="firstName"
 							onChange={handlePersonalInfoChange}
 							value={personalInformation.firstName}
 							required
+							className="auth-form-input"
 						/>
 					</div>
 					<div className="settings-form-group">
-						<label htmlFor="lastName">Last Name</label>
+						<label htmlFor="lastName" className="settings-form-label">
+							Last Name
+						</label>
 						<input
 							type="text"
 							name="lastName"
 							onChange={handlePersonalInfoChange}
 							value={personalInformation.lastName}
 							required
+							className="auth-form-input"
 						/>
 					</div>
-					<button type="submit">Save Changes</button>
+					<button type="submit" className="primary-btn settings-form-btn">
+						Save Changes
+					</button>
 				</form>
 			)}
 		</div>

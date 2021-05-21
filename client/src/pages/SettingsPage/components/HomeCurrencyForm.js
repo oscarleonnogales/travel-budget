@@ -36,7 +36,9 @@ export default function HomeCurrencyForm() {
 			{settingsFormVisible && (
 				<form onSubmit={handleSettingsSubmit} className="settings-group-form">
 					<div className="settings-form-group">
-						<label htmlFor="defaultCurrency">Home Currency</label>
+						<label htmlFor="defaultCurrency" className="settings-form-label">
+							Home Currency
+						</label>
 						<div className="custom-select">
 							<select
 								htmlFor="defaultCurrency"
@@ -58,7 +60,9 @@ export default function HomeCurrencyForm() {
 							<span className="custom-arrow"></span>
 						</div>
 					</div>
-					<button type="submit">Save Changes</button>
+					<button type="submit" className="primary-btn settings-form-btn">
+						Save Changes
+					</button>
 				</form>
 			)}
 		</div>

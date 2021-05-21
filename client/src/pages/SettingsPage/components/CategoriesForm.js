@@ -64,7 +64,7 @@ export default function CategoriesForm() {
 	const addNewCategory = () => {
 		const newCategory = {
 			categoryId: uuid(),
-			categoryName: '',
+			categoryName: 'New Category',
 		};
 		setNewCategories([...newCategories, newCategory]);
 		setSelectedID(newCategory.categoryId);
@@ -78,9 +78,6 @@ export default function CategoriesForm() {
 					{newCategories?.map((category) => (
 						<Category key={category.categoryId} category={category} changeSelected={changeSelected} />
 					))}
-					<button type="button" onClick={addNewCategory}>
-						Add Category
-					</button>
 					{selectedCategory && (
 						<CurrentCategory
 							selectedCategory={selectedCategory}
@@ -90,7 +87,12 @@ export default function CategoriesForm() {
 							removeCurrentCategory={removeCurrentCategory}
 						/>
 					)}
-					<button type="submit">Submit Changes</button>
+					<button type="button" onClick={addNewCategory} className="secondary-btn add-btn">
+						+ Add Category
+					</button>
+					<button type="submit" className="primary-btn settings-form-btn categories-save-btn">
+						Save Changes
+					</button>
 				</form>
 			)}
 		</div>

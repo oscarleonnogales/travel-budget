@@ -62,11 +62,15 @@ export default function PasswordChangeForm() {
 			{passwordFormVisible && (
 				<form onSubmit={handleSubmit} className="settings-group-form">
 					<div className="settings-form-group">
-						<label htmlFor="oldPassword">Old Password</label>
-						<input type="password" name="oldPassword" onChange={handleChange} required />
+						<label htmlFor="oldPassword" className="settings-form-label">
+							Old Password
+						</label>
+						<input type="password" name="oldPassword" onChange={handleChange} className="auth-form-input" required />
 					</div>
 					<div className="settings-form-group">
-						<label htmlFor="newPassword">New Password</label>
+						<label htmlFor="newPassword" className="settings-form-label">
+							New Password
+						</label>
 						<PasswordInput
 							name={'newPassword'}
 							password={passwordForm.newPassword}
@@ -75,10 +79,20 @@ export default function PasswordChangeForm() {
 						/>
 					</div>
 					<div className="settings-form-group">
-						<label htmlFor="confirmPassword">Confirm Password</label>
-						<input type="password" name="confirmPassword" onChange={handleChange} required />
+						<label htmlFor="confirmPassword" className="settings-form-label">
+							Confirm Password
+						</label>
+						<input
+							type="password"
+							name="confirmPassword"
+							onChange={handleChange}
+							className="auth-form-input"
+							required
+						/>
 					</div>
-					<button type="submit">Save Changes</button>
+					<button type="submit" className="primary-btn settings-form-btn">
+						Save Changes
+					</button>
 				</form>
 			)}
 		</div>

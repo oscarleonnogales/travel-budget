@@ -26,6 +26,14 @@
 	margin-bottom: 0.5em;
 }
 
+.settings-form-label {
+	font-size: 1.1rem;
+}
+
+.settings-form-btn {
+	margin-top: 0.75em;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -43,6 +51,45 @@ button {
 	cursor: pointer;
 	display: block;
 	transition: 200ms ease;
+}
+
+.primary-btn {
+	padding: 0.375em 0.75em;
+	min-height: 3em;
+	outline: none;
+	border: none;
+	border-radius: var(--border-radius);
+	font-weight: 700;
+	background: hsl(210, 70%, 55%);
+	color: white;
+}
+
+.primary-btn:hover {
+	background: hsl(210, 70%, 45%);
+}
+
+.secondary-btn {
+	min-width: 3rem;
+	padding: 0.375em 0.75em;
+	outline: none;
+	border: none;
+	border-radius: var(--border-radius);
+	font-weight: 700;
+	margin-right: 0.5rem;
+	background: hsl(138, 55%, 43%);
+	color: white;
+}
+
+.add-btn {
+	margin-top: 0.5em;
+}
+
+.categories-save-btn {
+	margin-top: 1.5rem !important;
+}
+
+.secondary-btn:hover {
+	background: hsl(138, 55%, 33%);
 }
 
 *,
