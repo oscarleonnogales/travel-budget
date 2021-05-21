@@ -40,10 +40,9 @@ export default function YearlyPage() {
 	const [selectedPurchases, setSelectedPurchases] = useState(allPurchases);
 	const [reportDetails, setReportDetails] = useState({});
 
-	// Not Correctly setting when year changes
-	// useEffect(() => {
-	// 	console.log(chartData);
-	// }, [chartData]);
+	useEffect(() => {
+		dispatch(getPurchases());
+	}, [dispatch]);
 
 	useEffect(() => {
 		const newUniqueYears = [];
@@ -84,19 +83,11 @@ export default function YearlyPage() {
 	}, [selectedPurchases, userSettings.categories]);
 
 	useEffect(() => {
-		dispatch(getPurchases());
-	}, [dispatch]);
-
-	useEffect(() => {
 		const newData = monthNames.map((month) => {
 			return parseFloat(
 				selectedPurchases.reduce((total, purchase) => {
 					const purchaseMonth = dayjs.utc(purchase.date).format('MMMM');
-					const purchaseYear = dayjs.utc(purchase.date).format('YYYY');
-
-					return purchaseMonth === month && parseInt(purchaseYear) === selectedYear
-						? (total += purchase.convertedPrice)
-						: total;
+					return purchaseMonth === month ? (total += purchase.convertedPrice) : total;
 				}, 0)
 			).toFixed(2);
 		});
@@ -108,7 +99,7 @@ export default function YearlyPage() {
 			labels: monthNames,
 			datasets: [
 				{
-					label: `${selectedYear} Summary`,
+					// label: `${selectedYear} Summary`,
 					data: reducedTotals,
 					backgroundColor: [
 						'rgba(54, 162, 235, 1)',
@@ -128,7 +119,7 @@ export default function YearlyPage() {
 				},
 			],
 		});
-	}, [reducedTotals, selectedYear]);
+	}, [reducedTotals]);
 
 	const handleChange = (e) => {
 		setSelectedYear(e.target.value);
