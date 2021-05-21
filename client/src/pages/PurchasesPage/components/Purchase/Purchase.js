@@ -32,7 +32,7 @@ export default function Purchase({ purchase }) {
 					<div className="pruchase-category">{purchase.category.categoryName}</div>
 				</div>
 				<div className="purchase-pricing">
-					<div className="purchase-converted-price">${purchase.convertedPrice}</div>
+					<div className="purchase-converted-price">${purchase.convertedPrice.toFixed(2)}</div>
 					{purchase.currency !== userSettings?.defaultCurrency && (
 						<div className="purchase-actual-price">
 							{purchase.amount} {purchase.currency}

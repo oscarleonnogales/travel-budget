@@ -17,6 +17,10 @@
 	margin-bottom: 1em;
 }
 
+.report__subtitle {
+	font-size: 1.25rem;
+}
+
 .report__purchase {
 	display: grid;
 	margin-left: 3rem;

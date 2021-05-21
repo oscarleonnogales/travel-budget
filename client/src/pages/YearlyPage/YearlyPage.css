@@ -1,21 +1,64 @@
+.year-report__total {
+	font-size: 1.5rem;
+	margin-bottom: 1em;
+}
+
+.year-report__category {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	margin-left: 3rem;
+	margin-bottom: 0.25em;
+}
+
+.year-report__categoryTotal,
+.year-report__categoryName {
+	overflow: hidden;
+}
+
 .year-form-container {
-	margin-top: 1.5rem;
+	height: min-content;
+}
+
+.year-form-container > label {
+	font-size: 1.25rem;
+}
+
+.year-report__subtitle {
+	font-size: 1.25rem;
 }
 
 /* Desktop */
 @media only screen and (min-width: 600px) {
+	.yearly-page {
+		display: grid;
+		grid-template-areas:
+			'chart chart'
+			'form report';
+		grid-template-columns: 20vw 1fr;
+		grid-gap: 1.5rem;
+	}
+
 	.year-graph-container {
 		min-height: 400px;
+		grid-area: chart;
 	}
 
 	.year-form-container {
-		width: min-content;
+		grid-area: form;
+	}
+
+	.year-report {
+		grid-area: report;
 	}
 }
 
 /* Mobile */
 @media only screen and (max-width: 600px) {
 	.year-form-container {
-		width: 100%;
+		margin-top: 1.5rem;
+	}
+
+	.year-report {
+		margin-top: 1.5rem;
 	}
 }

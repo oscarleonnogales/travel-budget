@@ -40,6 +40,11 @@ export default function YearlyPage() {
 	const [selectedPurchases, setSelectedPurchases] = useState(allPurchases);
 	const [reportDetails, setReportDetails] = useState({});
 
+	// Not Correctly setting when year changes
+	// useEffect(() => {
+	// 	console.log(chartData);
+	// }, [chartData]);
+
 	useEffect(() => {
 		const newUniqueYears = [];
 		[...allPurchases].forEach((purchase) => {
@@ -85,7 +90,7 @@ export default function YearlyPage() {
 	useEffect(() => {
 		const newData = monthNames.map((month) => {
 			return parseFloat(
-				allPurchases.reduce((total, purchase) => {
+				selectedPurchases.reduce((total, purchase) => {
 					const purchaseMonth = dayjs.utc(purchase.date).format('MMMM');
 					const purchaseYear = dayjs.utc(purchase.date).format('YYYY');
 
@@ -96,7 +101,7 @@ export default function YearlyPage() {
 			).toFixed(2);
 		});
 		setReducedTotals(newData);
-	}, [allPurchases, selectedYear]);
+	}, [selectedPurchases, selectedYear]);
 
 	useEffect(() => {
 		setChartData({
@@ -137,7 +142,7 @@ export default function YearlyPage() {
 					<Bar height={100} width={100} data={chartData} options={{ maintainAspectRatio: isMobileDevice }} />
 				</div>
 				<YearForm handleChange={handleChange} selectedYear={selectedYear} uniqueYears={uniqueYears} />
-				<YearReport />
+				<YearReport reportDetails={reportDetails} />
 			</main>
 		</>
 	);

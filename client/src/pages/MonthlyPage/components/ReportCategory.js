@@ -29,8 +29,8 @@ export default function ReportCategory({ category, purchases }) {
 						</svg>
 					)}
 				</button>
-				<p>{category.name}</p>
-				<p>${category.total}</p>
+				<p className="report__subtitle">{category.name}</p>
+				<p className="report__subtitle">${category.total}</p>
 			</div>
 			{purchasesVisible && (
 				<div className="report__purchases">
