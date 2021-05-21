@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPurchase, updatePurchase } from '../../../../redux/actions/purchases';
 import { setError, clearError } from '../../../../redux/actions/error';
 import { setCurrentId } from '../../../../redux/actions/currentId';
 import './PurchaseForm.css';
+dayjs.extend(utc);
 
 export default function PurchaseForm() {
 	const currentId = useSelector((state) => state.currentId);
@@ -14,7 +16,7 @@ export default function PurchaseForm() {
 	const dispatch = useDispatch();
 
 	const [currentData, setCurrentData] = useState({
-		date: new Date(),
+		date: dayjs.utc(new Date()),
 		description: '',
 		categoryId: '',
 		amount: '',
@@ -55,7 +57,7 @@ export default function PurchaseForm() {
 		dispatch(setCurrentId(null));
 		dispatch(clearError());
 		setCurrentData({
-			date: new Date(),
+			date: dayjs.utc(new Date()),
 			description: '',
 			amount: '',
 			currency: userSettings?.defaultCurrency,
