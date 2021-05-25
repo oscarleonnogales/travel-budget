@@ -13,6 +13,7 @@
 	text-align: center;
 	font-size: 1.05rem;
 	display: none;
+	margin-bottom: 3rem;
 }
 
 .error-message-container.active {

@@ -118,19 +118,6 @@
 	margin-top: 0 !important;
 }
 
-.password-toggle-btn {
-	position: absolute;
-	right: 0;
-	padding: 1em;
-	z-index: 5;
-	top: 50%;
-	transform: translateY(-50%);
-	border: none;
-	outline: none;
-	background: none;
-	cursor: pointer;
-}
-
 .eye-icon {
 	width: 1.5em;
 	height: 1.5em;

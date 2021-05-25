@@ -47,6 +47,18 @@ body {
 	background-size: cover;
 }
 
+.password-toggle-btn {
+	position: absolute;
+	right: 0;
+	padding: 1em;
+	z-index: 5;
+	top: 0.1em;
+	border: none;
+	outline: none;
+	background: none;
+	cursor: pointer;
+}
+
 button {
 	cursor: pointer;
 	display: block;
@@ -144,8 +156,13 @@ body::-webkit-scrollbar-thumb {
 }
 
 .page-header {
+	margin-top: 5rem;
 	font-size: 1.75rem;
-	margin-top: 1.5rem;
+	color: hsl(0, 0%, 100%);
+	font-weight: 750;
+	text-decoration: none;
+	margin-bottom: 1.5em;
+	text-shadow: black 0px 0px 2px;
 }
 
 .auth-form-input,
