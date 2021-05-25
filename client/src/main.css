@@ -53,6 +53,20 @@ button {
 	transition: 200ms ease;
 }
 
+.print-btn {
+	position: absolute;
+	bottom: 2em;
+	left: 2em;
+}
+
+.bi-printer {
+	fill: currentColor;
+	width: 1.2em;
+	height: 1.2em;
+	vertical-align: sub;
+	margin-left: 0.7em;
+}
+
 .primary-btn {
 	padding: 0.375em 0.75em;
 	min-height: 3em;

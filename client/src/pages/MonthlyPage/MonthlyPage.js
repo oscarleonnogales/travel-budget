@@ -1,5 +1,5 @@
 import './MonthlyPage.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import Navbar from '../../components/Navbar/Navbar';
@@ -10,6 +10,8 @@ import { Doughnut } from 'react-chartjs-2';
 import MonthForm from './components/MonthForm';
 import MonthReport from './components/MonthReport';
 import PrintProvider, { Print, NoPrint } from 'react-easy-print';
+import { ViewPortContext } from '../../App';
+import PrintButton from '../../components/PrintButton';
 
 dayjs.extend(utc);
 
@@ -24,6 +26,7 @@ export default function MonthlyPage() {
 
 	const [searchMonth, setSearchMonth] = useState(new Date().getMonth() + 1);
 	const [searchYear, setSearchYear] = useState(new Date().getFullYear());
+	const { isMobileDevice } = useContext(ViewPortContext);
 
 	useEffect(() => {
 		dispatch(getPurchases());
@@ -99,6 +102,7 @@ export default function MonthlyPage() {
 						<Print>
 							<Doughnut height={100} width={100} data={chartData} options={{ maintainAspectRatio: true }} />
 						</Print>
+						{!isMobileDevice && <PrintButton />}
 					</div>
 					<div className="form-and-purchases">
 						<MonthForm

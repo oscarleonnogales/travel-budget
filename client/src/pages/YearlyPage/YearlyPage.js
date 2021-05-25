@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import './YearlyPage.css';
@@ -10,6 +10,8 @@ import { Bar } from 'react-chartjs-2';
 import YearForm from './components/YearForm';
 import YearReport from './components/YearReport';
 import PrintProvider, { Print, NoPrint } from 'react-easy-print';
+import { ViewPortContext } from '../../App';
+import PrintButton from '../../components/PrintButton';
 dayjs.extend(utc);
 
 const monthNames = [
@@ -39,6 +41,7 @@ export default function YearlyPage() {
 	const [selectedPurchases, setSelectedPurchases] = useState(allPurchases);
 	const [reportDetails, setReportDetails] = useState({});
 	const [chartKeys, setChartKeys] = useState([]);
+	const { isMobileDevice } = useContext(ViewPortContext);
 
 	useEffect(() => {
 		const chartKeys = Object.keys(reportDetails).map((month) => {
@@ -142,6 +145,7 @@ export default function YearlyPage() {
 						<Print>
 							<Bar height={100} width={100} data={chartData} options={{ maintainAspectRatio: true }} />
 						</Print>
+						{!isMobileDevice && <PrintButton />}
 					</div>
 					<div className="form-and-purchases">
 						<YearForm handleChange={handleChange} selectedYear={selectedYear} uniqueYears={uniqueYears} />
