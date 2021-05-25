@@ -25,7 +25,12 @@ database.once('open', () => console.log('Connected to database'));
 
 app.use(methodOverride('_method'));
 app.use(express.json());
-app.use(cors()); // Set to only allow requests from client during production
+app.use(
+	// Remove for development
+	cors({
+		origin: 'https://quizzical-dijkstra-ce920f.netlify.app/',
+	})
+);
 
 // Route handling
 app.use('/users', usersRouter);
