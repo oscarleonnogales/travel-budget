@@ -1,7 +1,22 @@
 import React from 'react';
 import ReportCategory from './ReportCategory';
 
-export default function MonthReport({ categoryTotals, purchases }) {
+const monthNames = [
+	'January',
+	'February',
+	'March',
+	'April',
+	'May',
+	'June',
+	'July',
+	'August',
+	'September',
+	'October',
+	'November',
+	'December',
+];
+
+export default function MonthReport({ searchYear, searchMonth, categoryTotals, purchases }) {
 	function getMonthlyTotal() {
 		return categoryTotals
 			.reduce((monthlyTotal, category) => {
@@ -12,7 +27,9 @@ export default function MonthReport({ categoryTotals, purchases }) {
 
 	return (
 		<div className="month-report container">
-			<h3 className="report__total">Total Expenses ${getMonthlyTotal()}</h3>
+			<h3 className="report__total">
+				{`${monthNames[searchMonth - 1]} ${searchYear} Total - `} ${getMonthlyTotal()}
+			</h3>
 			{categoryTotals.map((category) => (
 				<ReportCategory key={category.name} category={category} purchases={purchases} />
 			))}

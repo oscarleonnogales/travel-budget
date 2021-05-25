@@ -24,7 +24,7 @@ export default function PurchasesPage() {
 
 	useEffect(() => {
 		allPurchases.sort((a, b) => {
-			return a.date < b.date; //GOOD
+			return a.date < b.date;
 		});
 		setEndIndex(currentPage * 10);
 		setStartIndex((currentPage - 1) * 10);

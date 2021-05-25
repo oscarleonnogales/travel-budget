@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import './YearlyPage.css';
@@ -8,8 +8,8 @@ import { getPurchases } from '../../redux/actions/purchases';
 import Navbar from '../../components/Navbar/Navbar';
 import { Bar } from 'react-chartjs-2';
 import YearForm from './components/YearForm';
-import { ViewPortContext } from '../../App';
 import YearReport from './components/YearReport';
+import PrintProvider, { Print, NoPrint } from 'react-easy-print';
 dayjs.extend(utc);
 
 const monthNames = [
@@ -29,7 +29,6 @@ const monthNames = [
 
 export default function YearlyPage() {
 	const dispatch = useDispatch();
-	const { isMobileDevice } = useContext(ViewPortContext);
 	const allPurchases = useSelector((state) => state.purchases);
 	const userSettings = useSelector((state) => state.userSettings);
 	const [chartData, setChartData] = useState({});
@@ -39,6 +38,15 @@ export default function YearlyPage() {
 
 	const [selectedPurchases, setSelectedPurchases] = useState(allPurchases);
 	const [reportDetails, setReportDetails] = useState({});
+	const [chartKeys, setChartKeys] = useState([]);
+
+	useEffect(() => {
+		const chartKeys = Object.keys(reportDetails).map((month) => {
+			if (reportDetails[month].summary?.length > 0) return reportDetails[month].monthName;
+			else return null;
+		});
+		setChartKeys(chartKeys.filter((monthName) => monthName !== null));
+	}, [reportDetails]);
 
 	useEffect(() => {
 		dispatch(getPurchases());
@@ -96,10 +104,10 @@ export default function YearlyPage() {
 
 	useEffect(() => {
 		setChartData({
-			labels: monthNames,
+			labels: chartKeys,
 			datasets: [
 				{
-					// label: `${selectedYear} Summary`,
+					label: `${selectedYear} Summary`,
 					data: reducedTotals,
 					backgroundColor: [
 						'rgba(54, 162, 235, 1)',
@@ -119,22 +127,30 @@ export default function YearlyPage() {
 				},
 			],
 		});
-	}, [reducedTotals]);
+	}, [reducedTotals, chartKeys, selectedYear]);
 
 	const handleChange = (e) => {
 		setSelectedYear(e.target.value);
 	};
 
 	return (
-		<>
-			<Navbar></Navbar>
-			<main className="main-page-content yearly-page">
-				<div className="year-graph-container container">
-					<Bar height={100} width={100} data={chartData} options={{ maintainAspectRatio: isMobileDevice }} />
-				</div>
-				<YearForm handleChange={handleChange} selectedYear={selectedYear} uniqueYears={uniqueYears} />
-				<YearReport reportDetails={reportDetails} />
-			</main>
-		</>
+		<PrintProvider>
+			<NoPrint>
+				<Navbar></Navbar>
+				<main className="main-page-content yearly-page">
+					<div className="year-graph-container container">
+						<Print>
+							<Bar height={100} width={100} data={chartData} options={{ maintainAspectRatio: true }} />
+						</Print>
+					</div>
+					<div className="form-and-purchases">
+						<YearForm handleChange={handleChange} selectedYear={selectedYear} uniqueYears={uniqueYears} />
+						<Print>
+							<YearReport selectedYear={selectedYear} reportDetails={reportDetails} />
+						</Print>
+					</div>
+				</main>
+			</NoPrint>
+		</PrintProvider>
 	);
 }

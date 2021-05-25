@@ -1,15 +1,15 @@
 import './MonthlyPage.css';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import Navbar from '../../components/Navbar/Navbar';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { getPurchases } from '../../redux/actions/purchases';
-import { ViewPortContext } from '../../App';
 import { Doughnut } from 'react-chartjs-2';
 import MonthForm from './components/MonthForm';
 import MonthReport from './components/MonthReport';
+import PrintProvider, { Print, NoPrint } from 'react-easy-print';
 
 dayjs.extend(utc);
 
@@ -17,7 +17,6 @@ export default function MonthlyPage() {
 	const dispatch = useDispatch();
 	const allPurchases = useSelector((state) => state.purchases);
 	const userSettings = useSelector((state) => state.userSettings);
-	const { isMobileDevice } = useContext(ViewPortContext);
 
 	const [selectedPurchases, setSelectedPurchases] = useState(allPurchases);
 	const [chartData, setChartData] = useState({});
@@ -92,25 +91,36 @@ export default function MonthlyPage() {
 	};
 
 	return (
-		<>
-			<Navbar></Navbar>
-			<main className="main-page-content monthly-page">
-				<div className="container monthly-graph-container">
-					<Doughnut height={100} width={100} data={chartData} options={{ maintainAspectRatio: isMobileDevice }} />
-				</div>
-				<div className="form-and-purchases">
-					<MonthForm
-						allPurchases={allPurchases}
-						changeSearchMonth={changeSearchMonth}
-						changeSearchYear={changeSearchYear}
-						resetDate={resetDate}
-						searchYear={searchYear}
-						searchMonth={searchMonth}
-					/>
+		<PrintProvider>
+			<NoPrint>
+				<Navbar></Navbar>
+				<main className="main-page-content monthly-page">
+					<div className="container monthly-graph-container">
+						<Print>
+							<Doughnut height={100} width={100} data={chartData} options={{ maintainAspectRatio: true }} />
+						</Print>
+					</div>
+					<div className="form-and-purchases">
+						<MonthForm
+							allPurchases={allPurchases}
+							changeSearchMonth={changeSearchMonth}
+							changeSearchYear={changeSearchYear}
+							resetDate={resetDate}
+							searchYear={searchYear}
+							searchMonth={searchMonth}
+						/>
 
-					<MonthReport categoryTotals={categoryTotals} purchases={selectedPurchases} />
-				</div>
-			</main>
-		</>
+						<Print>
+							<MonthReport
+								searchYear={searchYear}
+								searchMonth={searchMonth}
+								categoryTotals={categoryTotals}
+								purchases={selectedPurchases}
+							/>
+						</Print>
+					</div>
+				</main>
+			</NoPrint>
+		</PrintProvider>
 	);
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReportMonth from './ReportMonth';
 
-export default function YearReport({ reportDetails }) {
+export default function YearReport({ selectedYear, reportDetails }) {
 	function getYearlyTotal() {
 		let yearTotal = 0;
 		for (let month of Object.keys(reportDetails)) {
@@ -14,7 +14,9 @@ export default function YearReport({ reportDetails }) {
 
 	return (
 		<div className="year-report container">
-			<h3 className="year-report__total">Total Expenses ${getYearlyTotal()}</h3>
+			<h3 className="year-report__total">
+				{`${selectedYear} Total - `} ${getYearlyTotal()}
+			</h3>
 			{Object.keys(reportDetails).map((month) => {
 				const monthDetails = reportDetails[month];
 				return <ReportMonth key={monthDetails.monthName} monthDetails={monthDetails} />;

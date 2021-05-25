@@ -57,7 +57,7 @@ export default function PurchaseForm() {
 		dispatch(setCurrentId(null));
 		dispatch(clearError());
 		setCurrentData({
-			date: dayjs.utc(new Date()),
+			date: currentData.date,
 			description: '',
 			amount: '',
 			currency: userSettings?.defaultCurrency,

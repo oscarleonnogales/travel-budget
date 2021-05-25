@@ -77,14 +77,3 @@
 		max-width: 800px;
 	}
 }
-
-/* Mobile */
-@media screen and (max-width: 600px) {
-	.monthly-page {
-		min-width: 100vw;
-		grid-template-areas:
-			'form'
-			'graph'
-			'purchases';
-	}
-}
