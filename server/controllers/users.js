@@ -65,7 +65,7 @@ export async function authenticateUser(req, res) {
 
 		res.status(200).json({ user: existingUser, token });
 	} catch (error) {
-		res.status(500).json({ message: 'Something went wrong in the server' });
+		res.status(500).json({ message: error.message });
 	}
 }
 
@@ -77,6 +77,6 @@ export async function validateEmail(req, res) {
 		if (user || googleUser) return res.status(200).send(false);
 		else return res.status(200).send(true);
 	} catch (error) {
-		res.status(500).json({ message: 'Something went wrong in the server' });
+		res.status(500).json({ message: error.message });
 	}
 }
