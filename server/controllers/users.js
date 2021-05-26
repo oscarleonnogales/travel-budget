@@ -26,7 +26,7 @@ export async function createNewUser(req, res) {
 		});
 		res.status(200).json({ user: newUser, token });
 	} catch (error) {
-		res.status(500).json({ message: 'Something went wrong in the server' });
+		res.status(500).json({ message: error.message });
 	}
 }
 

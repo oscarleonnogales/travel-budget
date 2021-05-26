@@ -73,9 +73,7 @@ export default function LoginPage() {
 		dispatch(logIn(formData));
 	};
 
-	const onFailure = (error) => {
-		console.log('failing here');
-		console.log(error);
+	const onFailure = () => {
 		dispatch(setError('Error with Google login. Please try again later.'));
 	};
 
