@@ -7,21 +7,21 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { setError, clearError } from '../../redux/actions/error';
 import { checkEmailUniqueness, createGoogleUser } from '../../API';
 import { fetchUserSettings } from '../../redux/actions/userSettings';
+import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
 import './SignupPage.css';
 import PasswordInput from '../../components/PasswordInput';
 
 export default function SignupPage() {
 	const dispatch = useDispatch();
 	const history = useHistory();
+
 	const userSettings = useSelector((state) => state.userSettings);
 	const authData = useSelector((state) => state.authData);
 	const error = useSelector((state) => state.error);
 	const currencyOptions = useSelector((state) => state.currencyOptions);
-	const googleErrorMessage = `It's not recommended to sign up manually with a Google account. Please click the Google button to continue instead.`;
-	const emailTakenErrorMessage = `There's already an account associated with that email address.`;
 
+	const [isLoading, setIsLoading] = useState(false);
 	const [isFormValid, setIsFormValid] = useState(false);
-
 	const [formData, setFormData] = useState({
 		firstName: '',
 		lastName: '',
@@ -30,7 +30,6 @@ export default function SignupPage() {
 		password: '',
 		confirmPassword: '',
 	});
-
 	const [interacted, setInteracted] = useState({
 		firstName: false,
 		lastName: false,
@@ -39,6 +38,9 @@ export default function SignupPage() {
 		password: false,
 		confirmPassword: false,
 	});
+
+	const emailTakenErrorMessage = `There's already an account associated with that email address.`;
+	const googleErrorMessage = `It's not recommended to sign up manually with a Google account. Please click the Google button to continue instead.`;
 
 	useEffect(() => {
 		const emailErrorMessage = `There's already an account associated with that email address.`;
@@ -72,11 +74,13 @@ export default function SignupPage() {
 
 	useEffect(() => {
 		if (userSettings?.defaultCurrency) {
+			setIsLoading(false);
 			history.push('/purchases');
 		}
 	}, [userSettings, history]);
 
 	const onSuccess = async (res) => {
+		setIsLoading(true);
 		const user = res?.profileObj;
 		const token = res?.tokenId;
 
@@ -88,6 +92,7 @@ export default function SignupPage() {
 	};
 
 	const onFailure = () => {
+		setIsLoading(false);
 		dispatch(setError('Error with Google login. Please try again later.'));
 	};
 
@@ -98,10 +103,12 @@ export default function SignupPage() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		setIsLoading(true);
 		if (isFormValid) {
 			dispatch(clearError());
 			dispatch(signUp(formData));
 		} else {
+			setIsLoading(false);
 			dispatch(setError('Please fill out all the necessary information.'));
 		}
 	};
@@ -138,10 +145,13 @@ export default function SignupPage() {
 		}
 	};
 
+	if (isLoading) return <LoadingAnimation />;
+
 	return (
 		<div className="signup-page-container">
+			{/* <LoadingAnimation /> */}
 			<ErrorMessage renderCloseButton={false} />
-			<h1 className="page-header">Sign up Today!</h1>
+			<h1 className="page-header">Sign up Today</h1>
 			<form className="signup-form-container" onSubmit={handleSubmit}>
 				<div className="auth-form-group">
 					<label htmlFor="firstName" className="auth-form-label">
@@ -261,10 +271,23 @@ export default function SignupPage() {
 				<hr className="hr-or-text" data-content="or"></hr>
 				<div className="submit-btn-container">
 					<GoogleLogin
+						onClick={() => console.log('onclick wokring')}
 						clientId="137264865979-46uqmfrfqekug4el4n71mt2ulpmmd5t7.apps.googleusercontent.com"
 						buttonText="Continue with Google"
 						onSuccess={onSuccess}
 						onFailure={onFailure}
+						render={(renderProps) => (
+							<button
+								className="custom-google-btn"
+								onClick={() => {
+									setIsLoading(true);
+									renderProps.onClick();
+								}}
+								disabled={renderProps.disabled}
+							>
+								This is my custom Google button
+							</button>
+						)}
 						cookiePolicy={'single_host_origin'}
 						isSignedIn={true}
 						className="w-100 d-flex justify-content-center"

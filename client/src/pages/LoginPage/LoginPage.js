@@ -7,6 +7,7 @@ import { setError, clearError } from '../../redux/actions/error';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { checkEmailUniqueness, createGoogleUser } from '../../API';
 import { fetchUserSettings } from '../../redux/actions/userSettings';
+import LoadingAnimation from '../../components/LoadingAnimation/LoadingAnimation';
 import './LoginPage.css';
 
 export default function LoginPage() {
@@ -16,11 +17,15 @@ export default function LoginPage() {
 	const error = useSelector((state) => state.error);
 	const authData = useSelector((state) => state.authData);
 	const googleErrorMessage = `Please click the Google button to continue instead.`;
-
+	const [isLoading, setIsLoading] = useState(false);
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
 	});
+
+	useEffect(() => {
+		if (error !== null) setIsLoading(false);
+	}, [error]);
 
 	useEffect(() => {
 		if (authData?.token?.length >= 500) {
@@ -38,11 +43,13 @@ export default function LoginPage() {
 
 	useEffect(() => {
 		if (userSettings?.defaultCurrency) {
+			setIsLoading(false);
 			history.push('/purchases');
 		}
 	}, [userSettings, history]);
 
 	const onSuccess = async (res) => {
+		setIsLoading(true);
 		refreshTokenSetup(res);
 		const user = res?.profileObj;
 		const token = res?.tokenId;
@@ -70,10 +77,12 @@ export default function LoginPage() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		setIsLoading(true);
 		dispatch(logIn(formData));
 	};
 
 	const onFailure = () => {
+		setIsLoading(false);
 		dispatch(setError('Error with Google login. Please try again later.'));
 	};
 
@@ -90,6 +99,8 @@ export default function LoginPage() {
 			if (error === googleErrorMessage) dispatch(clearError());
 		}
 	};
+
+	if (isLoading) return <LoadingAnimation />;
 
 	return (
 		<div className="login-page-container">
@@ -137,6 +148,18 @@ export default function LoginPage() {
 						onSuccess={onSuccess}
 						onFailure={onFailure}
 						cookiePolicy={'single_host_origin'}
+						render={(renderProps) => (
+							<button
+								className="custom-google-btn"
+								onClick={() => {
+									setIsLoading(true);
+									renderProps.onClick();
+								}}
+								disabled={renderProps.disabled}
+							>
+								This is my custom Google button
+							</button>
+						)}
 						isSignedIn={true}
 						className="w-100 d-flex justify-content-center"
 					/>
