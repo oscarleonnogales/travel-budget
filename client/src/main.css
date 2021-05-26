@@ -193,6 +193,28 @@ body::-webkit-scrollbar-thumb {
 	border: 1px solid var(--input-focus-border-color);
 }
 
+.custom-google-btn {
+	display: flex;
+	font-size: 0.9rem;
+	cursor: pointer;
+	padding: 1rem 0.75em;
+	justify-content: center;
+	outline: none;
+	border: 1px solid rgba(0, 0, 0, 50%);
+	background: white;
+	color: var(--primary-text-color);
+	width: 100%;
+	text-align: center;
+	border-radius: var(--border-radius);
+}
+
+.custom-google-btn > img {
+	width: 1.2em;
+	height: 1.2em;
+	background: white;
+	margin-right: 1em;
+}
+
 input[type='date'],
 select {
 	cursor: pointer;
