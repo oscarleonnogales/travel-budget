@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(
 	// Remove for development
 	cors({
-		origin: 'https://quizzical-dijkstra-ce920f.netlify.app/',
+		origin: 'https://quizzical-dijkstra-ce920f.netlify.app',
 	})
 );
 
