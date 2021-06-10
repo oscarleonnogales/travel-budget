@@ -44,11 +44,15 @@ export default function YearlyPage() {
 	const { isMobileDevice } = useContext(ViewPortContext);
 
 	useEffect(() => {
-		const chartKeys = Object.keys(reportDetails).map((month) => {
+		console.log(chartData);
+	}, [chartData]);
+
+	useEffect(() => {
+		const newChartKeys = Object.keys(reportDetails).map((month) => {
 			if (reportDetails[month].summary?.length > 0) return reportDetails[month].monthName;
 			else return null;
 		});
-		setChartKeys(chartKeys.filter((monthName) => monthName !== null));
+		setChartKeys(newChartKeys.filter((monthName) => monthName !== null));
 	}, [reportDetails]);
 
 	useEffect(() => {
@@ -111,7 +115,7 @@ export default function YearlyPage() {
 			datasets: [
 				{
 					label: `${selectedYear} Summary`,
-					data: reducedTotals,
+					data: [...reducedTotals].filter((total) => Number(total) !== 0),
 					backgroundColor: [
 						'rgba(54, 162, 235, 1)',
 						'rgba(255, 99, 132, 1)',
@@ -143,7 +147,24 @@ export default function YearlyPage() {
 				<main className="main-page-content yearly-page">
 					<div className="year-graph-container container">
 						<Print>
-							<Bar height={100} width={100} data={chartData} options={{ maintainAspectRatio: true }} />
+							<Bar
+								height={100}
+								width={100}
+								data={chartData}
+								options={{
+									maintainAspectRatio: true,
+									scales: {
+										yAxes: [
+											{
+												ticks: {
+													beginAtZero: true,
+													min: 0,
+												},
+											},
+										],
+									},
+								}}
+							/>
 						</Print>
 						{!isMobileDevice && <PrintButton />}
 					</div>
