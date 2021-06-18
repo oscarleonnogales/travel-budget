@@ -101,6 +101,9 @@ export default function MonthlyPage() {
 					<div className="container monthly-graph-container">
 						<Print>
 							<Doughnut height={100} width={100} data={chartData} options={{ maintainAspectRatio: true }} />
+							<div className="month-total">
+								${categoryTotals.reduce((total, category) => (total += Number(category.total)), 0).toLocaleString()}
+							</div>
 						</Print>
 						{!isMobileDevice && <PrintButton />}
 					</div>

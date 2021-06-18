@@ -50,7 +50,9 @@ export default function MonthForm(props) {
 	}, [allPurchases, uniqueYears]);
 
 	useEffect(() => {
-		setActiveMonths(uniqueMonths.filter((date) => parseInt(date.year) === searchYear));
+		setActiveMonths(
+			uniqueMonths.filter((date) => parseInt(date.year) === searchYear).sort((a, b) => a.month < b.month)
+		);
 	}, [searchYear, uniqueMonths]);
 
 	// This only runs when the searchYear changes, but we need it's own useEffect as it's run asynchronously
