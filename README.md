@@ -12,6 +12,7 @@ habits.
 - [MongoDB](https://www.mongodb.com/)
 - [Express](https://expressjs.com/)
 - [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
 - [Node.js](https://nodejs.org/en/)
 
 See the package.json files in the client and server directories for a full list of dependencies.
