@@ -51,14 +51,15 @@ export default function MonthForm(props) {
 
 	useEffect(() => {
 		setActiveMonths(
-			uniqueMonths.filter((date) => parseInt(date.year) === searchYear).sort((a, b) => a.month < b.month)
+			uniqueMonths.filter((date) => parseInt(date.year) === searchYear).sort((a, b) => a.month > b.month)
 		);
 	}, [searchYear, uniqueMonths]);
 
 	// This only runs when the searchYear changes, but we need it's own useEffect as it's run asynchronously
 	// Do not add searchYear to the dependency array, or we'll run this code when we reset the date
 	useEffect(() => {
-		if (activeMonths?.length > 0 && searchYear) changeSearchMonth(parseInt(activeMonths[0].month));
+		if (activeMonths?.length > 0 && searchYear)
+			changeSearchMonth(parseInt(activeMonths[activeMonths.length - 1].month));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [activeMonths]);
 

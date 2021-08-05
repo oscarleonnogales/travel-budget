@@ -15,7 +15,7 @@ export default function YearReport({ selectedYear, reportDetails }) {
 	return (
 		<div className="year-report container">
 			<h3 className="year-report__total">
-				{`${selectedYear} Total - `} ${getYearlyTotal()}
+				{`${selectedYear} Total - `} ${Number(getYearlyTotal()).toLocaleString()}
 			</h3>
 			{Object.keys(reportDetails).map((month) => {
 				const monthDetails = reportDetails[month];

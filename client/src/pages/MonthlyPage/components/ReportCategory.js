@@ -30,7 +30,7 @@ export default function ReportCategory({ category, purchases }) {
 					)}
 				</button>
 				<p className="report__subtitle">{category.name}</p>
-				<p className="report__subtitle">${category.total}</p>
+				<p className="report__subtitle">${Number(category.total).toLocaleString()}</p>
 			</div>
 			{purchasesVisible && (
 				<div className="report__purchases">
@@ -39,7 +39,7 @@ export default function ReportCategory({ category, purchases }) {
 							return (
 								<div className="report__purchase" key={purchase._id}>
 									<div className="report__purchase-description">{purchase.description}</div>
-									<div className="report__purchase-amount">${purchase.convertedPrice.toFixed(2)}</div>
+									<div className="report__purchase-amount">${Number(purchase.convertedPrice).toLocaleString()}</div>
 								</div>
 							);
 						} else return null;
