@@ -44,10 +44,6 @@ export default function YearlyPage() {
 	const { isMobileDevice } = useContext(ViewPortContext);
 
 	useEffect(() => {
-		console.log(chartData);
-	}, [chartData]);
-
-	useEffect(() => {
 		const newChartKeys = Object.keys(reportDetails).map((month) => {
 			if (reportDetails[month].summary?.length > 0) return reportDetails[month].monthName;
 			else return null;

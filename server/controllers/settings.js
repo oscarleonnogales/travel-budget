@@ -79,8 +79,10 @@ export async function changeDefaultCurrency(req, res) {
 		// Recalculate all purchases to the new currency
 		const purchases = await Purchase.find({ user: req.userId });
 		purchases.forEach(async (purchase) => {
-			purchase.convertedPrice = await getConvertedPrice(purchase, newCurrency);
-			await purchase.save();
+			if (purchase.amount !== 0) {
+				purchase.convertedPrice = await getConvertedPrice(purchase, newCurrency);
+				await purchase.save();
+			}
 		});
 		res.status(200).json({
 			success: true,

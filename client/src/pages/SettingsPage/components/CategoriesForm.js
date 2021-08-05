@@ -24,10 +24,6 @@ export default function CategoriesForm() {
 		setSelectedCategory(newCategories.find((category) => category.categoryId === selectedID));
 	}, [newCategories, selectedID]);
 
-	useEffect(() => {
-		console.log(newCategories);
-	}, [newCategories]);
-
 	const removeCurrentCategory = () => {
 		setNewCategories(newCategories.filter((category) => category.categoryId !== selectedID));
 		setSelectedID(null);
