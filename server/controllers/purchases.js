@@ -22,7 +22,7 @@ export async function createNewPurchase(req, res) {
 		const category = [...user.categories].find((category) => category.categoryId === categoryId);
 		const newPurchase = new Purchase({
 			description: description,
-			amount: parseInt(amount),
+			amount: parseFloat(amount).toFixed(2),
 			currency: currency,
 			date: date,
 			category: category,
