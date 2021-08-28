@@ -42,14 +42,14 @@ export default function ReportMonth({ monthDetails }) {
 					)}
 				</button>
 				<p className="year-report__subtitle">{monthDetails.monthName}</p>
-				<p className="year-report__subtitle">${Number(getMonthlyTotal()).toLocaleString()}</p>
+				<p className="year-report__subtitle">${Number(getMonthlyTotal()).toFixed(2)}</p>
 			</div>
 			{detailsVisible && (
 				<div className="report__purchases">
 					{monthDetails.summary.map((month) => (
 						<div className="year-report__category" key={uuid()}>
 							<div className="year-report__categoryName">{month.category}</div>
-							<div className="year-report__categoryTotal">${Number(month.total).toLocaleString()}</div>
+							<div className="year-report__categoryTotal">${Number(month.total).toFixed(2)}</div>
 						</div>
 					))}
 				</div>
