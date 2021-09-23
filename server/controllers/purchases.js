@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export async function getPurchases(req, res) {
 	try {
-		const purchases = await Purchase.find({ user: req.userId });
+		const purchases = await Purchase.find({ user: req.userId }).sort({ date: -1 });
 		res.status(200).json(purchases);
 	} catch (error) {
 		res.status(500).json({ message: 'Server Error. Try again later.' });
