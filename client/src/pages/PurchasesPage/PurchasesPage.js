@@ -23,9 +23,6 @@ export default function PurchasesPage() {
 	}, [dispatch, authData]);
 
 	useEffect(() => {
-		allPurchases.sort((a, b) => {
-			return a.date < b.date;
-		});
 		setEndIndex(currentPage * 10);
 		setStartIndex((currentPage - 1) * 10);
 
