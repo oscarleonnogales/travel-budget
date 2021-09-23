@@ -5,7 +5,7 @@ const purchasesReducer = (purchases = [], action) => {
 		case 'purchases/clear':
 			return [];
 		case 'purchases/add':
-			return [...purchases, action.payload];
+			return [action.payload, ...purchases];
 		case 'purchases/delete':
 			return purchases.filter((purchase) => purchase._id !== action.payload);
 		case 'purchases/update':
