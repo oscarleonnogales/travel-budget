@@ -111,6 +111,7 @@
 	font-weight: 700;
 	margin-right: 0.5rem;
 	color: white;
+	box-shadow: var(--box-shadow);
 }
 
 .category-form__done-btn {

@@ -29,6 +29,7 @@
 	margin-right: 1rem;
 	color: white;
 	background: hsl(210, 70%, 55%);
+	box-shadow: var(--box-shadow);
 }
 
 .pagination-btn:hover {
