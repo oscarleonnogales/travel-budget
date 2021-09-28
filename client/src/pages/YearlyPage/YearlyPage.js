@@ -52,7 +52,7 @@ export default function YearlyPage() {
 	}, [reportDetails]);
 
 	useEffect(() => {
-		dispatch(getPurchases());
+		dispatch(getPurchases({ limit: 50 }));
 	}, [dispatch]);
 
 	useEffect(() => {

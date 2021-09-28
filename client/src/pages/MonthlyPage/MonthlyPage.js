@@ -29,7 +29,7 @@ export default function MonthlyPage() {
 	const { isMobileDevice } = useContext(ViewPortContext);
 
 	useEffect(() => {
-		dispatch(getPurchases());
+		dispatch(getPurchases({ limit: 50 }));
 	}, [dispatch]);
 
 	useEffect(() => {

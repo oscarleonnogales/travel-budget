@@ -18,6 +18,7 @@ export default function PurchasesPage() {
 	const [endIndex, setEndIndex] = useState();
 	const [currentPurchases, setCurrentPurchases] = useState({});
 
+	// Need to '{ limit: 50 }' to the other pages or the request will fail
 	useEffect(() => {
 		dispatch(getPurchases({ limit: 50 }));
 	}, [dispatch, authData]);
