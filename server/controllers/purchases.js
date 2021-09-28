@@ -4,8 +4,11 @@ import GoogleUser from '../models/googleUser.js';
 import axios from 'axios';
 
 export async function getPurchases(req, res) {
+	const { limit, currency, description } = req.params;
+	console.log(req.body);
+	console.log(`will only print out ${limit} purchases`);
 	try {
-		const purchases = await Purchase.find({ user: req.userId }).sort({ date: -1 });
+		const purchases = await Purchase.find({ user: req.userId }).limit(limit).sort({ date: -1 });
 		res.status(200).json(purchases);
 	} catch (error) {
 		res.status(500).json({ message: 'Server Error. Try again later.' });

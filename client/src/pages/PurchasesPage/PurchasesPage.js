@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import PurchaseForm from './components/PurchaseForm/PurchaseForm';
+import PurchaseForm from '../../components/PurchaseForm/PurchaseForm';
 import Navbar from '../../components/Navbar/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getPurchases } from '../../redux/actions/purchases';
 import './PurchasesPage.css';
 import PaginationButtons from '../../components/PaginationButtons';
-import PurchasesContainer from './components/PurchasesContainer/PurchasesContainer';
+import PurchasesContainer from '../../components/PurchasesContainer/PurchasesContainer';
 
 export default function PurchasesPage() {
 	const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export default function PurchasesPage() {
 	const [currentPurchases, setCurrentPurchases] = useState({});
 
 	useEffect(() => {
-		dispatch(getPurchases());
+		dispatch(getPurchases({ limit: 50 }));
 	}, [dispatch, authData]);
 
 	useEffect(() => {

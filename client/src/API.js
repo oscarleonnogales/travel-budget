@@ -16,8 +16,10 @@ API.interceptors.request.use((req) => {
 });
 
 // Purchases
-export function fetchPurchases() {
-	return API.get('/purchases').then((res) => res.data);
+export function fetchPurchases(searchParams) {
+	console.log(searchParams);
+	const { limit } = searchParams;
+	return API.get(`/purchases?limit=${limit}`, searchParams).then((res) => res.data);
 }
 
 export function createPurchase(purchase) {

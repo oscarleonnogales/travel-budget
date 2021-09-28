@@ -1,9 +1,9 @@
 import * as API from '../../API';
 
-export function getPurchases() {
+export function getPurchases(searchParams) {
 	return async (dispatch) => {
 		try {
-			const purchases = await API.fetchPurchases();
+			const purchases = await API.fetchPurchases(searchParams);
 			dispatch({
 				type: 'purchases/fetch_all',
 				payload: purchases,
