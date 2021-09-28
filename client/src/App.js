@@ -13,6 +13,7 @@ import PurchasesPage from './pages/PurchasesPage/PurchasesPage';
 import MonthlyPage from './pages/MonthlyPage/MonthlyPage';
 import YearlyPage from './pages/YearlyPage/YearlyPage';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
+import SearchPage from './pages/SearchPage/SearchPage';
 import Page404 from './pages/Page404/Page404';
 
 WebFont.load({
@@ -48,6 +49,7 @@ function App() {
 					<Route exact path="/signup" component={SignupPage} />
 
 					<ProtectedRoute exact path="/purchases" component={PurchasesPage} />
+					<ProtectedRoute exact path="/search" component={SearchPage} />
 					<ProtectedRoute exact path="/month-breakdown" component={MonthlyPage} />
 					<ProtectedRoute exact path="/year-breakdown" component={YearlyPage} />
 					<ProtectedRoute exact path="/settings" component={SettingsPage} />

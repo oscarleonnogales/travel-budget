@@ -3,8 +3,8 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import './Purchase.css';
 
-import { deletePurchase } from '../../../../redux/actions/purchases';
-import { setCurrentId } from '../../../../redux/actions/currentId';
+import { deletePurchase } from '../../redux/actions/purchases';
+import { setCurrentId } from '../../redux/actions/currentId';
 import { useDispatch, useSelector } from 'react-redux';
 dayjs.extend(utc);
 
