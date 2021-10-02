@@ -17,8 +17,8 @@ API.interceptors.request.use((req) => {
 
 // Purchases
 export function fetchPurchases(searchParams) {
-	console.log(searchParams);
-	const { limit } = searchParams;
+	// Limit, fromDate, toDate, currency
+	const { limit, currency, description, fromDate, toDate } = searchParams;
 	return API.get(`/purchases?limit=${limit}`, searchParams).then((res) => res.data);
 }
 

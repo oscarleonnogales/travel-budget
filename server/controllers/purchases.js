@@ -3,14 +3,49 @@ import User from '../models/user.js';
 import GoogleUser from '../models/googleUser.js';
 import axios from 'axios';
 
-export async function getPurchases(req, res) {
-	const { limit, currency, description } = req.params;
-	console.log(req.body);
-	console.log(`will only print out ${limit} purchases`);
+// req.query = searchParameters
+const getFilteredPurchases = async (req) => {
+	/*
+		Won't always have these parameters defined. Sometimes only some of them will be used
+		These parameters will be returned as strings, convert before use
+	*/
+	const { limit, currency, description, fromDate, toDate } = req.query;
+	console.log(limit);
+
 	try {
-		const purchases = await Purchase.find({ user: req.userId }).limit(limit).sort({ date: -1 });
+		// Loop through req.query, if value is not null then add it to the searchParameters
+
+		// const searchParameters = Object.assign(
+		// 	{},
+		// 	// currency === undefined ? null : { currency },
+		// 	description === undefined ? null : description
+		// 	// fromDate === undefined ? null : { fromDate },
+		// 	// toDate === undefined ? null : { toDate }
+		// // );
+		// const searchParameters = {
+		// 	currency: currency === null ? undefined : currency,
+		// };
+		// console.log(searchParameters);
+
+		let purchases;
+		// if (limit) {
+		// 	purchases = await Purchase.find({ user: req.userId }).limit(Number(limit)).sort({ date: -1 });
+		// } else {
+		// }
+		purchases = await Purchase.find({ user: req.userId }).sort({ date: -1 });
+		// console.log(purchases);
+		return purchases;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export async function getPurchases(req, res) {
+	try {
+		const purchases = await getFilteredPurchases(req);
 		res.status(200).json(purchases);
 	} catch (error) {
+		console.log(error);
 		res.status(500).json({ message: 'Server Error. Try again later.' });
 	}
 }
