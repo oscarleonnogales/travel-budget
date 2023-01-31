@@ -7,6 +7,7 @@ const app = express();
 import mongoose from 'mongoose';
 import methodOverride from 'method-override';
 import cors from 'cors';
+import helmet from 'helmet';
 
 import indexRouter from './routes/index.js';
 import purchasesRouter from './routes/purchases.js';
@@ -30,6 +31,8 @@ app.use(
 		origin: process.env.ORIGIN_URL,
 	})
 );
+
+app.use(helmet());
 
 // Route handling
 app.use('/users', usersRouter);
