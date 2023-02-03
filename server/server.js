@@ -38,6 +38,13 @@ app.use(helmet());
 app.use('/users', usersRouter);
 app.use('/purchases', purchasesRouter);
 app.use('/settings', settingsRouter);
+
+// Health line
+app.get('/healthCheck', (req, res) => {
+	res.status(200).end();
+});
+
+// Default
 app.use('/', indexRouter);
 
 app.listen(process.env.PORT || 3001);
